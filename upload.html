@@ -1,0 +1,203 @@
+<input type="text" value="1" id="id">
+<form>
+<input type="file" id="file_uploader" multiple>
+</form>
+<script>
+//this function will work cross-browser for loading scripts asynchronously
+function loadScript(src, callback)
+{
+  var s,
+      r,
+      t;
+  r = false;
+  s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.src = src;
+  s.onload = s.onreadystatechange = function() {
+    //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+    if ( !r && (!this.readyState || this.readyState == 'complete') )
+    {
+      r = true;
+      callback();
+    }
+  };
+  t = document.getElementsByTagName('script')[0];
+  t.parentNode.insertBefore(s, t);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function makeid(length) {
+   length = length || 16;
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const chunkSize  = 512 * 1024; // bytes
+const queueSize = 3;
+var queueCurrent = 0;
+
+const password = makeid(randomIntFromInterval(8, 32));
+
+async function parseFile(file, callback) {
+    var fileSize   = file.size;
+    var offset     = 0;
+    var self       = this; // we need a reference to the current object
+    var chunkReaderBlock = null;
+
+    var readEventHandler = async function(evt) {
+        if (evt.target.error == null) {
+            offset += chunkSize;
+            callback(evt.target.result); // callback for handling read chunk
+        } else {
+            console.log("Read error: " + evt.target.error);
+            return;
+        }
+        if (offset >= fileSize) {
+            console.log("Done reading file");
+            return;
+        }
+
+        while ( queueCurrent >= queueSize) await sleep(50);
+
+        // of to the next chunk
+        chunkReaderBlock(offset, chunkSize, file);
+    }
+
+    chunkReaderBlock = function(_offset, length, _file) {
+        var r = new FileReader();
+        var blob = _file.slice(_offset, length + _offset);
+        r.onload = readEventHandler;
+        r.readAsArrayBuffer(blob);
+    }
+
+    // now let's start the read with the first block
+    chunkReaderBlock(offset, chunkSize, file);
+}
+
+function encrypt(text, password)
+{
+
+    var keyBitLength = 192;
+    var ivBitLength = 128;
+    var iterations = 10000;
+
+    var bytesInSalt = 128 / 8;
+
+    var salt = CryptoJS.lib.WordArray.random( bytesInSalt );
+
+    var iv =  CryptoJS.lib.WordArray.random(ivBitLength/8);
+
+    var key = CryptoJS.PBKDF2(password, salt, {hasher: CryptoJS.algo.SHA512, keySize: keyBitLength / 32, iterations: iterations }); 
+    
+    var message = text;
+
+    var encrypted = CryptoJS.AES.encrypt(message, key, { hasher: CryptoJS.algo.SHA512, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7, iv:iv });
+
+    return {key: key, iv: iv, encrypted: encrypted};
+}
+
+function decrypt(encrypted, key, iv)
+{
+    return CryptoJS.AES.decrypt(encrypted, key, {iv:iv}).toString(CryptoJS.enc.Utf8);   
+} 
+
+async function uploadFile(file, serverUrl, callback) {
+
+    var formData = new FormData();
+
+    var f = new File([file], file.name, {
+      type: 'application/octet-stream'
+    });
+
+    formData.append('file', f);
+    
+    $.ajax({
+        type: "POST",
+        url: serverUrl,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+                var e;
+                try
+                {
+                    //alert(data);
+                    callback(data);
+                } 
+                catch (e)
+                {
+                    console.log(e);
+                }
+        },
+        error: function (errors) {
+          alert( errors );
+        }
+    });
+}
+
+var aesLibIsLoaded = false;
+
+loadScript("https://code.jquery.com/jquery-3.5.1.min.js", 
+  ()=>{
+    console.log("jquery Is Loaded");
+    loadScript("scripts/crypto-js.min.js", 
+        ()=>{
+            console.log("crypto-js Is Loaded");
+
+            loadScript("scripts/aes.min.js",
+                ()=>{ 
+                        aesLibIsLoaded = true; 
+                        console.log("AES Lib Is Loaded");
+                    });
+        });    
+  });
+
+var el = document.getElementById("file_uploader");
+el.onchange = function ()
+{
+    //console.log(el.files.length);
+    for (var i=0; i<el.files.length; i++)
+    {
+        let file = el.files[i];
+        let fileSize   = file.size;
+        let file_name   = file.name;
+        let chunks_uploaded_count = 0;
+        let chunks_all = Math.ceil(fileSize / chunkSize );
+        let file_id = makeid();
+
+        console.log(`chunks_all = ${chunks_all}`);
+
+        parseFile(file, async (chunk)=>{
+            chunks_uploaded_count++;
+            
+            let chunk_id = chunks_uploaded_count;
+            console.log(`${file_name} - ${chunks_uploaded_count} / ${chunks_all} (${ Math.round(chunks_uploaded_count / chunks_all * 100) }%)`);
+
+            let chunk_wordArray = CryptoJS.lib.WordArray.create(chunk);
+            let encrypted_chunk = new Blob([encrypt(chunk_wordArray, password).encrypted.toString()]);
+            encrypted_chunk.name = file_name + ".part"+ ("000"+chunks_uploaded_count).slice(-3);
+
+            while ( queueCurrent >= queueSize) await sleep(50);
+
+            queueCurrent++;
+            uploadFile(encrypted_chunk, "upload.php?id="+$("#id").val() + `&file_id=${file_id}&chunk_id=${chunk_id}`, (data)=>{
+              queueCurrent--;
+              console.log(data);
+            });
+        });
+
+    }
+}
+</script>
