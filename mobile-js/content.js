@@ -14,11 +14,6 @@ function bytesToSize(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-var app = {
-    chat_message_content : document.querySelector(".chat-message-content"),
-    messages: []
-};
-
 function randomInteger(min, max) {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
@@ -264,6 +259,7 @@ image_objects = [{
     {
         img_items.push(chat_message_image_item_html_get(image_objects[i].src, image_objects[i].filename));
     }
+    console.log(img_items);
 
     return `
     <div class="item img">
