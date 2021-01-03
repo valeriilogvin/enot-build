@@ -18,11 +18,10 @@
 
 <body>
 
-<!--<div class="wrapper js_wrapper">-->
-<!--	--><?php //include("preloader.php"); ?>
-<!--</div>-->
-
 <div id="app">
+
+	<?php include("preloader.php"); ?>
+
     <header class="header">
         <div class="container">
             <div class="header__left">

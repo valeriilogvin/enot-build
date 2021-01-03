@@ -16,13 +16,13 @@ body::after {
   -ms-transform: matrix(-1,0,0,1,0,0);
   transform: matrix(-1,0,0,1,0,0)
 }
-.preloader::before {
-  background: -o-radial-gradient(50% 50%,50% 50%,rgba(220,220,220,.05) 0,rgba(125,125,125,0) 100%);
-  background: radial-gradient(50% 50% at 50% 50%,rgba(220,220,220,.05) 0,rgba(125,125,125,0) 100%)
-}
-.preloader .circular circle {
-  stroke: #5d6066
-}
+/*.preloader::before {*/
+  /*background: -o-radial-gradient(50% 50%,50% 50%,rgba(220,220,220,.05) 0,rgba(125,125,125,0) 100%);*/
+  /*background: radial-gradient(50% 50% at 50% 50%,rgba(220,220,220,.05) 0,rgba(125,125,125,0) 100%)*/
+/*}*/
+/*.preloader .circular circle {*/
+  /*stroke: #5d6066*/
+/*}*/
 .header {
   background-color: #262a30
 }

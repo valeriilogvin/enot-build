@@ -1,87 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 <!-- preloader -->
 <style type="text/css">
-	.preloader {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100vh;
-		background: linear-gradient(0deg, #1F2226 0%, #35383E 100%);
-		z-index: 99999;
-		transition: .5s all;
-		opacity: 1;
-		visibility: visible;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 16px!important;
-		line-height: 20px!important;
-		font-family: SourceSansPro,sans-serif;
-		font-weight: 600;
-	}
+    .preloader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(0deg, #1F2226 0%, #35383E 100%);
+        z-index: 99999;
+        transition: .5s all;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 16px!important;
+        line-height: 20px!important;
+        font-family: SourceSansPro,sans-serif;
+        font-weight: 600;
+    }
 
-	.wrapper.light .preloader{
-		background: linear-gradient(166.51deg, #FCFCFC 8.64%, #F2F2F2 81%);
-	}
+    .wrapper.light .preloader{
+        background: linear-gradient(166.51deg, #FCFCFC 8.64%, #F2F2F2 81%);
+    }
 
-	.preloader.done{
-		opacity: 0;
-		visibility: hidden;
-	}
-	.preloader .logo{
-		margin-top: 140px;
-		position: relative;
-	}
-	.preloader .logo-svg {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translateX(-50%) translateY(-50%);
-		fill: #D1D1D1;
-	}
-	.wrapper.light .preloader .logo-svg{
-		fill: #5D6066;
-		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
-	}
+    .preloader.done{
+        opacity: 0;
+        visibility: hidden;
+    }
+    .preloader .logo{
+        margin-top: 140px;
+        position: relative;
+    }
+    .preloader .logo-svg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        fill: #D1D1D1;
+    }
+    .wrapper.light .preloader .logo-svg{
+        fill: #5D6066;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+    }
 
-	.preloader .title {
-		margin-bottom: 140px;
-		text-align: center;
+    .preloader .title {
+        margin-bottom: 140px;
+        text-align: center;
 
 
-		text-transform: uppercase;
-		color: #F4F4F4;
-	}
-	.wrapper.light .preloader .title {
-		color: #5D6066;
-	}
-	.preloader .title p {
-		margin: 0;
-	}
-	.preloader .title span {
-		font-size: 30px;
-		line-height: 38px;
-		padding-right: 15px;
-	}
-	.preloader .title p + p{
-		padding-top: 25px;
-	}
-	.preloader svg path,
-	.preloader svg polygon,
-	.preloader svg rect {
-		-webkit-transition: none!important;
-		-o-transition: none!important;
-		transition: none!important;
-	}
+        text-transform: uppercase;
+        color: #F4F4F4;
+    }
+    .wrapper.light .preloader .title {
+        color: #5D6066;
+    }
+    .preloader .title p {
+        margin: 0;
+    }
+    .preloader .title span {
+        font-size: 30px;
+        line-height: 38px;
+        padding-right: 15px;
+    }
+    .preloader .title p + p{
+        padding-top: 25px;
+    }
 </style>
 
 <div id="page-preloader" class="preloader">
-	<div class="logo"></div>
-	<div class="title">
-		<p>Вы можете отправить еще</p>
-		<p><span>5</span>записок</p>
-	</div>
+    <div class="logo"></div>
+    <div class="title">
+        <p>Вы можете отправить еще</p>
+        <p><span>5</span>записок</p>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -221,3 +221,5 @@
 
 </script>
 <!-- /preloader -->
+</body>
+</html>

@@ -40,34 +40,34 @@ only screen and (min-resolution:1.25dppx) {
         padding: 0 calc(15px * .8)
     }
 
-    .preloader {
-        padding: calc(15px * .8)
-    }
+    /*.preloader {*/
+        /*padding: calc(15px * .8)*/
+    /*}*/
 
-    .preloader::before {
-        width: calc(750px * .8);
-        height: calc(750px * .8)
-    }
+    /*.preloader::before {*/
+        /*width: calc(750px * .8);*/
+        /*height: calc(750px * .8)*/
+    /*}*/
 
-    .preloader .loader {
-        width: calc(252px * .8);
-        height: calc(252px * .8);
-        margin: 0 auto calc(68px * .8)
-    }
+    /*.preloader .loader {*/
+        /*width: calc(252px * .8);*/
+        /*height: calc(252px * .8);*/
+        /*margin: 0 auto calc(68px * .8)*/
+    /*}*/
 
-    .preloader .loader__icon svg {
-        width: calc(119px * .8)
-    }
+    /*.preloader .loader__icon svg {*/
+        /*width: calc(119px * .8)*/
+    /*}*/
 
-    .preloader p {
-        font-size: calc(22px * .8);
-        line-height: calc(28px * .8)
-    }
+    /*.preloader p {*/
+        /*font-size: calc(22px * .8);*/
+        /*line-height: calc(28px * .8)*/
+    /*}*/
 
-    .preloader p span {
-        font-size: calc(30px * .8);
-        margin: 0 calc(8px * .8)
-    }
+    /*.preloader p span {*/
+        /*font-size: calc(30px * .8);*/
+        /*margin: 0 calc(8px * .8)*/
+    /*}*/
 
     .header {
         padding: calc(17px * .8) 0 calc(18px * .8);
