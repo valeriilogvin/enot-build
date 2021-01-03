@@ -18,6 +18,10 @@
 
 <body>
 
+<!--<div class="wrapper js_wrapper">-->
+<!--	--><?php //include("preloader.php"); ?>
+<!--</div>-->
+
 <div id="app">
     <header class="header">
         <div class="container">
@@ -957,32 +961,31 @@ image_objects = [{
     for (let i=0; i<image_objects.length; i++)
     {
         img_items.push(`
-<div class="message-item-image">
-    <div class="message-item-image__left">
-        <div class="message-item-image__inner"><img src="${ image_objects[i].src }" alt=""></div>
-        <div class="message-item-image__info">${ escapeHTML(image_objects[i].filename) }</div>
-    </div>
-    <div class="message-item-image__right">
-        <div class="message-item-image__indicators">
-            <div class="loader">
-                ${indicator_fileencryption_html_get()}
+            <div class="message-item-image">
+                <div class="message-item-image__left">
+                    <div class="message-item-image__inner"><img src="${ image_objects[i].src }" alt=""></div>
+                    <div class="message-item-image__info">${ escapeHTML(image_objects[i].filename) }</div>
+                </div>
+                <div class="message-item-image__right">
+                    <div class="message-item-image__indicators">
+                        <div class="loader">
+                            ${indicator_fileencryption_html_get()}
+                        </div>
+                        <div class="loader">
+                            ${indicator_loader_html_get()}
+                        </div>
+                    </div>
+                    <div class="message-item-actions message-item-image__actions">
+                        <div class="action-item action-delete">
+                            ${action_item_delete_svg_get()}
+                        </div>
+                        <div class="action-item action-see">
+                            ${action_item_see_svg_get()}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="loader">
-                ${indicator_loader_html_get()}
-            </div>
-        </div>
-        <div class="message-item-actions message-item-image__actions">
-            <div class="action-item action-delete">
-                ${action_item_delete_svg_get()}
-            </div>
-            <div class="action-item action-see">
-                ${action_item_see_svg_get()}
-            </div>
-        </div>
-    </div>
-</div>
-
-`);        
+        `);
     } 
 
     return `
@@ -995,7 +998,7 @@ function chat_message_file_add(file_name, file_format, file_size)
 {
     let element_id = randomInteger(10000, 60000);
     app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
-    
+
 }
 
 function chat_message_file_html_get(file_name, file_format, file_size, element_id)
