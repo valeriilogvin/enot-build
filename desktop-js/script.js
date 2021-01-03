@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabItem = document.querySelectorAll(".tab-item");
     const tabContentItem = document.querySelectorAll(".tab-content-item");
     
-    function openSettingsHundler() {
+    function openSettingsHandler() {
         settingsDropMenu.classList.add('active')
     }
 
-    function closeSettingsHundler() {
+    function closeSettingsHandler() {
         settingsDropMenu.classList.remove('active')
     }
 
-    function menuDropdownHundler() {
+    function menuDropdownHandler() {
         if (mainMenu.classList.contains('active')) {
             mainMenu.classList.remove('active')
         } else {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function checkTargetHundler(e) {
+    function checkTargetHandler(e) {
         const target = e.target;
 
         if (!settingsDropMenu.contains(target)) {
@@ -59,11 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.addEventListener('mouseup', checkTargetHundler);
+    document.addEventListener('mouseup', checkTargetHandler);
+
     if (settingsBtnOpen || settingsBtnClose || menuBtn) {
-        settingsBtnOpen.addEventListener('click', openSettingsHundler)
-        settingsBtnClose.addEventListener('click', closeSettingsHundler)
-        menuBtn.addEventListener('click', menuDropdownHundler)
+        settingsBtnOpen.addEventListener('click', openSettingsHandler)
+        settingsBtnClose.addEventListener('click', closeSettingsHandler)
+        menuBtn.addEventListener('click', menuDropdownHandler)
     }
 	
 });
