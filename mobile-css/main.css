@@ -635,6 +635,11 @@ a {
           -ms-flex-pack: end;
               justify-content: flex-end;
       padding: 10px 15px 10px 10px; }
+    .content-wrap .item.file .delete {
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;}
       .content-wrap .item.file .text-block {
         margin-right: 18px; }
         .content-wrap .item.file .text-block p {
@@ -648,6 +653,7 @@ a {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
+        flex-wrap: wrap;
         margin-left: 14px; }
 
 .share-wrap {

@@ -185,7 +185,8 @@ function chat_message_image_container_html_get(src, filename, element_id)
         </div>`
 }
 
-function chat_message_image_item_html_get(src, filename, element_id) {
+function chat_message_image_item_html_get(src, filename, element_id)
+{
     return `
         <div class="img-block" id="message_${element_id}">
             <div>
@@ -231,6 +232,9 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
                 </div>
                 <div class="loader">
                     ${indicator_loader_html_get()}
+                </div>
+                <div class="delete">
+                    ${action_item_delete_svg_get()}
                 </div>
             </div>
         </div>`;
