@@ -16,11 +16,12 @@
 
 	<!-- burger-menu -->
 	<div class="burger-menu-left js_burger_left">
-		<div class="burger-left js_burger_left_close">
+		<div class="burger-left js_burger_left_btn_close">
 			<span></span>
 			<span></span>
 			<span></span>
 		</div>
+
 		<ul>
 			<li><a href="#">О компании</a></li>
 			<li><a href="#">Пункт меню 2</a></li>
@@ -56,7 +57,7 @@
 	<!-- /burger-menu -->
 
 	<div class="header">
-		<div class="burger-left js_burger_left_open">
+		<div class="burger-left js_burger_left_btn_open">
 			<span></span>
 			<span></span>
 			<span></span>
@@ -64,7 +65,7 @@
 		<svg class="logo-img" viewBox="0 0 100 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M97.596 11.942H93.6026H90.9446L89.1514 11.9547L85.1453 7.94859V3.96794L81.1774 0H85.1453H89.1514V7.94859H90.8047H93.6026V7.96131L97.596 11.942ZM70.2269 5.97741L79.3328 12.5779L78.9767 3.09048L70.2269 5.97741ZM69.4005 5.97738L66.4627 7.94863L65.3309 14.7145L64.1863 7.94863L61.2485 5.97738H69.4005ZM65.7759 17.6015L70.2271 11.5351L80.7701 19.2548L76.3189 25.3212L67.9252 28.8312H67.9125H62.7237L54.3045 25.3212L49.8533 19.2548L60.4345 11.5097L64.8857 17.576L56.8862 23.4389L62.7237 25.8807V23.6297H67.9125V25.868L73.7372 23.4389L65.7759 17.6015ZM70.6087 14.7146L68.523 16.8003H72.6944L70.6087 14.7146ZM62.1387 16.8003L60.0529 14.7146L57.98 16.8003H62.1387ZM51.3286 12.5779L60.4345 5.97741L51.6719 3.09048L51.3286 12.5779ZM36.4998 28.8312L32.6463 24.9777V17.932H32.6336L28.6275 13.9132L28.6529 18.0465V28.8184H30.8531L36.4998 28.8312ZM45.5929 24.9649L49.4464 28.8311L43.7997 28.8184H41.5996V11.6113L40.0353 10.0597H34.236H29.9883H29.7466L28.5893 10.047L24.5832 6.05365H30.2426V6.06637H41.7013V6.10452H41.7267L45.5929 9.958V24.9649ZM23.8712 9.89436L20.005 6.02817H14.3583L14.3965 6.06632H5.6594L5.64668 6.04089H0L4.03152 10.0851L9.69092 10.0597H18.3899L19.8651 11.535V15.363H13.3282V19.3564H19.8651V19.3691H23.8585V9.89436H23.8712ZM9.47494 24.8377H23.8587V28.8311H13.4556L13.5065 28.8819L7.8725 28.8947L4.33697 25.3464V25.3083V18.7332L4.29882 13.9767L8.31762 17.9955H8.33034V23.6804L9.47494 24.8377ZM100 28.8184L96.0066 24.8251H90.7415L89.5333 23.6042V17.8558H89.5206L85.5018 13.8369L85.5399 18.5934V20.7681L85.5272 25.2702L89.0755 28.8184H89.0882H96.0066V28.8057L100 28.8184Z" />
 		</svg>
-		<div class="burger-right js_burger_right_open">
+		<div class="burger-right js_burger_btn_right">
 			<span></span>
 			<span></span>
 			<span></span>
@@ -78,7 +79,7 @@
 	</div>
 
 	<div class="amount-block">
-		Вы можете отправить еще <span>5</span> записок
+		Вы можете отправить еще <span class="js_note_amount">5</span> записок
 	</div>
 
 	<div class="content-wrap scroll-hide">
@@ -102,7 +103,6 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="mobile-js/main.js"></script>
 <script type="text/javascript" src="mobile-js/content.js"></script>
 

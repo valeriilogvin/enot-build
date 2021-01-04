@@ -7,14 +7,16 @@ const escapeHTML = str => str.replace(/[&<>'"]/g,
         '"': '&quot;'
     }[tag]));
 
-function bytesToSize(bytes) {
+function bytesToSize(bytes)
+{
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '0 Byte';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-function randomInteger(min, max) {
+function randomInteger(min, max)
+{
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
@@ -52,11 +54,12 @@ function action_item_see_svg_get()
 `;
 }
 
+// indicator
 function indicator_encryption_html_get()
 {
     return `
 <svg class="circular-loader" viewBox="25 25 50 50">
-    <circle class="loader-path" cx="50" cy="50" r="20" fill="none"
+    <circle class="loader-path js_loader-path" cx="50" cy="50" r="20" fill="none"
         stroke-width="4" stroke-dasharray="150, 200" stroke-dashoffset="-10" />
 </svg>
 <svg class="circular" viewBox="25 25 50 50">
@@ -97,27 +100,25 @@ function indicator_loader_html_get()
 `;
 }
 
-function indicator_fileencryption_html_get()
+function chat_message_indicator_stop(message_id, indicator_type)
 {
-    return `
-<svg class="circular-loader" viewBox="25 25 50 50">
-    <circle class="loader-path" cx="50" cy="50" r="20" fill="none"
-        stroke-width="4" stroke-dasharray="150, 200" stroke-dashoffset="-10" />
-</svg>
-<svg class="circular" viewBox="25 25 50 50">
-    <circle cx="50" cy="50" r="20" fill="none" stroke-width="4"
-        stroke-dasharray="150, 200" />
-</svg>
-<div class="loader__icon">
-    <svg width="10" height="13" viewBox="0 0 10 13" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M8.65796 5.29537V4.09863C8.65796 2.13553 7.061 0.538574 5.09817 0.538574C3.13507 0.538574 1.53824 2.13553 1.53824 4.09863V5.29537H0.384766V12.5386H9.8113V5.29537H8.65796ZM3.01643 4.09863C3.01643 2.95066 3.95033 2.01676 5.09817 2.01676C6.246 2.01676 7.1799 2.95066 7.1799 4.09863V5.29537H3.01643V4.09863ZM5.69044 9.85277V11.4541H4.50576V9.85277C4.23021 9.66387 4.0493 9.34715 4.0493 8.98756C4.0493 8.4084 4.51887 7.93883 5.09804 7.93883C5.6772 7.93883 6.14677 8.4084 6.14677 8.98756C6.1469 9.34702 5.96599 9.66373 5.69044 9.85277Z"
-            fill="#5D6066" />
-    </svg>
+    let this_message_id = document.getElementById('message_' + message_id),
+        this_indicator = this_message_id.querySelector(`.${indicator_type}`);
 
-</div>
-`;
+    setTimeout(() => {
+        this_indicator.classList.add('stop');
+    }, app.indicator_stop_timeout)
+
+}
+
+function indicator_encrypt_stop(message_id)
+{
+    chat_message_indicator_stop(message_id, 'indicator_encrypt')
+}
+
+function indicator_loading_stop(message_id)
+{
+    chat_message_indicator_stop(message_id, 'indicator_loading')
 }
 
 function icon_file_svg_get()
@@ -151,7 +152,7 @@ function icon_file_archive_svg_get()
 function chat_message_text_add(text)
 {
     let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
 }
 
 function chat_message_text_html_get(text, element_id)
@@ -169,18 +170,20 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_add(src, filename)
 {
     let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_image_container_html_get(src, escapeHTML(filename),  element_id));
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_image_container_html_get(src, escapeHTML(filename),  element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
 }
 
 function chat_message_image_container_html_get(src, filename, element_id)
 {
     return `
         <div class="item img">
-            ${chat_message_image_item_html_get(src, filename, element_id)}
-        </div>`
+            ${chat_message_image_item_html_get(element_id, src, filename)}
+        </div>`;
 }
 
-function chat_message_image_item_html_get(src, filename, element_id)
+function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
         <div class="img-block" id="message_${element_id}">
@@ -191,24 +194,26 @@ function chat_message_image_item_html_get(src, filename, element_id)
                 <p class="name">${filename}</p>
             </div>
             <div class="indicators">
-                <div class="loader ">
+                <div class="loader indicator_encrypt">
                     ${indicator_encryption_html_get()}
                 </div>
-                <div class="loader">
+                <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
                 <div class="delete">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
-        </div>`
+        </div>
+`;
 }
 
 function chat_message_file_add(file_name, file_format, file_size)
 {
     let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
-
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
 }
 
 function chat_message_file_html_get(file_name, file_format, file_size, element_id)
@@ -222,10 +227,10 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
             </div>
             ${is_archive_file(file_format)?icon_file_archive_svg_get():icon_file_svg_get()}
             <div class="indicators">
-                <div class="loader ">
-                    ${indicator_fileencryption_html_get()}
+                <div class="loader indicator_encrypt">
+                    ${indicator_encryption_html_get()}
                 </div>
-                <div class="loader">
+                <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
                 <div class="delete">
@@ -238,8 +243,7 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
 function chat_message_album_add(image_objects)
 {
 
-    let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_album_html_get(image_objects));
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_album_html_get(image_objects));
 
 }
 
@@ -257,15 +261,17 @@ image_objects = [{
 
     for (let i=0; i<image_objects.length; i++)
     {
-        img_items.push(chat_message_image_item_html_get(image_objects[i].src, image_objects[i].filename));
+        let element_id = randomInteger(10000, 60000);
+
+        img_items.push(chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename));
     }
-    console.log(img_items);
 
     return `
     <div class="item img">
         ${img_items.join("\n")}
     </div>`;
 }
+
 
 
 // TODO!

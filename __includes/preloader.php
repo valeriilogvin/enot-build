@@ -80,7 +80,7 @@
 	<div class="logo"></div>
 	<div class="title">
 		<p>Вы можете отправить еще</p>
-		<p><span>5</span>записок</p>
+		<p><span class="js_note_amount">5</span>записок</p>
 	</div>
 </div>
 

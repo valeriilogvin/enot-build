@@ -1096,6 +1096,14 @@ a.create-new {
   stroke-linecap: round;
   stroke: #5d6066; }
 
+.loader.stop svg.circular-loader circle{
+    stroke-dashoffset: 0;
+}
+.loader.stop svg.circular-loader,
+.loader.stop svg circle{
+    animation: none;
+}
+
 .circular circle {
   stroke: #34383f; }
 
