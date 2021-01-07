@@ -507,6 +507,7 @@ a {
     width: -moz-max-content;
     width: max-content;
     position: absolute;
+    transition: opacity .2s ease, visibility .2s ease;
     left: 50%;
     top: 50%;
     -webkit-transform: translateY(-50%) translateX(-50%);
@@ -516,6 +517,10 @@ a {
     background: -o-linear-gradient(bottom, #262A30 0%, #5D6066 100%);
     background: linear-gradient(0deg, #262A30 0%, #5D6066 100%);
     border-radius: 15px; }
+  .header .public.hide{
+    opacity: 0;
+    visibility: hidden;
+  }
     .header .public svg {
       margin-right: 13px; }
 
@@ -763,7 +768,7 @@ a {
   .share-key .custom-checkbox:checked + label::before {
     background-color: #F4F4F4;
     border-radius: 4px;
-    background-image: url("../img/ok.svg"); }
+    background-image: url("../mobile-img/ok.svg"); }
   .share-key .custom-checkbox + label::before {
     content: '';
     display: inline-block;

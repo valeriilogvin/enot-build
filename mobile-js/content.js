@@ -153,7 +153,27 @@ function chat_message_text_add(text)
 {
     let element_id = randomInteger(10000, 60000);
     app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
+    app_massages_object_text_append(text);
+    chat_slide_btn_public_visibility_handler();
 }
+
+function app_massages_object_text_append(text) {
+    app.messages.push({
+        body: text, //text or blob
+        type: 'text',
+        parts : [
+            {
+                encrypted_body: text, //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+
+
 
 function chat_message_text_html_get(text, element_id)
 {
@@ -242,49 +262,33 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
 
 function chat_message_album_add(image_objects)
 {
-
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_album_html_get(image_objects));
-
-}
-
-function chat_message_album_html_get(image_objects)
-{
-    /*
-image_objects = [{
-    url,
-    file_name,
-    element_id
-}]
-    */
-
-    var img_items = [];
+    let imageItem = document.createElement("div");
+    imageItem.setAttribute('class', 'item img');
+    app.chat.message_content.appendChild(imageItem);
 
     for (let i=0; i<image_objects.length; i++)
     {
         let element_id = randomInteger(10000, 60000);
-
-        img_items.push(chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename));
+        imageItem.insertAdjacentHTML('beforeend', `
+            ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
+        `);
+        chat_message_indicator_stop(element_id, 'indicator_loading');
+        chat_message_indicator_stop(element_id, 'indicator_encrypt');
     }
-
-    return `
-    <div class="item img">
-        ${img_items.join("\n")}
-    </div>`;
 }
 
 
-
 // TODO!
-chat_message_text_add("Привет! Посмотри на эту фотографию");
-chat_message_image_add("mobile-img/img1.png", "Image.jpg");
-chat_message_text_add("Эта фотография будет прекрасно смотреться над камином. Давай сегодня же распечатаем ее! Максимальная ширина текста — 720 пикс. А вот еще несколько полезных файлов:");
-chat_message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-chat_message_file_add("Очень длинное название файла", "7zip", "11 kb");
-chat_message_album_add([
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
-    {src:"desktop-img/msg-img-2.jpg", filename:"Image.jpg"},
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
-    {src:"desktop-img/msg-img-4.jpg", filename:"Image.jpg"},
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"}
-]);
+// chat_message_text_add("Привет! Посмотри на эту фотографию");
+// chat_message_image_add("mobile-img/img1.png", "Image.jpg");
+// chat_message_text_add("Эта фотография будет прекрасно смотреться над камином. Давай сегодня же распечатаем ее! Максимальная ширина текста — 720 пикс. А вот еще несколько полезных файлов:");
+// chat_message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
+// chat_message_file_add("Очень длинное название файла", "7zip", "11 kb");
+// chat_message_album_add([
+//     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
+//     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
+//     {src:"desktop-img/msg-img-2.jpg", filename:"Image.jpg"},
+//     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
+//     {src:"desktop-img/msg-img-4.jpg", filename:"Image.jpg"},
+//     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"}
+// ]);

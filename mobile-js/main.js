@@ -4,6 +4,7 @@
 let app = {
     wrapper : document.querySelector('.js_wrapper'),
     theme_switcher : document.querySelector('.js_theme_switcher'),
+    btn_public: document.querySelector('.js_mob_btn_public'),
 
     note_amount: document.querySelectorAll('.js_note_amount'),
 
@@ -17,9 +18,15 @@ let app = {
     },
 
     chat : {
+        input_block: document.querySelector('.js_chat_input_block'),
         input_text: document.querySelector('.js_input_text'),
-        message_content : document.querySelector('.chat-message-content'),
+        message_content : document.querySelector('.js_chat_message_content'),
 
+    },
+
+    share: {
+        wrap: document.querySelector('.js_share_wrap'),
+        footer: document.querySelector('.js_share_footer'),
     },
 
     messages: [],
@@ -158,8 +165,53 @@ function note_amount_set(amount) {
     for (let el of app.note_amount) el.innerText = amount
 }
 
+function share_slide_visibility(type) {
+    if(type){
+        app.share.wrap.style.display = 'flex';
+        app.share.footer.style.display = 'block';
+    } else {
+        app.share.wrap.style.display = 'none';
+        app.share.footer.style.display = 'none';
+    }
+}
 
+function chat_slide_btn_public_visibility_handler() {
+    if(app.messages.length > 0){
+        app.btn_public.classList.remove('hide')
+    } else {
+        app.btn_public.classList.add('hide')
+    }
+}
 
+function btn_public_handler() {
+    chat_message_visibility(false);
+    share_slide_visibility(true);
+}
+
+function share_slide_btn_create_handler() {
+    chat_message_visibility(true);
+    share_slide_visibility(false);
+    chat_message_clear();
+    chat_slide_btn_public_visibility_handler();
+}
+
+function chat_message_clear() {
+    app.messages = [];
+    app.chat.message_content.innerHTML = '';
+
+}
+
+function chat_message_visibility(type) {
+    if(type){
+        app.btn_public.classList.remove('hide');
+        app.chat.message_content.style.display = 'flex';
+        app.chat.input_block.style.display = 'flex';
+    } else {
+        app.btn_public.classList.add('hide');
+        app.chat.message_content.style.display = 'none';
+        app.chat.input_block.style.display = 'none';
+    }
+}
 
 // function to fix mobile-browser height
 (function init100vh(){
@@ -171,7 +223,5 @@ function note_amount_set(amount) {
     window.addEventListener('resize', setHeight);
 })();
 
-/*
-* functions calls
-* */
+// TODO!
 note_amount_set(4);
