@@ -277,6 +277,34 @@ function chat_message_album_add(image_objects)
     }
 }
 
+function chat_btn_send_handler()
+{
+    if(app.chat.input_text.value !== ''){
+        chat_message_text_add(app.chat.input_text.value);
+        app.chat.input_text.value = '';
+    }
+}
+
+function chat_message_clear()
+{
+    app.messages = [];
+    app.chat.message_content.innerHTML = '';
+
+}
+
+function chat_message_visibility(type)
+{
+    if(type){
+        app.btn_public.classList.remove('hide');
+        app.chat.message_content.style.display = 'flex';
+        app.chat.input_block.style.display = 'flex';
+    } else {
+        app.btn_public.classList.add('hide');
+        app.chat.message_content.style.display = 'none';
+        app.chat.input_block.style.display = 'none';
+    }
+}
+
 
 // TODO!
 // chat_message_text_add("Привет! Посмотри на эту фотографию");

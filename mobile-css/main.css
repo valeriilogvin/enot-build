@@ -198,7 +198,7 @@ table {
       color: #2E3238; }
     .wrapper.light .share-key .custom-checkbox:checked + label::before {
       background-color: #2E3238;
-      background-image: url(../img/ok-light.svg); }
+      background-image: url('../mobile-img/ok-light.svg'); }
     .wrapper.light .share-key .custom-checkbox + label::before {
       background-color: #2E3238; }
     .wrapper.light .share-link-header {
@@ -1000,6 +1000,8 @@ a.create-new {
       fill: #5D6066; }
 
 .input-block {
+  height: 80px;
+  transition: height .3s ease;
   padding: 10px;
   background: #262A30;
   -webkit-box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.15);

@@ -21,7 +21,7 @@ let app = {
         input_block: document.querySelector('.js_chat_input_block'),
         input_text: document.querySelector('.js_input_text'),
         message_content : document.querySelector('.js_chat_message_content'),
-
+        btn_send: document.querySelector('.js_chat_btn_send')
     },
 
     share: {
@@ -41,7 +41,8 @@ let app = {
 /*
 * main functions
 * */
-function appScheme(color){
+function appScheme(color)
+{
     if( color === 'light') app.wrapper.classList.add('light')
     else app.wrapper.classList.remove('light')
 }
@@ -57,7 +58,8 @@ function getCookie(name)
 }
 
 // уcтанавливает cookie
-function setCookie(name, value, props) {
+function setCookie(name, value, props)
+{
 
     props = props || {};
 
@@ -93,7 +95,8 @@ function setCookie(name, value, props) {
 }
 
 // удаляет cookie
-function deleteCookie(name) {
+function deleteCookie(name)
+{
     setCookie(name, null, { expires: -1 })
 
 }
@@ -121,7 +124,8 @@ secure
 Пересылать cookie только по защищенному соединению.
 */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () =>
+{
     appScheme(app.settings.scheme);
 
     app.chat.input_text.addEventListener('focus', () => {
@@ -161,11 +165,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 });
 
-function note_amount_set(amount) {
+function note_amount_set(amount)
+{
     for (let el of app.note_amount) el.innerText = amount
 }
 
-function share_slide_visibility(type) {
+function share_slide_visibility(type)
+{
     if(type){
         app.share.wrap.style.display = 'flex';
         app.share.footer.style.display = 'block';
@@ -175,7 +181,8 @@ function share_slide_visibility(type) {
     }
 }
 
-function chat_slide_btn_public_visibility_handler() {
+function chat_slide_btn_public_visibility_handler()
+{
     if(app.messages.length > 0){
         app.btn_public.classList.remove('hide')
     } else {
@@ -183,34 +190,18 @@ function chat_slide_btn_public_visibility_handler() {
     }
 }
 
-function btn_public_handler() {
+function btn_public_handler()
+{
     chat_message_visibility(false);
     share_slide_visibility(true);
 }
 
-function share_slide_btn_create_handler() {
+function share_slide_btn_create_handler()
+{
     chat_message_visibility(true);
     share_slide_visibility(false);
     chat_message_clear();
     chat_slide_btn_public_visibility_handler();
-}
-
-function chat_message_clear() {
-    app.messages = [];
-    app.chat.message_content.innerHTML = '';
-
-}
-
-function chat_message_visibility(type) {
-    if(type){
-        app.btn_public.classList.remove('hide');
-        app.chat.message_content.style.display = 'flex';
-        app.chat.input_block.style.display = 'flex';
-    } else {
-        app.btn_public.classList.add('hide');
-        app.chat.message_content.style.display = 'none';
-        app.chat.input_block.style.display = 'none';
-    }
 }
 
 // function to fix mobile-browser height

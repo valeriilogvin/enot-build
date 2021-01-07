@@ -141,7 +141,7 @@
 			</svg>
 		</a>
 		<textarea placeholder="Напишите сообщение" class="js_input_text" name=""></textarea>
-		<a href="">
+		<a onclick="chat_btn_send_handler()" class="js_chat_btn_send">
 			<svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M12.1203 18.1139C7.0285 24.2365 -1.13813e-08 22.8698 -1.13813e-08 22.8698C9.20734 17.3954 7.26278 9.42975 7.26278 9.42975L1.8196 9.42975L10.8942 0.339549L20 9.42975L14.549 9.42975C14.7286 15.404 12.1203 18.1139 12.1203 18.1139Z"/>
 			</svg>
@@ -150,7 +150,7 @@
 </div>
 
 <script type="text/javascript" src="mobile-js/main.js"></script>
-<script type="text/javascript" src="mobile-js/content.js"></script>
+<script type="text/javascript" src="mobile-js/chat.js"></script>
 
 </body>
 </html>
