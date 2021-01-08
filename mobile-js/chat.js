@@ -1,3 +1,6 @@
+/*
+* secondary functions
+* */
 const escapeHTML = str => str.replace(/[&<>'"]/g,
     tag => ({
         '&': '&amp;',
@@ -6,7 +9,6 @@ const escapeHTML = str => str.replace(/[&<>'"]/g,
         "'": '&#39;',
         '"': '&quot;'
     }[tag]));
-
 function bytesToSize(bytes)
 {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -14,19 +16,16 @@ function bytesToSize(bytes)
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
-
 function randomInteger(min, max)
 {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
-
 function is_archive_file(file_format)
 {
     return /^(rar|zip|7z|7zip|tar|tz|gz|ace|arj)$/i.test(file_format);
 }
-
 function action_item_delete_svg_get()
 {
     return `
@@ -38,7 +37,6 @@ function action_item_delete_svg_get()
                 d="M0.776123 14.3585C0.776123 15.5912 1.78418 16.5999 3.0175 16.5999H9.74163C10.9756 16.5999 11.983 15.5912 11.983 14.3585V4.64587H0.776123V14.3585ZM8.62032 6.88725C8.62032 6.47489 8.95508 6.14013 9.36744 6.14013C9.7798 6.14013 10.1139 6.47489 10.1139 6.88725V14.3585C10.1139 14.7715 9.7798 15.105 9.36744 15.105C8.95508 15.105 8.62032 14.7702 8.62032 14.3585V6.88725ZM5.63244 6.88725C5.63244 6.47489 5.96658 6.14013 6.37956 6.14013C6.79255 6.14013 7.12669 6.47489 7.12669 6.88725V14.3585C7.12669 14.7715 6.79255 15.105 6.37956 15.105C5.96658 15.105 5.63244 14.7702 5.63244 14.3585V6.88725ZM2.64331 6.88725C2.64331 6.47489 2.97745 6.14013 3.38981 6.14013C3.80279 6.14013 4.13694 6.47489 4.13694 6.88725V14.3585C4.13694 14.7715 3.80279 15.105 3.38981 15.105C2.97745 15.105 2.64331 14.7702 2.64331 14.3585V6.88725Z"/>
         </svg>`;
 }
-
 function action_item_see_svg_get()
 {
     return `
@@ -54,7 +52,10 @@ function action_item_see_svg_get()
 `;
 }
 
-// indicator
+
+/*
+* indicators
+* */
 function indicator_encryption_html_get()
 {
     return `
@@ -76,7 +77,6 @@ function indicator_encryption_html_get()
 </div>
 `;
 }
-
 function indicator_loader_html_get()
 {
     return `
@@ -99,7 +99,6 @@ function indicator_loader_html_get()
 </div>
 `;
 }
-
 function chat_message_indicator_stop(message_id, indicator_type)
 {
     let this_message_id = document.getElementById('message_' + message_id),
@@ -110,17 +109,19 @@ function chat_message_indicator_stop(message_id, indicator_type)
     }, app.indicator_stop_timeout)
 
 }
-
 function indicator_encrypt_stop(message_id)
 {
     chat_message_indicator_stop(message_id, 'indicator_encrypt')
 }
-
 function indicator_loading_stop(message_id)
 {
     chat_message_indicator_stop(message_id, 'indicator_loading')
 }
 
+
+/*
+* returning functions
+* */
 function icon_file_svg_get()
 {
     return `
@@ -135,7 +136,6 @@ function icon_file_svg_get()
 </svg>
 `;
 }
-
 function icon_file_archive_svg_get()
 {
     return `
@@ -148,61 +148,17 @@ function icon_file_archive_svg_get()
 
 `;
 }
-
-function chat_message_text_add(text)
-{
-    let element_id = randomInteger(10000, 60000);
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
-    app_massages_object_text_append(text);
-    chat_slide_btn_public_visibility_handler();
-}
-
-function app_massages_object_text_append(text) {
-    app.messages.push({
-        body: text, //text or blob
-        type: 'text',
-        parts : [
-            {
-                encrypted_body: text, //blob|text
-                encrypted: true,
-                sent: false
-            },
-        ], // по умолчанию будет один элемент
-        is_full_encrypted: false,
-        sent: false
-    })
-}
-
-
-
 function chat_message_text_html_get(text, element_id)
 {
     return `<div class="item text" id="message_${element_id}">
         ${text}
             <div class="message-item-actions">
-                <div class="action-item action-delete">
+                <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
         </div>`;
 }
-
-function chat_message_image_add(src, filename)
-{
-    let element_id = randomInteger(10000, 60000);
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_image_container_html_get(src, escapeHTML(filename),  element_id));
-    indicator_encrypt_stop(element_id);
-    indicator_loading_stop(element_id);
-}
-
-function chat_message_image_container_html_get(src, filename, element_id)
-{
-    return `
-        <div class="item img">
-            ${chat_message_image_item_html_get(element_id, src, filename)}
-        </div>`;
-}
-
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
@@ -220,22 +176,20 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
-                <div class="delete">
+                <div class="delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
         </div>
 `;
 }
-
-function chat_message_file_add(file_name, file_format, file_size)
+function chat_message_image_container_html_get(src, filename, element_id)
 {
-    let element_id = randomInteger(10000, 60000);
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
-    indicator_encrypt_stop(element_id);
-    indicator_loading_stop(element_id);
+    return `
+        <div class="item img">
+            ${chat_message_image_item_html_get(element_id, src, filename)}
+        </div>`;
 }
-
 function chat_message_file_html_get(file_name, file_format, file_size, element_id)
 {
     return `
@@ -253,13 +207,33 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
                 <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
-                <div class="delete">
+                <div class="delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
         </div>`;
 }
 
+
+/*
+* functions to append
+* */
+function chat_message_text_add(text, element_id)
+{
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
+
+}
+function chat_message_image_add(src, filename)
+{
+    let element_id = randomInteger(10000, 60000);
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_image_container_html_get(src, escapeHTML(filename),  element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
+}
+function chat_message_file_add(file_name, file_format, file_size, element_id)
+{
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
+}
 function chat_message_album_add(image_objects)
 {
     let imageItem = document.createElement("div");
@@ -274,25 +248,95 @@ function chat_message_album_add(image_objects)
         `);
         chat_message_indicator_stop(element_id, 'indicator_loading');
         chat_message_indicator_stop(element_id, 'indicator_encrypt');
+        app_messages_object_image_append(image_objects[i], element_id)
     }
 }
 
+
+/*
+* append to app.messages
+* */
+function app_messages_object_text_append(text, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: text, //text or blob
+        type: 'text',
+        parts : [
+            {
+                encrypted_body: text, //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+function app_messages_object_image_append(image_objects, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: image_objects, //text or blob
+        type: 'file',
+        parts : [
+            {
+                encrypted_body: image_objects, //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+function app_messages_object_file_append(file_name, file_format, file_size, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: {
+            file_name: file_name,
+            file_format: file_format,
+            file_size: file_size,
+        }, //text or blob
+        type: 'file',
+        parts : [
+            {
+                encrypted_body: '???', //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+
+
+/*
+* handlers
+* */
+function chat_slide_btn_public_visibility_handler()
+{
+    if(app.messages.length > 0){
+        app.btn_public.classList.remove('hide')
+    } else {
+        app.btn_public.classList.add('hide')
+    }
+}
 function chat_btn_send_handler()
 {
     if(app.chat.input_text.value !== ''){
-        chat_message_text_add(app.chat.input_text.value);
+        message_text_add(app.chat.input_text.value);
         app.chat.input_text.value = '';
     }
 }
-
 function chat_message_clear()
 {
     app.messages = [];
     app.chat.message_content.innerHTML = '';
-
 }
-
-function chat_message_visibility(type)
+function chat_visibility(type) // true/false
 {
     if(type){
         app.btn_public.classList.remove('hide');
@@ -303,6 +347,60 @@ function chat_message_visibility(type)
         app.chat.message_content.style.display = 'none';
         app.chat.input_block.style.display = 'none';
     }
+}
+function item_delete_handler(element_id)
+{
+    let this_item_id = 'message_' + element_id,
+        $this_element = document.getElementById(this_item_id);
+
+    if(indexOfIdGet(app.messages, element_id) !== false){
+        if($this_element.classList.contains('img-block')){
+            console.log( );
+            if(!$this_element.nextElementSibling && !$this_element.previousElementSibling){
+                $this_element.parentElement.remove();
+                app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+            } else {
+                $this_element.remove();
+                app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+            }
+        } else {
+            $this_element.remove();
+            app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+        }
+    }
+}
+// scroll content block (not working)
+function chat_content_scroll_to_bottom() {
+    app.chat.message_content_wrap.scrollTop = app.chat.message_content_wrap.scrollHeight
+}
+
+
+/*
+* function to build
+* */
+function message_text_add(text)
+{
+    let element_id = randomInteger(10000, 60000);
+
+    chat_message_text_add(text, element_id);
+    app_messages_object_text_append(text, element_id);
+    chat_slide_btn_public_visibility_handler();
+    chat_content_scroll_to_bottom();
+}
+function message_images_add(image_objects)
+{
+    chat_message_album_add(image_objects);
+    chat_slide_btn_public_visibility_handler();
+    chat_content_scroll_to_bottom();
+}
+function message_file_add(file_name, file_format, file_size){
+    let element_id = randomInteger(10000, 60000);
+
+    chat_message_file_add(file_name, file_format, file_size, element_id);
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
+    app_messages_object_file_append(file_name, file_format, file_size, element_id);
+    chat_content_scroll_to_bottom();
 }
 
 
@@ -320,3 +418,15 @@ function chat_message_visibility(type)
 //     {src:"desktop-img/msg-img-4.jpg", filename:"Image.jpg"},
 //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"}
 // ]);
+// message_text_add('test');
+message_text_add('test');
+message_images_add([
+    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
+]);
+message_images_add([
+    {src:"desktop-img/msg-img-1.jpg", filename:"Image1.jpg"},
+    {src:"desktop-img/msg-img-2.jpg", filename:"Image2.jpg"},
+]);
+message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
+message_file_add("Очень длинное название файла", "7zip", "11 kb");
+

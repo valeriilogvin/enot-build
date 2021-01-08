@@ -82,7 +82,7 @@
 		Вы можете отправить еще <span class="js_note_amount">5</span> записок
 	</div>
 
-	<div class="content-wrap scroll-hide">
+	<div class="content-wrap scroll-hide js_chat_message_content_wrap">
 		<div class="content js_chat_message_content">
 
 		</div>

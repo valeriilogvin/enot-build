@@ -21,6 +21,7 @@ let app = {
         input_block: document.querySelector('.js_chat_input_block'),
         input_text: document.querySelector('.js_input_text'),
         message_content : document.querySelector('.js_chat_message_content'),
+        message_content_wrap : document.querySelector('.js_chat_message_content_wrap'),
         btn_send: document.querySelector('.js_chat_btn_send')
     },
 
@@ -41,12 +42,20 @@ let app = {
 /*
 * main functions
 * */
+const indexOfIdGet = (array, id) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === id) {
+            return i;
+        }
+    }
+    return false;
+};
+
 function appScheme(color)
 {
     if( color === 'light') app.wrapper.classList.add('light')
     else app.wrapper.classList.remove('light')
 }
-
 // возвращает cookie если есть или undefined
 function getCookie(name)
 {
@@ -181,24 +190,15 @@ function share_slide_visibility(type)
     }
 }
 
-function chat_slide_btn_public_visibility_handler()
-{
-    if(app.messages.length > 0){
-        app.btn_public.classList.remove('hide')
-    } else {
-        app.btn_public.classList.add('hide')
-    }
-}
-
 function btn_public_handler()
 {
-    chat_message_visibility(false);
+    chat_visibility(false);
     share_slide_visibility(true);
 }
 
 function share_slide_btn_create_handler()
 {
-    chat_message_visibility(true);
+    chat_visibility(true);
     share_slide_visibility(false);
     chat_message_clear();
     chat_slide_btn_public_visibility_handler();
