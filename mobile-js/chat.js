@@ -419,14 +419,18 @@ function message_file_add(file_name, file_format, file_size){
 //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"}
 // ]);
 // message_text_add('test');
-message_text_add('test');
-message_images_add([
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
-]);
-message_images_add([
-    {src:"desktop-img/msg-img-1.jpg", filename:"Image1.jpg"},
-    {src:"desktop-img/msg-img-2.jpg", filename:"Image2.jpg"},
-]);
-message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-message_file_add("Очень длинное название файла", "7zip", "11 kb");
+
+
+function main(){
+    message_text_add('test');
+    message_images_add([
+        {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
+    ]);
+    message_images_add([
+        {src:"desktop-img/msg-img-1.jpg", filename:"Image1.jpg"},
+        {src:"desktop-img/msg-img-2.jpg", filename:"Image2.jpg"},
+    ]);
+    message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
+    message_file_add("Очень длинное название файла", "7zip", "11 kb");    
+}
 

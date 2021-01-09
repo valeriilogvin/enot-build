@@ -74,6 +74,10 @@
 		-o-transition: none!important;
 		transition: none!important;
 	}
+
+    .preloader .title, .preloader .logo{
+        visibility: hidden;
+    }
 </style>
 
 <div id="page-preloader" class="preloader">
@@ -85,6 +89,7 @@
 </div>
 
 <script type="text/javascript">
+
     let i = 0,
         circleWidth = 200,
         strokeWidth = 10,
@@ -201,7 +206,7 @@
         if (value > 100) return 360;
         else return 360 * value / 100;
     }
-
+/*
     document.body.onload = function() {
         setTimeout(function(){
             var preloader = document.getElementById('page-preloader');
@@ -212,6 +217,7 @@
         }, 3000);
     };
 
+
     setInterval(()=>{
         i++;
         if(i < 101){
@@ -219,5 +225,125 @@
         }
     }, logoLoadingSpeed);
 
+*/
+
+// возвращает cookie если есть или undefined
+function getCookie(name)
+{
+
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined
+}
+
+function prefetch_set(urls)
+{
+    var prefetch_file_current = 0;
+    var preloader_endvalue = 0;
+    var urls_len = urls.length;
+    var part_size = Math.floor(100 / urls_len);
+
+    const cacheName = 'enot-cache'
+
+    for (let i=0; i<urls_len; i++)
+    {
+        fetch(urls[i], {cache:"force-cache"})
+        .then(res => {
+            return caches.open(cacheName)
+                .then(cache => {
+                    return cache.put(urls[i], res)
+                })
+        })
+        .then(()=>{
+
+            if (/css$/i.test(urls[i])) 
+            {
+                // apply stylesheet
+                let link = document.createElement( "link" );
+                link.href = urls[i];
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.media = "screen,print";
+
+                document.head.appendChild( link );
+            }
+
+            if (/\.woff/i.test(urls[i])) 
+            {
+                // apply stylesheet
+                let link = document.createElement( "link" );
+                link.href = urls[i];
+                link.as = "font";
+                link.rel = "preload";
+
+                document.head.appendChild( link );
+            }
+
+            if (/\.js$/i.test(urls[i]))
+            {
+                let script = document.createElement('script');
+                script.src = urls[i];
+                document.head.appendChild(script); 
+            }
+
+            preloader_endvalue = preloader_endvalue + Math.ceil(100 / urls_len);
+            prefetch_file_current++;
+        });        
+    }
+
+    var i = 0;
+    var preloader_interval = setInterval(()=>{
+
+        //console.log(i);
+
+        if(i < preloader_endvalue){
+            i++;
+            document.querySelector('.logo__path').setAttribute('d', describeArc(100, 100, 95, i));
+        }
+
+        if (i>98) {
+
+            clearInterval(preloader_interval);
+            let preloader = document.getElementById('page-preloader');
+            if(!preloader.classList.contains('done'))
+            {
+                preloader.classList.add('done');
+            }
+
+            if (window.main) main();
+            return;
+
+        }
+
+
+    }, logoLoadingSpeed);
+
+
+}
+
+(()=>{
+
+    let app_wrapper = document.querySelector('.js_wrapper');
+    let color = getCookie("scheme");
+    if( color === 'light') app_wrapper.classList.add('light')
+    else app_wrapper.classList.remove('light')
+
+    document.querySelector(".preloader .title").style.visibility = "visible";
+    document.querySelector(".preloader .logo").style.visibility = "visible";
+
+//*
+    prefetch_set([
+        "mobile-css/main.css", 
+        "fonts/SourceSansPro-SemiBold.woff", 
+        "fonts/SourceSansPro-Bold.woff", 
+        "fonts/SourceSansPro-Regular.woff", 
+        "fonts/SourceSansPro-Italic.woff"
+    ]);
+//*/
+
+})();
+
 </script>
 <!-- /preloader -->
+

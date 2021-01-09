@@ -22,7 +22,9 @@ let app = {
         input_text: document.querySelector('.js_input_text'),
         message_content : document.querySelector('.js_chat_message_content'),
         message_content_wrap : document.querySelector('.js_chat_message_content_wrap'),
-        btn_send: document.querySelector('.js_chat_btn_send')
+        btn_send: document.querySelector('.js_chat_btn_send'),
+        file_input_button: document.getElementById('js_file_input_button'),
+        file_input: document.getElementById('js_file_input')
     },
 
     share: {
@@ -51,19 +53,17 @@ const indexOfIdGet = (array, id) => {
     return false;
 };
 
+
+function getExtension(fname)
+{
+    if (!fname) return "";
+    return fname.slice((fname.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+
 function appScheme(color)
 {
     if( color === 'light') app.wrapper.classList.add('light')
     else app.wrapper.classList.remove('light')
-}
-// возвращает cookie если есть или undefined
-function getCookie(name)
-{
-
-    var matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined
 }
 
 // уcтанавливает cookie
@@ -171,7 +171,46 @@ document.addEventListener("DOMContentLoaded", () =>
             app.wrapper.classList.add('light');
             setCookie('scheme', 'light');
         }
-    })
+    });
+
+    app.chat.file_input_button.addEventListener("click", (e) => {
+      app.chat.file_input.click();
+      e.preventDefault(); // prevent navigation to "#"
+    }, false);
+
+    app.chat.file_input.addEventListener("change", (e) => {
+      var fileList = e.target.files;
+
+      for (let i = 0, numFiles = fileList.length; i < numFiles; i++) {
+        const file = fileList[i];
+        const extension = getExtension(file.name);  
+
+        if (/\.(bmp|png|jpe?g|gif)$/i.test(file.name) )
+        {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                  message_images_add([
+                    {src:e.target.result, filename:file.name}
+                  ]);  
+                };
+                reader.readAsDataURL(file);
+        }
+        else
+        {
+            message_file_add(file.name, extension, bytesToSize(file.size));
+        }
+
+      }
+
+
+
+      app.chat.file_input.value = "";
+
+    }, false);
+
+    //onchange="chat_input_handle(this.files)"
+
+
 });
 
 function note_amount_set(amount)
