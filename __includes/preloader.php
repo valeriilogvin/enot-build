@@ -80,11 +80,28 @@
     /*}*/
 </style>
 
+<script>
+    // возвращает cookie если есть или undefined
+    function getCookie(name)
+    {
+
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined
+    }
+
+    let app_wrapper = document.querySelector('.js_wrapper');
+    let color = getCookie("scheme");
+    if( color === 'light') app_wrapper.classList.add('light');
+    else app_wrapper.classList.remove('light');
+</script>
+
 <div id="page-preloader" class="preloader">
 	<div class="logo"></div>
 	<div class="title">
 		<p>Вы можете отправить еще</p>
-		<p><span class="js_note_amount">5</span>записок</p>
+		<p><span class="js_note_amount"></span>записок</p>
 	</div>
 </div>
 
@@ -227,15 +244,7 @@
 
 */
 
-// возвращает cookie если есть или undefined
-function getCookie(name)
-{
 
-    var matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined
-}
 
 function prefetch_set(urls)
 {
@@ -323,12 +332,6 @@ function prefetch_set(urls)
 }
 
 (()=>{
-
-    let app_wrapper = document.querySelector('.js_wrapper');
-    let color = getCookie("scheme");
-    if( color === 'light') app_wrapper.classList.add('light');
-    else app_wrapper.classList.remove('light');
-
     // document.querySelector(".preloader .title").style.visibility = "visible";
     // document.querySelector(".preloader .logo").style.visibility = "visible";
 

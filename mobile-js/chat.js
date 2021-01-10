@@ -372,6 +372,8 @@ function item_delete_handler(element_id)
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
     }
+    chat_slide_btn_public_visibility_handler();
+
 }
 // scroll content block (not working)
 function chat_content_scroll_to_bottom() {

@@ -2,26 +2,26 @@
 * variables
 */
 let app = {
-    wrapper : document.querySelector('.js_wrapper'),
-    theme_switcher : document.querySelector('.js_theme_switcher'),
+    wrapper: document.querySelector('.js_wrapper'),
+    theme_switcher: document.querySelector('.js_theme_switcher'),
     btn_public: document.querySelector('.js_mob_btn_public'),
 
     note_amount: document.querySelectorAll('.js_note_amount'),
 
-    burger : {
-        left : document.querySelector('.js_burger_left'),
-        right : document.querySelector('.js_burger_right'),
+    burger: {
+        left: document.querySelector('.js_burger_left'),
+        right: document.querySelector('.js_burger_right'),
         left_btn_open: document.querySelector('.js_burger_left_btn_open'),
         left_btn_close: document.querySelector('.js_burger_left_btn_close'),
-        right_btn : document.querySelector('.js_burger_btn_right'),
-        overlay : document.querySelector('.js_burger_overlay'),
+        right_btn: document.querySelector('.js_burger_btn_right'),
+        overlay: document.querySelector('.js_burger_overlay'),
     },
 
-    chat : {
+    chat: {
         input_block: document.querySelector('.js_chat_input_block'),
         input_text: document.querySelector('.js_input_text'),
-        message_content : document.querySelector('.js_chat_message_content'),
-        message_content_wrap : document.querySelector('.js_chat_message_content_wrap'),
+        message_content: document.querySelector('.js_chat_message_content'),
+        message_content_wrap: document.querySelector('.js_chat_message_content_wrap'),
         btn_send: document.querySelector('.js_chat_btn_send'),
         file_input_button: document.getElementById('js_file_input_button'),
         file_input: document.getElementById('js_file_input')
@@ -54,21 +54,13 @@ const indexOfIdGet = (array, id) => {
 };
 
 
-function getExtension(fname)
-{
+function getExtension(fname) {
     if (!fname) return "";
     return fname.slice((fname.lastIndexOf(".") - 1 >>> 0) + 2);
 }
 
-function appScheme(color)
-{
-    if( color === 'light') app.wrapper.classList.add('light')
-    else app.wrapper.classList.remove('light')
-}
-
 // уcтанавливает cookie
-function setCookie(name, value, props)
-{
+function setCookie(name, value, props) {
 
     props = props || {};
 
@@ -78,25 +70,29 @@ function setCookie(name, value, props)
 
         var d = new Date();
 
-        d.setTime(d.getTime() + exp*1000);
+        d.setTime(d.getTime() + exp * 1000);
 
         exp = props.expires = d
 
     }
 
-    if(exp && exp.toUTCString) { props.expires = exp.toUTCString() }
+    if (exp && exp.toUTCString) {
+        props.expires = exp.toUTCString()
+    }
 
     value = encodeURIComponent(value);
 
     var updatedCookie = name + "=" + value;
 
-    for(var propName in props){
+    for (var propName in props) {
 
         updatedCookie += "; " + propName;
 
         var propValue = props[propName];
 
-        if(propValue !== true){ updatedCookie += "=" + propValue }
+        if (propValue !== true) {
+            updatedCookie += "=" + propValue
+        }
     }
 
     document.cookie = updatedCookie
@@ -104,9 +100,8 @@ function setCookie(name, value, props)
 }
 
 // удаляет cookie
-function deleteCookie(name)
-{
-    setCookie(name, null, { expires: -1 })
+function deleteCookie(name) {
+    setCookie(name, null, {expires: -1})
 
 }
 
@@ -133,9 +128,7 @@ secure
 Пересылать cookie только по защищенному соединению.
 */
 
-document.addEventListener("DOMContentLoaded", () =>
-{
-    appScheme(app.settings.scheme);
+document.addEventListener("DOMContentLoaded", () => {
 
     app.chat.input_text.addEventListener('focus', () => {
         app.chat.input_text.parentElement.style.height = '250px';
@@ -164,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () =>
     });
 
     app.theme_switcher.addEventListener('click', () => {
-        if(app.wrapper.classList.contains('light')){
+        if (app.wrapper.classList.contains('light')) {
             app.wrapper.classList.remove('light');
             setCookie('scheme', 'dark');
         } else {
@@ -174,37 +167,36 @@ document.addEventListener("DOMContentLoaded", () =>
     });
 
     app.chat.file_input_button.addEventListener("click", (e) => {
-      app.chat.file_input.click();
-      e.preventDefault(); // prevent navigation to "#"
+        app.chat.file_input.click();
+        e.preventDefault(); // prevent navigation to "#"
     }, false);
 
     app.chat.file_input.addEventListener("change", (e) => {
-      var fileList = e.target.files;
+        var fileList = e.target.files;
 
-      for (let i = 0, numFiles = fileList.length; i < numFiles; i++) {
-        const file = fileList[i];
-        const extension = getExtension(file.name);  
 
-        if (/\.(bmp|png|jpe?g|gif)$/i.test(file.name) )
-        {
+        for (let i = 0, numFiles = fileList.length; i < numFiles; i++) {
+            console.log(numFiles);
+
+            const file = fileList[i];
+            const extension = getExtension(file.name);
+
+            if (/\.(bmp|png|jpe?g|gif)$/i.test(file.name)) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                  message_images_add([
-                    {src:e.target.result, filename:file.name}
-                  ]);  
+                    message_images_add([
+                        {src: e.target.result, filename: file.name}
+                    ]);
                 };
                 reader.readAsDataURL(file);
+            } else {
+                message_file_add(file.name, extension, bytesToSize(file.size));
+            }
+
         }
-        else
-        {
-            message_file_add(file.name, extension, bytesToSize(file.size));
-        }
-
-      }
 
 
-
-      app.chat.file_input.value = "";
+        app.chat.file_input.value = "";
 
     }, false);
 
@@ -213,14 +205,12 @@ document.addEventListener("DOMContentLoaded", () =>
 
 });
 
-function note_amount_set(amount)
-{
+function note_amount_set(amount) {
     for (let el of app.note_amount) el.innerText = amount
 }
 
-function share_slide_visibility(type)
-{
-    if(type){
+function share_slide_visibility(type) {
+    if (type) {
         app.share.wrap.style.display = 'flex';
         app.share.footer.style.display = 'block';
     } else {
@@ -229,14 +219,12 @@ function share_slide_visibility(type)
     }
 }
 
-function btn_public_handler()
-{
+function btn_public_handler() {
     chat_visibility(false);
     share_slide_visibility(true);
 }
 
-function share_slide_btn_create_handler()
-{
+function share_slide_btn_create_handler() {
     chat_visibility(true);
     share_slide_visibility(false);
     chat_message_clear();
@@ -244,11 +232,12 @@ function share_slide_btn_create_handler()
 }
 
 // function to fix mobile-browser height
-(function init100vh(){
+(function init100vh() {
     function setHeight() {
         var vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
+
     setHeight();
     window.addEventListener('resize', setHeight);
 })();
