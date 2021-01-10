@@ -1060,7 +1060,7 @@ a.create-new {
     .input-block a svg {
       fill: #5D6066; }
   .input-block textarea {
-    text-align: right;
+    text-align: left;
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
@@ -1079,7 +1079,7 @@ a.create-new {
     font-size: 14px;
     line-height: 18px;
     color: #5D6066;
-    font-style: italic; }
+  }
 
 .create-new-block {
   background: #1E2125;
