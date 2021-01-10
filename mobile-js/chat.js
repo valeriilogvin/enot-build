@@ -22,6 +22,17 @@ function randomInteger(min, max)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
+function randomColor(num)
+{
+    switch (num) {
+        case 0:  return '#373a3f';
+        case 1:  return '#5d6566';
+        case 2:  return '#d1d1d1';
+        case 3:  return '#f4f4f4';
+        case 4:  return '#969696';
+        default: return '#f8f8f8'
+    }
+}
 function is_archive_file(file_format)
 {
     return /^(rar|zip|7z|7zip|tar|tz|gz|ace|arj)$/i.test(file_format);
@@ -168,7 +179,8 @@ function chat_message_image_item_html_get(element_id, src, filename)
             <div>
                 <div  id="lg_${element_id}">
                     <a href="${src}" class="image">
-                        <img src="${src}" alt="">
+                        <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
+                        <img class="main" src="${src}" alt="">
                     </a>
                 </div>
                 <p class="name">${filename}</p>
