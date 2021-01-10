@@ -51,7 +51,9 @@ function action_item_see_svg_get()
 </svg>
 `;
 }
-
+function initializeLightGallery(id) {
+    lightGallery(document.getElementById('lg_' + id));
+}
 
 /*
 * indicators
@@ -164,8 +166,10 @@ function chat_message_image_item_html_get(element_id, src, filename)
     return `
         <div class="img-block" id="message_${element_id}">
             <div>
-                <div class="image">
-                    <img src="${src}" alt="">
+                <div  id="lg_${element_id}">
+                    <a href="${src}" class="image">
+                        <img src="${src}" alt="">
+                    </a>
                 </div>
                 <p class="name">${filename}</p>
             </div>
@@ -214,7 +218,6 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
         </div>`;
 }
 
-
 /*
 * functions to append
 * */
@@ -246,6 +249,7 @@ function chat_message_album_add(image_objects)
         imageItem.insertAdjacentHTML('beforeend', `
             ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
         `);
+        initializeLightGallery(element_id);
         chat_message_indicator_stop(element_id, 'indicator_loading');
         chat_message_indicator_stop(element_id, 'indicator_encrypt');
         app_messages_object_image_append(image_objects[i], element_id)

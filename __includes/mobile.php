@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 	<link rel="preconnect" />
 
+    <link rel="stylesheet" href="css/lightgallery.css">
 </head>
 <body >
 
@@ -151,6 +152,11 @@
 
 <script type="text/javascript" src="mobile-js/main.js"></script>
 <script type="text/javascript" src="mobile-js/chat.js"></script>
+
+<script type="text/javascript" src="scripts/lightgallery.js"></script>
+<script type="text/javascript" src="scripts/lg-zoom.js"></script>
+
+
 
 </body>
 </html>

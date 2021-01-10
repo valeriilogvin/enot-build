@@ -75,9 +75,9 @@
 		transition: none!important;
 	}
 
-    .preloader .title, .preloader .logo{
-        visibility: hidden;
-    }
+    /*.preloader .title, .preloader .logo{*/
+        /*visibility: hidden;*/
+    /*}*/
 </style>
 
 <div id="page-preloader" class="preloader">
@@ -326,11 +326,11 @@ function prefetch_set(urls)
 
     let app_wrapper = document.querySelector('.js_wrapper');
     let color = getCookie("scheme");
-    if( color === 'light') app_wrapper.classList.add('light')
-    else app_wrapper.classList.remove('light')
+    if( color === 'light') app_wrapper.classList.add('light');
+    else app_wrapper.classList.remove('light');
 
-    document.querySelector(".preloader .title").style.visibility = "visible";
-    document.querySelector(".preloader .logo").style.visibility = "visible";
+    // document.querySelector(".preloader .title").style.visibility = "visible";
+    // document.querySelector(".preloader .logo").style.visibility = "visible";
 
 //*
     prefetch_set([
