@@ -94,7 +94,7 @@
     let app_wrapper = document.querySelector('.js_wrapper');
     let color = getCookie("scheme");
     if( color === 'light') app_wrapper.classList.add('light');
-    else app_wrapper.classList.remove('light');
+    //else app_wrapper.classList.remove('light');
 </script>
 
 <div id="page-preloader" class="preloader">
@@ -274,6 +274,7 @@ function prefetch_set(urls)
                 link.type = "text/css";
                 link.rel = "stylesheet";
                 link.media = "screen,print";
+                link.setAttribute("crossorigin","anonymous");
 
                 document.head.appendChild( link );
             }
@@ -285,6 +286,7 @@ function prefetch_set(urls)
                 link.href = urls[i];
                 link.as = "font";
                 link.rel = "preload";
+                link.setAttribute("crossorigin","anonymous");
 
                 document.head.appendChild( link );
             }
