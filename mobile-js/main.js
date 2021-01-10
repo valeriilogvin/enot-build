@@ -60,6 +60,18 @@ function getExtension(fname) {
     return fname.slice((fname.lastIndexOf(".") - 1 >>> 0) + 2);
 }
 
+function readAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onerror = reject;
+        fr.onload = function() {
+            resolve({src: fr.result, filename: file.name});
+        }
+        fr.readAsDataURL(file);
+    });
+}
+
+
 // уcтанавливает cookie
 function setCookie(name, value, props) {
 
@@ -172,37 +184,29 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault(); // prevent navigation to "#"
     }, false);
 
-    app.chat.file_input.addEventListener("change", (e) => {
-        var fileList = e.target.files;
+    app.chat.file_input.addEventListener("change", async (e) => {
+        var fileList = Array.from(e.target.files);
 
+        // readAsDataURL(file)
+        var messages = [];
+        var arr_last_type = "";
+        var arr = [];
+        var arr_last_index = -1;
 
-        for (let i = 0, numFiles = fileList.length; i < numFiles; i++) {
-            console.log(numFiles);
+        var fileCollection_images = fileList.filter(file=>/\.(bmp|png|jpe?g|gif)$/i.test(file.name));
+        var fileCollection_files = fileList.filter(file=>!/\.(bmp|png|jpe?g|gif)$/i.test(file.name));
 
-            const file = fileList[i];
-            const extension = getExtension(file.name);
+        fileCollection_files.map(file=>{
+            let extension = getExtension(file.name);
+            message_file_add(file.name, extension, bytesToSize(file.size));            
+        });
 
-            if (/\.(bmp|png|jpe?g|gif)$/i.test(file.name)) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    message_images_add([
-                        {src: e.target.result, filename: file.name}
-                    ]);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                message_file_add(file.name, extension, bytesToSize(file.size));
-            }
-
-        }
-
+        var images = await Promise.all(fileCollection_images.map(file=>readAsDataURL(file)));
+        message_images_add(images);
 
         app.chat.file_input.value = "";
 
     }, false);
-
-    //onchange="chat_input_handle(this.files)"
-
 
 });
 

@@ -407,6 +407,7 @@ function message_text_add(text)
 }
 function message_images_add(image_objects)
 {
+    if (image_objects.length==0) return false;
     chat_message_album_add(image_objects);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
