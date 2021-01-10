@@ -10,9 +10,51 @@
 </head>
 <body >
 
-<div class="wrapper js_wrapper ">
+<div class="wrapper js_wrapper" data-slide="0">
 
 	<?php include("preloader.php"); ?>
+
+    <style>
+        .wrapper[data-slide='0'] .share-wrap,
+        .wrapper[data-slide='0'] .watch-wrap,
+        .wrapper[data-slide='0'] .open-buttons,
+        .wrapper[data-slide='0'] .share-create-new{
+            display: none;
+        }
+
+        .wrapper[data-slide='1'] .watch-wrap,
+        .wrapper[data-slide='1'] .open-buttons,
+        .wrapper[data-slide='1'] .content-wrap{
+            display: none;
+        }
+        .wrapper[data-slide='1'] a.public{
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .wrapper[data-slide='2'] .share-wrap,
+        .wrapper[data-slide='2'] .open-buttons,
+        .wrapper[data-slide='2'] .share-create-new,
+        .wrapper[data-slide='2'] .amount-block,
+        .wrapper[data-slide='2'] .content-wrap{
+            display: none;
+        }
+        .wrapper[data-slide='2'] a.public{
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .wrapper[data-slide='3'] .share-wrap,
+        .wrapper[data-slide='3'] .watch-wrap,
+        .wrapper[data-slide='3'] .share-create-new,
+        .wrapper[data-slide='3'] .amount-block{
+            display: none;
+        }
+        .wrapper[data-slide='3'] a.public{
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
 
 	<!-- burger-menu -->
 	<div class="burger-menu-left js_burger_left">
@@ -78,28 +120,68 @@
 		</a>
 	</div>
 
+    <div class="open-buttons">
+        <a href="#" class="delete">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5729 1.12069H15.7095C17.8148 1.12069 19.5362 2.84396 19.5353 4.9483H0.400024C0.400024 2.84302 2.12142 1.12069 4.22576 1.12069H5.3624C5.66651 0.46273 6.3301 0 7.09787 0H12.8393C13.6071 0 14.2707 0.46273 14.5729 1.12069ZM4.92615 24C3.07617 24 1.56409 22.487 1.56409 20.6379V6.06898H18.3744V20.6379C18.3744 22.487 16.8633 24 15.0123 24H4.92615ZM14.4511 8.31036C13.8325 8.31036 13.3304 8.81251 13.3304 9.43105V20.6379C13.3304 21.2555 13.8325 21.7577 14.4511 21.7577C15.0696 21.7577 15.5708 21.2574 15.5708 20.6379V9.43105C15.5708 8.81251 15.0696 8.31036 14.4511 8.31036ZM9.96925 8.31036C9.34977 8.31036 8.84856 8.81251 8.84856 9.43105V20.6379C8.84856 21.2555 9.34977 21.7577 9.96925 21.7577C10.5887 21.7577 11.0899 21.2574 11.0899 20.6379V9.43105C11.0899 8.81251 10.5887 8.31036 9.96925 8.31036ZM5.48462 8.31036C4.86608 8.31036 4.36487 8.81251 4.36487 9.43105V20.6379C4.36487 21.2555 4.86608 21.7577 5.48462 21.7577C6.10409 21.7577 6.60531 21.2574 6.60531 20.6379V9.43105C6.60531 8.81251 6.10409 8.31036 5.48462 8.31036Z"/>
+            </svg>
+            стереть все
+        </a>
+        <a href="#" class="download">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3009 10.5C17.5949 10.5 17.8619 10.671 17.9834 10.9395C18.1049 11.208 18.0599 11.523 17.8649 11.7435L12.6149 17.7435C12.4724 17.9055 12.2669 18 12.0509 18C11.8349 18 11.6294 17.907 11.4869 17.7435L6.23687 11.7435C6.04337 11.5215 5.99537 11.208 6.11837 10.9395C6.23987 10.6725 6.50687 10.5 6.80087 10.5H9.80087V0.75C9.80087 0.336 10.1369 0 10.5509 0H13.5509C13.9649 0 14.3009 0.336 14.3009 0.75V10.5H17.3009ZM20.3001 21V16.5H23.3001V22.5C23.3001 23.3295 22.6296 24 21.8001 24H2.30005C1.47205 24 0.800049 23.3295 0.800049 22.5V16.5H3.80005V21H20.3001Z"/>
+            </svg>
+            скачать все
+        </a>
+    </div>
+
 	<div class="amount-block">
 		Вы можете отправить еще <span class="js_note_amount">5</span> записок
 	</div>
 
-	<div class="content-wrap scroll-hide js_chat_message_content_wrap">
+    <div class="watch-wrap">
+
+        <a onclick="watch_note_btn_handler()" class="watch-btn">
+            <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.600006C18.4539 0.600006 23.6066 6.22017 23.8208 6.45914C24.0597 6.72624 24.0597 7.13002 23.8208 7.39711C23.6065 7.63608 18.4538 13.2562 12 13.2562C5.54627 13.2562 0.393492 7.63608 0.179226 7.39711C-0.0597422 7.13002 -0.0597422 6.72624 0.179226 6.45914C0.393492 6.22017 5.54618 0.600006 12 0.600006ZM7.07815 6.92813C7.07815 9.64177 9.28638 11.85 12 11.85C14.7137 11.85 16.9219 9.64177 16.9219 6.92813C16.9219 4.21449 14.7137 2.00626 12 2.00626C9.28638 2.00626 7.07815 4.21449 7.07815 6.92813ZM13.5884 3.80954C13.0543 4.19227 12.7031 4.81454 12.7031 5.52188C12.7031 6.90572 14.0398 7.97658 15.4557 7.52072C15.1719 9.17654 13.7355 10.4438 12 10.4438C10.0616 10.4438 8.48438 8.86655 8.48438 6.92813C8.48438 4.98971 10.0616 3.41251 12 3.41251C12.5745 3.41251 13.1091 3.56415 13.5884 3.80954Z" fill="white"/>
+            </svg>
+            посмотреть ЗАПИСКУ
+        </a>
+
+        <div class="share-alert">
+            <div class="share-alert-header">
+                <div class="attention">
+                    <svg width="7" height="26" viewBox="0 0 7 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.48 0V9L5.796 16.992H0.684L0 9V0H6.48ZM3.996 18.9C4.86 18.9 5.448 19.068 5.76 19.404C6.096 19.716 6.264 20.304 6.264 21.168V22.752C6.264 23.616 6.096 24.216 5.76 24.552C5.448 24.864 4.86 25.02 3.996 25.02H2.52C1.656 25.02 1.056 24.864 0.72 24.552C0.408 24.216 0.252 23.616 0.252 22.752V21.168C0.252 20.304 0.408 19.716 0.72 19.404C1.056 19.068 1.656 18.9 2.52 18.9H3.996Z"/>
+                    </svg>
+                </div>
+                <span class="text">Внимание!</span>
+            </div>
+            <span class="share-alert-text">
+                    Просмотреть записку можно только 1 раз, после чего вся информация будет удалена. После перехода по ссылке нажмите на кнопку “Посмотреть записку”.
+                </span>
+        </div>
+    </div>
+
+
+    <div class="content-wrap scroll-hide js_chat_message_content_wrap">
 		<div class="content js_chat_message_content">
 
 		</div>
 	</div>
 
-    <div style="display: none;" class="share-wrap js_share_wrap">
+    <div class="share-wrap js_share_wrap">
         <div class="share-link">
             <div class="share-link-header">
                 <p class="title">Ссылка на контент</p>
-                <a href="" class="copy">
+                <a class="copy js_copy_btn">
                     <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.6811 0H2.24015C1.00807 0 0 0.981818 0 2.18182V17.4545H2.24015V2.18182H15.6811V0ZM19.0413 4.36364H6.72046C5.48838 4.36364 4.48031 5.34545 4.48031 6.54545V21.8182C4.48031 23.0182 5.48838 24 6.72046 24H19.0413C20.2734 24 21.2815 23.0182 21.2815 21.8182V6.54545C21.2815 5.34545 20.2734 4.36364 19.0413 4.36364ZM19.0413 21.8182H6.72046V6.54545H19.0413V21.8182Z" fill="#F4F4F4"/>
                     </svg>
                 </a>
             </div>
             <div class="share-link-input">
-                <input disabled type="text" value="https://www.figma.com/proto/vXrrLqH">
+                <input class="js_share_link" disabled type="text" value="https://www.figma.com/proto/vXrrLqH">
                 <div class="gradient"></div>
             </div>
         </div>
@@ -125,7 +207,7 @@
         </div>
     </div>
 
-    <div style="display: none;" class="share-create-new js_share_footer">
+    <div class="share-create-new js_share_footer">
         <p class="title">У вас осталось: <span>4</span> записки</p>
         <a onclick="share_slide_btn_create_handler()" class="create-new">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,6 +230,7 @@
 			</svg>
 		</a>
 	</div>
+
 </div>
 
 <script type="text/javascript" src="mobile-js/main.js"></script>

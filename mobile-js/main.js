@@ -30,6 +30,8 @@ let app = {
     share: {
         wrap: document.querySelector('.js_share_wrap'),
         footer: document.querySelector('.js_share_footer'),
+        copy_btn: document.querySelector('.js_copy_btn'),
+        input_link: document.querySelector('.js_share_link'),
     },
 
     messages: [],
@@ -52,7 +54,6 @@ const indexOfIdGet = (array, id) => {
     }
     return false;
 };
-
 
 function getExtension(fname) {
     if (!fname) return "";
@@ -209,26 +210,68 @@ function note_amount_set(amount) {
     for (let el of app.note_amount) el.innerText = amount
 }
 
+function wrapper_slide_visibility(type) {
+    switch (type) {
+        case 0: {
+            app.wrapper.dataset.slide = '0';
+        }
+        break;
+        case 1: {
+            app.wrapper.dataset.slide = '1';
+        }
+        break;
+        case 2: {
+            app.wrapper.dataset.slide = '2';
+        }
+        break;
+        case 3: {
+            app.wrapper.dataset.slide = '3';
+        }
+        break;
+    }
+}
+
 function share_slide_visibility(type) {
     if (type) {
-        app.share.wrap.style.display = 'flex';
-        app.share.footer.style.display = 'block';
+        app.wrapper.dataset.slide = '1';
     } else {
         app.share.wrap.style.display = 'none';
         app.share.footer.style.display = 'none';
     }
 }
 
+function share_copy_link_handler() {
+    app.share.copy_btn.addEventListener('click', () => {
+        const inputValue = app.share.input_link.value.trim();
+        if (inputValue) {
+            navigator.clipboard.writeText(inputValue)
+                .then(() => {
+                    console.log('copy link: ' + inputValue)
+                })
+                .catch(err => {
+                    console.log('Something went wrong', err);
+                })
+        }
+    });
+}
+
 function btn_public_handler() {
-    chat_visibility(false);
-    share_slide_visibility(true);
+    // chat_visibility(false);
+    // share_slide_visibility(true);
+    wrapper_slide_visibility(1);
+    share_copy_link_handler();
 }
 
 function share_slide_btn_create_handler() {
-    chat_visibility(true);
-    share_slide_visibility(false);
+    wrapper_slide_visibility(0);
+    // chat_visibility(true);
+    // share_slide_visibility(false);
     chat_message_clear();
     chat_slide_btn_public_visibility_handler();
+}
+
+function watch_note_btn_handler() {
+    wrapper_slide_visibility(3);
 }
 
 // function to fix mobile-browser height

@@ -352,18 +352,18 @@ function chat_message_clear()
     app.messages = [];
     app.chat.message_content.innerHTML = '';
 }
-function chat_visibility(type) // true/false
-{
-    if(type){
-        app.btn_public.classList.remove('hide');
-        app.chat.message_content.style.display = 'flex';
-        app.chat.input_block.style.display = 'flex';
-    } else {
-        app.btn_public.classList.add('hide');
-        app.chat.message_content.style.display = 'none';
-        app.chat.input_block.style.display = 'none';
-    }
-}
+// function chat_visibility(type) // true/false
+// {
+//     if(type){
+//         app.btn_public.classList.remove('hide');
+//         app.chat.message_content_wrap.style.display = 'flex';
+//         app.chat.input_block.style.display = 'flex';
+//     } else {
+//         app.btn_public.classList.add('hide');
+//         app.chat.message_content_wrap.style.display = 'none';
+//         app.chat.input_block.style.display = 'none';
+//     }
+// }
 function item_delete_handler(element_id)
 {
     let this_item_id = 'message_' + element_id,
@@ -449,6 +449,6 @@ function main(){
         {src:"desktop-img/msg-img-2.jpg", filename:"Image2.jpg"},
     ]);
     message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-    message_file_add("Очень длинное название файла", "7zip", "11 kb");    
+    message_file_add("Очень длинное название файла", "7zip", "11 kb");
 }
 
