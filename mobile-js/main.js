@@ -228,6 +228,7 @@ function wrapper_slide_visibility(type) {
             app.wrapper.dataset.slide = '3';
         }
         break;
+        default: app.wrapper.dataset.slide = '0';
     }
 }
 
