@@ -175,7 +175,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div href="${src}"  class="img-block" id="message_${element_id}">
+        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
             <div>
                 <div>
                     <div class="image">
@@ -400,9 +400,9 @@ function item_delete_handler(element_id)
             if (items_length>1)
                 initializeLightGallery(parentElement.id.split("_")[1]);
 
-        
+
         } else {
-            
+
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
