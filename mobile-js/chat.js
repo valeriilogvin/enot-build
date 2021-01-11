@@ -175,7 +175,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
+        <div href="${src}"  class="img-block" id="message_${element_id}">
             <div>
                 <div>
                     <div class="image">
@@ -380,15 +380,14 @@ function item_delete_handler(element_id)
         if($this_element.classList.contains('img-block')){
             //lg-uid
             event.stopPropagation();
+
             let lg_id = $this_element.parentElement.getAttribute('lg-uid');
             let items_length = window.lgData[lg_id].items.length;
-            
+
             window.lgData[lg_id].destroy(true);
             delete window.lgData[lg_id];
 
-            if (items_length>1)
-            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
-
+            let parentElement = $this_element.parentElement;
 
             if(!$this_element.nextElementSibling && !$this_element.previousElementSibling){
                 $this_element.parentElement.remove();
@@ -397,19 +396,13 @@ function item_delete_handler(element_id)
                 $this_element.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             }
+
+            if (items_length>1)
+                initializeLightGallery(parentElement.id.split("_")[1]);
+
         
         } else {
-            event.stopPropagation();
-            console.log($this_element);
-            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
-            let items_length = window.lgData[lg_id].items.length;
-
-            window.lgData[lg_id].destroy(true);
-            delete window.lgData[lg_id];
             
-            if (items_length>1)
-            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
-
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
