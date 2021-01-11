@@ -255,8 +255,6 @@
 <script type="text/javascript" src="scripts/lg-zoom.js"></script>
 
 <script type="text/javascript" src="mobile-js/main.js"></script>
-<script type="text/javascript" src="mobile-js/chat.js"></script>
-<script type="text/javascript" src="mobile-js/open.js"></script>
 
 </body>
 </html>
