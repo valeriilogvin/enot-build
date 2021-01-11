@@ -175,13 +175,11 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div class="img-block" id="message_${element_id}">
+        <a href="${src}"  class="img-block" id="message_${element_id}">
             <div>
-                <div  id="lg_${element_id}">
-                    <a href="${src}" class="image">
-                        <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
-                        <img class="main" src="${src}" alt="">
-                    </a>
+                <div class="image">
+                    <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
+                    <img class="main" src="${src}" alt="">
                 </div>
                 <p class="name">${filename}</p>
             </div>
@@ -196,7 +194,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
-        </div>
+        </a>
 `;
 }
 function chat_message_image_container_html_get(src, filename, element_id)
@@ -251,9 +249,12 @@ function chat_message_file_add(file_name, file_format, file_size, element_id)
 }
 function chat_message_album_add(image_objects)
 {
-    let imageItem = document.createElement("div");
+    let imageItem = document.createElement("div"),
+        galleryId = randomInteger(10000, 60000);
     imageItem.setAttribute('class', 'item img');
+    imageItem.setAttribute('id', `lg_${galleryId}`);
     app.chat.message_content.appendChild(imageItem);
+
 
     for (let i=0; i<image_objects.length; i++)
     {
@@ -261,11 +262,12 @@ function chat_message_album_add(image_objects)
         imageItem.insertAdjacentHTML('beforeend', `
             ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
         `);
-        initializeLightGallery(element_id);
         chat_message_indicator_stop(element_id, 'indicator_loading');
         chat_message_indicator_stop(element_id, 'indicator_encrypt');
         app_messages_object_image_append(image_objects[i], element_id)
     }
+
+    initializeLightGallery(galleryId)
 }
 
 

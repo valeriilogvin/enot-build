@@ -73,6 +73,11 @@ table {
   font-style: italic
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 .wrapper {
   position: relative;
   overflow: hidden;

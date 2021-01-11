@@ -24,6 +24,7 @@
 
         .wrapper[data-slide='1'] .watch-wrap,
         .wrapper[data-slide='1'] .open-buttons,
+        .wrapper[data-slide='1'] .input-block,
         .wrapper[data-slide='1'] .content-wrap{
             display: none;
         }
@@ -34,6 +35,7 @@
 
         .wrapper[data-slide='2'] .share-wrap,
         .wrapper[data-slide='2'] .open-buttons,
+        .wrapper[data-slide='2'] .input-block,
         .wrapper[data-slide='2'] .share-create-new,
         .wrapper[data-slide='2'] .amount-block,
         .wrapper[data-slide='2'] .content-wrap{
@@ -46,6 +48,7 @@
 
         .wrapper[data-slide='3'] .share-wrap,
         .wrapper[data-slide='3'] .watch-wrap,
+        .wrapper[data-slide='3'] .input-block,
         .wrapper[data-slide='3'] .share-create-new,
         .wrapper[data-slide='3'] .amount-block{
             display: none;
