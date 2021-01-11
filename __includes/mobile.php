@@ -18,6 +18,8 @@
         .wrapper[data-slide='0'] .share-wrap,
         .wrapper[data-slide='0'] .watch-wrap,
         .wrapper[data-slide='0'] .open-buttons,
+        .wrapper[data-slide='0'] .open-create-new,
+        .wrapper[data-slide='0'] .action-download,
         .wrapper[data-slide='0'] .share-create-new{
             display: none!important;
         }
@@ -25,6 +27,7 @@
         .wrapper[data-slide='1'] .watch-wrap,
         .wrapper[data-slide='1'] .open-buttons,
         .wrapper[data-slide='1'] .input-block,
+        .wrapper[data-slide='1'] .open-create-new,
         .wrapper[data-slide='1'] .content-wrap{
             display: none!important;
         }
@@ -36,6 +39,7 @@
         .wrapper[data-slide='2'] .share-wrap,
         .wrapper[data-slide='2'] .open-buttons,
         .wrapper[data-slide='2'] .input-block,
+        .wrapper[data-slide='2'] .open-create-new,
         .wrapper[data-slide='2'] .share-create-new,
         .wrapper[data-slide='2'] .amount-block,
         .wrapper[data-slide='2'] .content-wrap{
@@ -49,9 +53,8 @@
         .wrapper[data-slide='3'] .share-wrap,
         .wrapper[data-slide='3'] .watch-wrap,
         .wrapper[data-slide='3'] .input-block,
-        .wrapper[data-slide='3'] .share-create-new,
         .wrapper[data-slide='3'] .amount-block,
-        .wrapper[data-slide='3'] .action-delete{
+        .wrapper[data-slide='3'] .share-create-new{
             display: none!important;
         }
         .wrapper[data-slide='3'] a.public{
@@ -214,6 +217,17 @@
     <div class="share-create-new js_share_footer">
         <p class="title">У вас осталось: <span>4</span> записки</p>
         <a onclick="share_slide_btn_create_handler()" class="create-new">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8835 2.07263L21.8762 7.90728L23.3767 6.43724C23.7798 6.04918 24.0002 5.5288 24.0002 4.97167C24.0002 4.41936 23.7798 3.8988 23.3767 3.50628L20.3991 0.607237C20.0005 0.214539 19.4659 0 18.8938 0C18.3264 0 17.7919 0.214539 17.3886 0.607237L15.8835 2.07263ZM0.212462 23.1695C0.348372 23.3019 0.531172 23.375 0.723497 23.375C0.78907 23.375 0.854827 23.3659 0.920401 23.3475L7.52264 21.5169L1.91445 16.0566L0.0294783 22.4756C-0.0454368 22.7221 0.0248992 22.9869 0.212462 23.1695ZM2.67432 14.929L8.67157 20.7681L20.9148 8.84326L14.9221 3.00861L2.67432 14.929Z" fill="white"/>
+            </svg>
+            создать ЗАПИСКУ</a>
+    </div>
+
+    <div class="create-new-block open-create-new">
+        <p class="text">
+            Владелец записки дал вам разрешение на создание новой записки по его лицензии.
+        </p>
+        <a onclick="open_create_btn_handler()" class="create-new">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8835 2.07263L21.8762 7.90728L23.3767 6.43724C23.7798 6.04918 24.0002 5.5288 24.0002 4.97167C24.0002 4.41936 23.7798 3.8988 23.3767 3.50628L20.3991 0.607237C20.0005 0.214539 19.4659 0 18.8938 0C18.3264 0 17.7919 0.214539 17.3886 0.607237L15.8835 2.07263ZM0.212462 23.1695C0.348372 23.3019 0.531172 23.375 0.723497 23.375C0.78907 23.375 0.854827 23.3659 0.920401 23.3475L7.52264 21.5169L1.91445 16.0566L0.0294783 22.4756C-0.0454368 22.7221 0.0248992 22.9869 0.212462 23.1695ZM2.67432 14.929L8.67157 20.7681L20.9148 8.84326L14.9221 3.00861L2.67432 14.929Z" fill="white"/>
             </svg>

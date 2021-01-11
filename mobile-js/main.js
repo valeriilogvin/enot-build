@@ -275,6 +275,11 @@ function share_slide_btn_create_handler() {
     chat_slide_btn_public_visibility_handler();
 }
 
+function open_create_btn_handler() {
+    wrapper_slide_visibility(0);
+    chat_message_clear();
+}
+
 function watch_note_btn_handler() {
     wrapper_slide_visibility(3);
 }

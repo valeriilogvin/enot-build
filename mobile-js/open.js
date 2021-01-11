@@ -84,6 +84,8 @@ function open_message_album_add(image_objects) {
 
 }
 
+
+
 function open_note_content_append(arr) {
     let imgarray = [];
 
@@ -102,7 +104,9 @@ function open_note_content_append(arr) {
                 imgarray = [];
             }
         } else {
-            message_file_add(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size)
+            let element_id = randomInteger(10000, 60000);
+
+            chat_message_file_add(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, element_id)
         }
     }
 }

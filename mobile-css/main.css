@@ -667,7 +667,11 @@ a {
           margin: 0 5px; }
           .content-wrap .item.img .img-block .indicators .delete{
             text-align: center;
-            margin-top: 12px;
+            margin-top: 8px;
+          }
+          .content-wrap .item.img .img-block .indicators .action-download{
+            text-align: center;
+            margin-top: 8px;
           }
     .content-wrap .item.file {
       width: 100%;
@@ -681,6 +685,11 @@ a {
               justify-content: flex-end;
       padding: 10px 15px 10px 10px; }
     .content-wrap .item.file .delete {
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;}
+    .content-wrap .item.file .action-download {
       width: 30px;
       display: flex;
       align-items: center;

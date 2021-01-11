@@ -112,6 +112,14 @@ function indicator_loader_html_get()
 </div>
 `;
 }
+function indicator_download_html_get()
+{
+    return `
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4 7.59998C11.596 7.59998 11.774 7.71398 11.855 7.89298C11.936 8.07198 11.906 8.28198 11.776 8.42898L8.27596 12.429C8.18096 12.537 8.04396 12.6 7.89996 12.6C7.75596 12.6 7.61896 12.538 7.52396 12.429L4.02396 8.42898C3.89496 8.28098 3.86296 8.07198 3.94496 7.89298C4.02596 7.71498 4.20396 7.59998 4.39996 7.59998H6.39996V1.09998C6.39996 0.823976 6.62396 0.599976 6.89996 0.599976H8.89996C9.17596 0.599976 9.39996 0.823976 9.39996 1.09998V7.59998H11.4ZM13.3999 14.6V11.6H15.3999V15.6C15.3999 16.153 14.9529 16.6 14.3999 16.6H1.3999C0.847902 16.6 0.399902 16.153 0.399902 15.6V11.6H2.3999V14.6H13.3999Z" fill="#5D6066"/>
+        </svg>
+    `;
+}
 function chat_message_indicator_stop(message_id, indicator_type)
 {
     let this_message_id = document.getElementById('message_' + message_id),
@@ -195,6 +203,9 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
+                <div class="action-download" onclick="item_download_handler(${element_id})">
+                    ${indicator_download_html_get()}
+                </div>
             </div>
         </div>
 `;
@@ -226,6 +237,9 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
                 <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
+                <div class="action-download" onclick="item_download_handler(${element_id})">
+                    ${indicator_download_html_get()}
+                </div>
             </div>
         </div>`;
 }
@@ -236,7 +250,6 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
 function chat_message_text_add(text, element_id)
 {
     app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
-
 }
 function chat_message_image_add(src, filename)
 {
@@ -248,6 +261,8 @@ function chat_message_image_add(src, filename)
 function chat_message_file_add(file_name, file_format, file_size, element_id)
 {
     app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
 }
 function chat_message_album_add(image_objects)
 {
@@ -337,7 +352,6 @@ function app_messages_object_file_append(file_name, file_format, file_size, elem
 /*
 * handlers
 * */
-
 function chat_slide_btn_public_visibility_handler()
 {
     if(app.messages.length > 0){
@@ -358,19 +372,6 @@ function chat_message_clear()
     app.messages = [];
     app.chat.message_content.innerHTML = '';
 }
-// function chat_visibility(type) // true/false
-// {
-//     if(type){
-//         app.btn_public.classList.remove('hide');
-//         app.chat.message_content_wrap.style.display = 'flex';
-//         app.chat.input_block.style.display = 'flex';
-//     } else {
-//         app.btn_public.classList.add('hide');
-//         app.chat.message_content_wrap.style.display = 'none';
-//         app.chat.input_block.style.display = 'none';
-//     }
-// }
-
 function item_delete_handler(element_id)
 {
     let this_item_id = 'message_' + element_id,
@@ -400,14 +401,24 @@ function item_delete_handler(element_id)
             if (items_length>1)
                 initializeLightGallery(parentElement.id.split("_")[1]);
 
-
         } else {
 
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
+    } else if(indexOfIdGet(testArr, element_id) !== false){
+        console.log('eсть');
     }
     chat_slide_btn_public_visibility_handler();
+
+}
+function item_download_handler(element_id) {
+    let this_item_id = 'message_' + element_id,
+        $this_element = document.getElementById(this_item_id);
+
+    //lg-uid
+    console.log(element_id);
+    event.stopPropagation();
 
 }
 // scroll content block (not working)
@@ -439,19 +450,10 @@ function message_file_add(file_name, file_format, file_size){
     let element_id = randomInteger(10000, 60000);
 
     chat_message_file_add(file_name, file_format, file_size, element_id);
-    indicator_encrypt_stop(element_id);
-    indicator_loading_stop(element_id);
+
     app_messages_object_file_append(file_name, file_format, file_size, element_id);
     chat_content_scroll_to_bottom();
 }
-
-/*
-* open-screen
-* */
-
-
-
-
 
 // TODO!
 // chat_message_text_add("Привет! Посмотри на эту фотографию");
