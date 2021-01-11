@@ -901,7 +901,64 @@ function item_download_handler(element_id)
     console.log(element_id);
     event.stopPropagation();
 
+    let element_index = indexOfIdGet(app.open_messages, element_id);
+    if (element_index === false) return false;
+    
+    let message = app.open_messages[element_index];
+    note_message_download(message);
 }
+
+function note_message_download(message)
+{
+    if (message.type=="image")
+    {
+        return note_message_image_download(message);
+    }
+
+    if (message.type=="text")
+    {
+        return note_message_text_download(message);
+    }
+
+    if (message.type=="file")
+    {
+        return note_message_file_download(message);
+    }
+
+    return false;
+}
+
+function note_message_text_download(message)
+{
+    let element_index = indexOfIdGet(app.open_messages, message.id);
+    if (element_index === false) return false;
+    
+    let message_text_type_indexes = app.open_messages.filter((m,i)=>m.type=="text").map((m,i)=>i);
+
+    var blob = new Blob([message.body], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "note_" + (message_text_type_indexes.indexOf(element_index)+1) + ".txt");
+}
+
+function note_message_image_download(message)
+{
+    saveAs(message.body.src, message.body.filename);
+}
+
+function note_message_file_download(message)
+{
+/*
+        body: {
+            file_format: "docx",
+            file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
+            file_size: "11 kb"
+        },
+
+    var blob = new Blob([message.body], {type: "text/plain;charset=utf-8"});
+
+    saveAs(message.body.src, message.body.filename);
+*/
+}
+
 
 function chat_content_scroll_to_bottom()
 {

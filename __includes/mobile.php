@@ -251,6 +251,7 @@
 
 <script type="text/javascript" src="scripts/lightgallery.js"></script>
 <script type="text/javascript" src="scripts/lg-zoom.js"></script>
+<script type="text/javascript" src="scripts/FileSaver.js"></script>
 
 <script type="text/javascript" src="mobile-js/main.js"></script>
 
