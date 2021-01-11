@@ -66,7 +66,7 @@ function readAsDataURL(file) {
         fr.onerror = reject;
         fr.onload = function() {
             resolve({src: fr.result, filename: file.name});
-        }
+        };
         fr.readAsDataURL(file);
     });
 }

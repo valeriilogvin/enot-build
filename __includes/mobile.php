@@ -19,14 +19,14 @@
         .wrapper[data-slide='0'] .watch-wrap,
         .wrapper[data-slide='0'] .open-buttons,
         .wrapper[data-slide='0'] .share-create-new{
-            display: none;
+            display: none!important;
         }
 
         .wrapper[data-slide='1'] .watch-wrap,
         .wrapper[data-slide='1'] .open-buttons,
         .wrapper[data-slide='1'] .input-block,
         .wrapper[data-slide='1'] .content-wrap{
-            display: none;
+            display: none!important;
         }
         .wrapper[data-slide='1'] a.public{
             opacity: 0;
@@ -39,7 +39,7 @@
         .wrapper[data-slide='2'] .share-create-new,
         .wrapper[data-slide='2'] .amount-block,
         .wrapper[data-slide='2'] .content-wrap{
-            display: none;
+            display: none!important;
         }
         .wrapper[data-slide='2'] a.public{
             opacity: 0;
@@ -52,7 +52,7 @@
         .wrapper[data-slide='3'] .share-create-new,
         .wrapper[data-slide='3'] .amount-block,
         .wrapper[data-slide='3'] .action-delete{
-            display: none;
+            display: none!important;
         }
         .wrapper[data-slide='3'] a.public{
             opacity: 0;
@@ -237,14 +237,12 @@
 
 </div>
 
-<script type="text/javascript" src="mobile-js/main.js"></script>
-<script type="text/javascript" src="mobile-js/chat.js"></script>
-<script type="text/javascript" src="mobile-js/open.js"></script>
-
 <script type="text/javascript" src="scripts/lightgallery.js"></script>
 <script type="text/javascript" src="scripts/lg-zoom.js"></script>
 
-
+<script type="text/javascript" src="mobile-js/main.js"></script>
+<script type="text/javascript" src="mobile-js/chat.js"></script>
+<script type="text/javascript" src="mobile-js/open.js"></script>
 
 </body>
 </html>

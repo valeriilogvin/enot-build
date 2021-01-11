@@ -192,7 +192,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
-                <div class="delete js_item_delete_btn" onclick="item_delete_handler(${element_id})">
+                <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
@@ -223,7 +223,7 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
                 <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
                 </div>
-                <div class="delete" onclick="item_delete_handler(${element_id})">
+                <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
@@ -456,40 +456,9 @@ function message_file_add(file_name, file_format, file_size){
 * open-screen
 * */
 
-let testArr = [
-    {
-        body: 'sadsdasd',
-        type: 'text'
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-1.jpg"
-        },
-        type: "file",
-    },
-    {
-        body: {
-            file_format: "docx",
-            file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
-            file_size: "11 kb"
-        },
-        type: "file",
-    },
-];
 
-function open_note_content_append(arr) {
-    for (let i = 0; i < arr.length; i++){
-        if(arr[i].type === 'text'){
-            chat_message_text_add(arr[i].body)
-        }
-        if(arr[i].type === 'file'){
-            if(arr[i].body.src){
-                chat_message_album_add(arr[i].body)
-            }
-        }
-    }
-}
+
+
 
 // TODO!
 // chat_message_text_add("Привет! Посмотри на эту фотографию");
@@ -507,7 +476,6 @@ function open_note_content_append(arr) {
 // ]);
 // message_text_add('test');
 
-open_note_content_append(testArr);
 
 function main(){
     // message_text_add('test');
