@@ -175,7 +175,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
+        <div href="${src}"  class="img-block" id="message_${element_id}">
             <div>
                 <div class="image">
                     <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
@@ -376,9 +376,10 @@ function item_delete_handler(element_id)
         if($this_element.classList.contains('img-block')){
             //lg-uid
             event.stopPropagation();
+
             let lg_id = $this_element.parentElement.getAttribute('lg-uid');
             let items_length = window.lgData[lg_id].items.length;
-            
+
             window.lgData[lg_id].destroy(true);
             delete window.lgData[lg_id];
 
@@ -395,17 +396,7 @@ function item_delete_handler(element_id)
             }
         
         } else {
-            event.stopPropagation();
-            console.log($this_element);
-            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
-            let items_length = window.lgData[lg_id].items.length;
-
-            window.lgData[lg_id].destroy(true);
-            delete window.lgData[lg_id];
             
-            if (items_length>1)
-            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
-
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
