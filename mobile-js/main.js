@@ -36,77 +36,85 @@ let app = {
 
     messages: [],
 
+    open_messages: [
+        {
+            body: 'sadsdasd',
+            type: 'text',
+            id: 19843
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg"
+            },
+            type: "image",
+            id: 48693
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg"
+            },
+            type: "image",
+            id: 50784
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg"
+            },
+            type: "image",
+            id: 13497
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg"
+            },
+            type: "image",
+            id: 59355
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-2.jpg"
+            },
+            type: "image",
+            id: 29546
+        },
+        {
+            body: {
+                file_format: "docx",
+                file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
+                file_size: "11 kb"
+            },
+            type: "file",
+            id: 12394
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg"
+            },
+            type: "image",
+            id: 43965
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg"
+            },
+            type: "image",
+            id: 34056
+        },
+    ],
+
     settings: {
         scheme: getCookie('scheme')
     },
 
     indicator_stop_timeout: 5000
 };
-
-let testArr = [
-    {
-        body: 'sadsdasd',
-        type: 'text'
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-1.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-3.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-1.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-3.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-2.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            file_format: "docx",
-            file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
-            file_size: "11 kb"
-        },
-        type: "file",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-1.jpg"
-        },
-        type: "image",
-    },
-    {
-        body: {
-            filename: "Image1.jpg",
-            src: "desktop-img/msg-img-3.jpg"
-        },
-        type: "image",
-    },
-
-];
 
 // function to fix mobile-browser height
 (function init100vh() {
@@ -125,7 +133,15 @@ let testArr = [
 * */
 function note_amount_set(amount)
 {
-    for (let el of app.note_amount) el.innerText = amount
+    for (let el of app.note_amount) el.innerHTML = note_amount_get(amount)
+}
+
+function note_amount_get(amount)
+{
+    if(amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;записку`;
+    if(amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записку`;
+    if(amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записки`;
+    if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записок`;
 }
 
 function wrapper_slide_visibility(type)
@@ -348,21 +364,6 @@ function indicator_download_html_get()
             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4 7.59998C11.596 7.59998 11.774 7.71398 11.855 7.89298C11.936 8.07198 11.906 8.28198 11.776 8.42898L8.27596 12.429C8.18096 12.537 8.04396 12.6 7.89996 12.6C7.75596 12.6 7.61896 12.538 7.52396 12.429L4.02396 8.42898C3.89496 8.28098 3.86296 8.07198 3.94496 7.89298C4.02596 7.71498 4.20396 7.59998 4.39996 7.59998H6.39996V1.09998C6.39996 0.823976 6.62396 0.599976 6.89996 0.599976H8.89996C9.17596 0.599976 9.39996 0.823976 9.39996 1.09998V7.59998H11.4ZM13.3999 14.6V11.6H15.3999V15.6C15.3999 16.153 14.9529 16.6 14.3999 16.6H1.3999C0.847902 16.6 0.399902 16.153 0.399902 15.6V11.6H2.3999V14.6H13.3999Z" fill="#5D6066"/>
         </svg>
     `;
-}
-
-function action_item_see_svg_get()
-{
-    return `
-<svg width="20" height="12" viewBox="0 0 20 12" fill="none"
-    xmlns="http://www.w3.org/2000/svg">
-    <path
-        d="M19.8507 5.68266C19.6722 5.48352 15.3782 0.800049 10 0.800049C4.62181 0.800049 0.32791 5.48352 0.149355 5.68266C-0.0497851 5.90524 -0.0497851 6.24173 0.149355 6.4643C0.32791 6.66344 4.62189 11.3469 10 11.3469C15.3781 11.3469 19.6721 6.66344 19.8507 6.4643C20.0498 6.24173 20.0498 5.90524 19.8507 5.68266ZM10 10.175C7.73865 10.175 5.89845 8.33485 5.89845 6.07348C5.89845 3.81212 7.73865 1.97192 10 1.97192C12.2614 1.97192 14.1016 3.81212 14.1016 6.07348C14.1016 8.33485 12.2614 10.175 10 10.175Z"
-        fill="#5D6066" />
-    <path
-        d="M10.5859 4.90161C10.5859 4.31216 10.8786 3.7936 11.3237 3.47466C10.9243 3.27017 10.4787 3.1438 10 3.1438C8.38465 3.1438 7.07031 4.45813 7.07031 6.07348C7.07031 7.68883 8.38465 9.00317 10 9.00317C11.4462 9.00317 12.6433 7.94715 12.8798 6.56731C11.6998 6.94719 10.5859 6.05481 10.5859 4.90161Z"
-        fill="#5D6066" />
-</svg>
-`;
 }
 
 function chat_message_indicator_stop(message_id, indicator_type)
@@ -642,14 +643,14 @@ function note_open_message_album_add(image_objects)
     imageItem.setAttribute('id', `lg_${galleryId}`);
     app.chat.message_content.appendChild(imageItem);
 
+    // console.log(image_objects);
 
     for (let i = 0; i < image_objects.length; i++) {
-        let element_id = randomInteger(10000, 60000);
         imageItem.insertAdjacentHTML('beforeend', `
-            ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
+            ${chat_message_image_item_html_get(image_objects[i].id, image_objects[i].body.src, image_objects[i].body.filename)}
         `);
-        chat_message_indicator_stop(element_id, 'indicator_loading');
-        chat_message_indicator_stop(element_id, 'indicator_encrypt');
+        chat_message_indicator_stop(image_objects[i].id, 'indicator_loading');
+        chat_message_indicator_stop(image_objects[i].id, 'indicator_encrypt');
     }
 
     initializeLightGallery(galleryId);
@@ -664,9 +665,9 @@ function note_open_messages_append(arr)
         let nextIndex = arr[i + 1];
 
         if (arr[i].type === 'text') {
-            chat_message_text_add(arr[i].body)
+            chat_message_text_add(arr[i].body, arr[i].id)
         } else if (arr[i].type === 'image') {
-            imgarray.push(arr[i].body);
+            imgarray.push(arr[i]);
 
             if (nextIndex && nextIndex.type === 'image') {
                 continue
@@ -675,9 +676,7 @@ function note_open_messages_append(arr)
                 imgarray = [];
             }
         } else {
-            let element_id = randomInteger(10000, 60000);
-
-            chat_message_file_add(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, element_id)
+            chat_message_file_add(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, arr[i].id)
         }
     }
 }
@@ -789,7 +788,7 @@ function share_slide_btn_create_handler()
     chat_slide_btn_public_visibility_handler();
 }
 
-function open_create_btn_handler()
+function note_open_create_btn_handler()
 {
     wrapper_slide_visibility(0);
     chat_message_clear();
@@ -860,7 +859,34 @@ function item_delete_handler(element_id)
     } else {
         event.stopPropagation();
 
-        console.log(element_id);
+        if($this_element.classList.contains('img-block')){
+            //lg-uid
+            event.stopPropagation();
+
+            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
+            let items_length = window.lgData[lg_id].items.length;
+
+            window.lgData[lg_id].destroy(true);
+            delete window.lgData[lg_id];
+
+            let parentElement = $this_element.parentElement;
+
+            if(!$this_element.nextElementSibling && !$this_element.previousElementSibling){
+                $this_element.parentElement.remove();
+                app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+            } else {
+                $this_element.remove();
+                app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+            }
+
+            if (items_length>1)
+                initializeLightGallery(parentElement.id.split("_")[1]);
+
+        } else {
+
+            $this_element.remove();
+            app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+        }
     }
     chat_slide_btn_public_visibility_handler();
 
@@ -913,4 +939,6 @@ function main(){
     // message_file_add("Очень длинное название файла", "7zip", "11 kb");
 }
 
-note_open_messages_append(testArr);
+note_open_messages_append(app.open_messages);
+
+note_amount_set(1);

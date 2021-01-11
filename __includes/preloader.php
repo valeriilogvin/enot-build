@@ -58,7 +58,8 @@
 	}
 	.preloader .title p {
 		margin: 0;
-	}
+        width: 225px;
+    }
 	.preloader .title span {
 		font-size: 30px;
 		line-height: 38px;
@@ -100,8 +101,7 @@
 <div id="page-preloader" class="preloader">
 	<div class="logo"></div>
 	<div class="title">
-		<p>Вы можете отправить еще</p>
-		<p><span class="js_note_amount"></span>записок</p>
+		<p class="js_note_amount"></p>
 	</div>
 </div>
 
