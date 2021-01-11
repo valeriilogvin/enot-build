@@ -1020,6 +1020,7 @@ a.create-new {
           box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
   margin-bottom: 5px; }
   .open-buttons a {
+    -webkit-tap-highlight-color: transparent;
     font-size: 14px;
     line-height: 40px;
     text-transform: uppercase;
