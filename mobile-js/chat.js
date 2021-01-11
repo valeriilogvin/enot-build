@@ -406,8 +406,10 @@ function item_delete_handler(element_id)
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
-    } else if(indexOfIdGet(testArr, element_id) !== false){
-        console.log('eсть');
+    } else {
+        event.stopPropagation();
+
+        console.log(element_id);
     }
     chat_slide_btn_public_visibility_handler();
 
