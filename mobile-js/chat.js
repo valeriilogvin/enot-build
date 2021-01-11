@@ -383,9 +383,7 @@ function item_delete_handler(element_id)
             window.lgData[lg_id].destroy(true);
             delete window.lgData[lg_id];
 
-            if (items_length>1)
-            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
-
+            let parentElement = $this_element.parentElement;
 
             if(!$this_element.nextElementSibling && !$this_element.previousElementSibling){
                 $this_element.parentElement.remove();
@@ -394,6 +392,10 @@ function item_delete_handler(element_id)
                 $this_element.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             }
+
+            if (items_length>1)
+                initializeLightGallery(parentElement.id.split("_")[1]);
+
         
         } else {
             
