@@ -10,7 +10,7 @@
 </head>
 <body >
 
-<div class="wrapper js_wrapper" data-slide="0">
+<div class="wrapper js_wrapper" data-slide="3">
 
 	<?php include("preloader.php"); ?>
 
@@ -50,7 +50,8 @@
         .wrapper[data-slide='3'] .watch-wrap,
         .wrapper[data-slide='3'] .input-block,
         .wrapper[data-slide='3'] .share-create-new,
-        .wrapper[data-slide='3'] .amount-block{
+        .wrapper[data-slide='3'] .amount-block,
+        .wrapper[data-slide='3'] .action-delete{
             display: none;
         }
         .wrapper[data-slide='3'] a.public{
@@ -238,6 +239,7 @@
 
 <script type="text/javascript" src="mobile-js/main.js"></script>
 <script type="text/javascript" src="mobile-js/chat.js"></script>
+<script type="text/javascript" src="mobile-js/open.js"></script>
 
 <script type="text/javascript" src="scripts/lightgallery.js"></script>
 <script type="text/javascript" src="scripts/lg-zoom.js"></script>

@@ -290,5 +290,8 @@ function watch_note_btn_handler() {
     window.addEventListener('resize', setHeight);
 })();
 
+
+
+
 // TODO!
 note_amount_set(4);
