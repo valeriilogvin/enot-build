@@ -175,7 +175,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <a href="${src}"  class="img-block" id="message_${element_id}">
+        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
             <div>
                 <div>
                     <div class="image">
@@ -196,7 +196,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                     ${action_item_delete_svg_get()}
                 </div>
             </div>
-        </a>
+        </div>
 `;
 }
 function chat_message_image_container_html_get(src, filename, element_id)
@@ -269,7 +269,8 @@ function chat_message_album_add(image_objects)
         app_messages_object_image_append(image_objects[i], element_id)
     }
 
-    initializeLightGallery(galleryId)
+    initializeLightGallery(galleryId);
+
 }
 
 
@@ -377,7 +378,18 @@ function item_delete_handler(element_id)
 
     if(indexOfIdGet(app.messages, element_id) !== false){
         if($this_element.classList.contains('img-block')){
-            console.log( );
+            //lg-uid
+            event.stopPropagation();
+            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
+            let items_length = window.lgData[lg_id].items.length;
+            
+            window.lgData[lg_id].destroy(true);
+            delete window.lgData[lg_id];
+
+            if (items_length>1)
+            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
+
+
             if(!$this_element.nextElementSibling && !$this_element.previousElementSibling){
                 $this_element.parentElement.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
@@ -385,7 +397,19 @@ function item_delete_handler(element_id)
                 $this_element.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             }
+        
         } else {
+            event.stopPropagation();
+            console.log($this_element);
+            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
+            let items_length = window.lgData[lg_id].items.length;
+
+            window.lgData[lg_id].destroy(true);
+            delete window.lgData[lg_id];
+            
+            if (items_length>1)
+            initializeLightGallery($this_element.parentElement.id.split("_")[1]);
+
             $this_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
