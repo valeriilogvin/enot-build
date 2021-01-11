@@ -294,4 +294,4 @@ function watch_note_btn_handler() {
 
 
 // TODO!
-note_amount_set(4);
+// note_amount_set(4);

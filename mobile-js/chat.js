@@ -299,7 +299,7 @@ function app_messages_object_image_append(image_objects, element_id)
     app.messages.push({
         id: element_id,
         body: image_objects, //text or blob
-        type: 'file',
+        type: 'image',
         parts : [
             {
                 encrypted_body: image_objects, //blob|text
