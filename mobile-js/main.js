@@ -940,6 +940,12 @@ function item_download_handler(element_id)
     note_message_download(message);
 }
 
+function note_download_all()
+{
+    app.open_messages.map(message=>note_message_download(message));
+    return true;
+}
+
 function note_message_download(message)
 {
     if (message.type=="image")
