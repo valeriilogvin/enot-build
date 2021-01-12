@@ -1033,6 +1033,17 @@ function note_open_download_all_btm_handler()
 // ]);
 // message_text_add('test');
 
+// function to fix mobile-browser height
+(function init100vh() {
+    function setHeight() {
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    setHeight();
+    window.addEventListener('resize', setHeight);
+})();
+
 function main(){
     // message_text_add('test');
     // message_images_add([
@@ -1050,24 +1061,10 @@ function main(){
 
 }
 
-// function to fix mobile-browser height
-(function init100vh() {
-    function setHeight() {
-        var vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-
-    setHeight();
-    window.addEventListener('resize', setHeight);
-})();
-
 /*
 * handlers
 * */
-document.addEventListener("DOMContentLoaded", () =>
-{   
+   
 
-});
 
-app_init();
-main(); 
+ 

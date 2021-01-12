@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-	<link rel="preconnect" />
-
-    <link rel="stylesheet" href="css/lightgallery.css">
-</head>
-<body >
-
-<div class="wrapper js_wrapper" data-slide="3">
-
-	<?php include("preloader.php"); ?>
-
-    <style>
+	<!--<link rel="preconnect" />-->
+    <style type="text/css">
         .wrapper[data-slide='0'] .share-wrap,
         .wrapper[data-slide='0'] .watch-wrap,
         .wrapper[data-slide='0'] .open-buttons,
@@ -62,6 +61,14 @@
             visibility: hidden;
         }
     </style>
+
+</head>
+<body >
+
+<div class="wrapper js_wrapper" data-slide="3">
+
+	<?php include("preloader.php"); ?>
+
 
 	<!-- burger-menu -->
 	<div class="burger-menu-left js_burger_left">
@@ -252,10 +259,10 @@
 </div>
 
 <!--<script type="text/javascript" src="scripts/trees.min.js"></script>-->
-<script type="text/javascript" src="scripts/lightgallery.js"></script>
-<script type="text/javascript" src="scripts/lg-zoom.js"></script>
-<script type="text/javascript" src="scripts/FileSaver.js"></script>
 
+<script type="text/javascript" src="scripts/lightgallery.min.js"></script>
+<script type="text/javascript" src="scripts/lg-zoom.min.js"></script>
+<script type="text/javascript" src="scripts/FileSaver.min.js" async></script>
 <script type="text/javascript" src="mobile-js/main.js"></script>
 
 </body>
