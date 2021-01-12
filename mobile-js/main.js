@@ -237,22 +237,29 @@ function note_amount_get(amount)
     if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записок`;
 }
 
-function wrapper_slide_visibility(type)
+function wrapper_slide_visibility(type, callback)
 {
+    callback = callback? callback: ()=>{};
+    if (app.wrapper.dataset.slide === type) return;
+
     switch (type) {
         case 0: {
+            callback();
             app.wrapper.dataset.slide = '0';
         }
             break;
         case 1: {
+            callback();
             app.wrapper.dataset.slide = '1';
         }
             break;
         case 2: {
+            callback();
             app.wrapper.dataset.slide = '2';
         }
             break;
         case 3: {
+            callback();
             app.wrapper.dataset.slide = '3';
         }
             break;
