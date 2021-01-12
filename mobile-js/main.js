@@ -469,7 +469,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 <div>
                     <div class="image image_${element_id}">
                         <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
-                        <img class="main" src="${randomTree(randomInteger(0,6))}" alt="">
+                        <img class="placeholder-tree" src="${randomTree(randomInteger(0,6))}" alt="">
                     </div>
                 </div>
                 <p class="name">${filename}</p>
