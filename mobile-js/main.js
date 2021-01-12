@@ -254,11 +254,19 @@ function randomInteger(min, max)
     return Math.floor(rand);
 }
 
+
+
+function randomHSL(){
+//  hue, saturation, lightness
+    return "hsla(" + ~~(360 * Math.random()) + "," + (40 + 10 * Math.random()) + '%,'
+     + "55%, 1)";
+}
+
 function randomColor()
 {
-    const color = Math.floor(Math.random()*16777215).toString(16);
-    return "#" + color;
-// or 
+    return randomHSL();
+
+ // or 
 /*   
     let colors = ['#ec488f', '#8fbb4a', '#fcd160', 
     '#ec5657', '#45a0d9', '#1070bc','#7151a4', 
@@ -266,7 +274,7 @@ function randomColor()
     ];
 
     return colors.random();
-*/
+//*/
 }
 
 function randomTree()
