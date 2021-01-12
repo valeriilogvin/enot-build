@@ -194,12 +194,18 @@ function randomInteger(min, max)
 function randomColor(num)
 {
     switch (num) {
-        case 0:  return '#373a3f';
-        case 1:  return '#5d6566';
-        case 2:  return '#d1d1d1';
-        case 3:  return '#f4f4f4';
-        case 4:  return '#969696';
-        default: return '#f8f8f8'
+        case 0:  return '#fd80ba';
+        case 1:  return '#ec488f';
+        case 2:  return '#f9659f';
+        case 3:  return '#db5296';
+        case 4:  return '#8fbb4a';
+        case 5:  return '#fcd160';
+        case 6:  return '#ec5657';
+        case 7:  return '#45a0d9';
+        case 8:  return '#1070bc';
+        case 9:  return '#7151a4';
+        case 10:  return '#4f9734';
+        default: return '#efaa45'
     }
 }
 
@@ -215,6 +221,16 @@ function randomTree(num)
         case 6: return 'img/trees/6.svg';
         default: return 'img/trees/6.svg'
     }
+}
+
+function image_onload(element_id, src) {
+    let man = new Image();
+    man.src = src;
+    man.setAttribute('class', 'main');
+    man.onload = function(){
+        document.querySelector(`.image_${element_id}`).appendChild(man);
+
+    };
 }
 
 function is_archive_file(file_format)
@@ -451,7 +467,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
         <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
             <div>
                 <div>
-                    <div class="image">
+                    <div class="image image_${element_id}">
                         <div class="placeholder" style="background: ${randomColor(randomInteger(0,6))}"></div>
                         <img class="main" src="${randomTree(randomInteger(0,6))}" alt="">
                     </div>
@@ -546,6 +562,7 @@ function chat_message_album_add(image_objects)
         imageItem.insertAdjacentHTML('beforeend', `
             ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
         `);
+        image_onload(element_id, image_objects[i].src);
         chat_message_indicator_stop(element_id, 'indicator_loading');
         chat_message_indicator_stop(element_id, 'indicator_encrypt');
         app_messages_object_image_append(image_objects[i], element_id)
@@ -663,6 +680,7 @@ function note_open_message_album_add(image_objects)
         imageItem.insertAdjacentHTML('beforeend', `
             ${chat_message_image_item_html_get(image_objects[i].id, image_objects[i].body.src, image_objects[i].body.filename)}
         `);
+        image_onload(image_objects[i].id, image_objects[i].body.src);
         chat_message_indicator_stop(image_objects[i].id, 'indicator_loading');
         chat_message_indicator_stop(image_objects[i].id, 'indicator_encrypt');
     }
@@ -972,7 +990,6 @@ function note_message_file_download(message)
     saveAs(message.body.src, message.body.filename);
 */
 }
-
 
 function chat_content_scroll_to_bottom()
 {
