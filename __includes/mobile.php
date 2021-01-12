@@ -134,7 +134,7 @@
             </svg>
             стереть все
         </a>
-        <a href="#" class="download">
+        <a onclick="note_open_download_all_btm_handler()" class="download">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3009 10.5C17.5949 10.5 17.8619 10.671 17.9834 10.9395C18.1049 11.208 18.0599 11.523 17.8649 11.7435L12.6149 17.7435C12.4724 17.9055 12.2669 18 12.0509 18C11.8349 18 11.6294 17.907 11.4869 17.7435L6.23687 11.7435C6.04337 11.5215 5.99537 11.208 6.11837 10.9395C6.23987 10.6725 6.50687 10.5 6.80087 10.5H9.80087V0.75C9.80087 0.336 10.1369 0 10.5509 0H13.5509C13.9649 0 14.3009 0.336 14.3009 0.75V10.5H17.3009ZM20.3001 21V16.5H23.3001V22.5C23.3001 23.3295 22.6296 24 21.8001 24H2.30005C1.47205 24 0.800049 23.3295 0.800049 22.5V16.5H3.80005V21H20.3001Z"/>
             </svg>
@@ -251,6 +251,7 @@
 
 </div>
 
+<!--<script type="text/javascript" src="scripts/trees.min.js"></script>-->
 <script type="text/javascript" src="scripts/lightgallery.js"></script>
 <script type="text/javascript" src="scripts/lg-zoom.js"></script>
 <script type="text/javascript" src="scripts/FileSaver.js"></script>

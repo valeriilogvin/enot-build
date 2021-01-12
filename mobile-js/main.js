@@ -1002,9 +1002,14 @@ function chat_content_scroll_to_bottom()
     app.chat.message_content_wrap.scrollTop = app.chat.message_content_wrap.scrollHeight
 }
 
-function note_open_clear_all_btn_handler() {
+function note_open_clear_all_btn_handler()
+{
     app.open_messages = [];
     app.chat.message_content.innerHTML = '';
+}
+
+function note_open_download_all_btm_handler() {
+    note_download_all();
 }
 
 
