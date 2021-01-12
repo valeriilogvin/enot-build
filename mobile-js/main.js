@@ -57,6 +57,10 @@ function app_init()
             input_link: document.querySelector('.js_share_link'),
         },
 
+        note_open: {
+            alert: document.querySelector('.js_open_wrap_alert')
+        },
+
         messages: [],
 
         open_messages: [
@@ -136,7 +140,10 @@ function app_init()
             scheme: getCookie('scheme')
         },
 
-        indicator_stop_timeout: 5000
+        indicator_stop_timeout: 5000,
+
+        licenseKey : "1234567890"
+        // licenseKey : null
     };
 
     app.chat.input_text.addEventListener('focus', () => {
@@ -163,6 +170,7 @@ function app_init()
     app.burger.overlay.addEventListener('click', () => {
         app.burger.left.classList.remove('active');
         app.burger.right.classList.remove('active');
+        app.burger.right_btn.classList.remove('active');
     });
 
     app.theme_switcher.addEventListener('click', () => {
@@ -239,7 +247,7 @@ function note_amount_get(amount)
 
 function wrapper_slide_visibility(type, callback)
 {
-    callback = callback? callback: ()=>{};
+    callback = callback ? callback: ()=>{};
     if (app.wrapper.dataset.slide === type) return;
 
     switch (type) {
@@ -261,6 +269,11 @@ function wrapper_slide_visibility(type, callback)
         case 3: {
             callback();
             app.wrapper.dataset.slide = '3';
+        }
+            break;
+        case 4: {
+            callback();
+            app.wrapper.dataset.slide = '4';
         }
             break;
         default: app.wrapper.dataset.slide = '0';
@@ -290,8 +303,6 @@ function randomInteger(min, max)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
-
-
 
 function randomHSL(){
 //  hue, saturation, lightness
@@ -324,7 +335,6 @@ function getRealRandomTree()
     if (__tree_icons_indexes_tmp.length<2) __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
     return tree_icons[__tree_icons_indexes_tmp.shift()];
 }
-
 
 function image_onload(element_id, src)
 {
@@ -860,11 +870,16 @@ function note_open_create_btn_handler()
 {
     wrapper_slide_visibility(0);
     chat_message_clear();
+
 }
 
 function watch_note_btn_handler()
 {
-    wrapper_slide_visibility(3);
+    if(app.licenseKey){
+        wrapper_slide_visibility(3);
+    } else {
+        wrapper_slide_visibility(4);
+    }
 }
 
 function chat_slide_btn_public_visibility_handler()
@@ -888,6 +903,7 @@ function chat_message_clear()
 {
     app.messages = [];
     app.chat.message_content.innerHTML = '';
+    app.note_open.alert.style.display = 'none';
 }
 
 function item_delete_handler(element_id)
@@ -1042,6 +1058,7 @@ function note_open_clear_all_btn_handler()
 {
     app.open_messages = [];
     app.chat.message_content.innerHTML = '';
+    app.note_open.alert.style.display = 'block';
 }
 
 function note_open_download_all_btm_handler()

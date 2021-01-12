@@ -1020,6 +1020,10 @@ a.create-new {
   .watch-btn svg {
     margin-right: 20px; }
 
+.open-wrap-alert{
+  padding: 50px 10px;
+}
+
 .open-buttons {
   display: -webkit-box;
   display: -webkit-flex;
