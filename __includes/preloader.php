@@ -81,6 +81,15 @@
     /*}*/
 </style>
 
+<script type="text/javascript">
+    <?php 
+    include("trees.php");
+    //$trees_count = 7
+    echo(trees_jscode_generate(7));
+
+    ?>
+
+</script>
 <script>
     // возвращает cookie если есть или undefined
     function getCookie(name)
@@ -125,7 +134,7 @@ let i = 0,
     strokeWidth = 10,
     strokeBgWidth = '8',
     strokeColor = '#5D6066',
-    logoLoadingSpeed = 50,
+    logoLoadingSpeed = 30,
     radius = circleWidth/2,
     pathRadius = circleWidth/2 - strokeWidth/2;
 
