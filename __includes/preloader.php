@@ -81,6 +81,10 @@
     /*}*/
 </style>
 
+<script type="text/javascript">
+    <?php include("trees.php");?>
+
+</script>
 <script>
     // возвращает cookie если есть или undefined
     function getCookie(name)
