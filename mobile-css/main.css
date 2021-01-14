@@ -229,13 +229,17 @@ a{
       .wrapper.light .share-link-header svg path {
         fill: #2E3238; }
     .wrapper.light .share-link-input input {
-      background: #5D6066;
+      background-color: #5D6066;
+      
       -webkit-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
               box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
       color: #FFFFFF; }
+
     .wrapper.light .share-link-input .gradient {
-      background: -o-linear-gradient(179.93deg, #5D6066 8.9%, rgba(93, 96, 102, 0) 99.93%);
-      background: linear-gradient(270.07deg, #5D6066 8.9%, rgba(93, 96, 102, 0) 99.93%); }
+      background: -webkit-linear-gradient(270deg, #5D6066 9% ,rgba(93, 96, 102, 0) 100%);
+      background: -o-linear-gradient(270deg, #5D6066 9%, rgba(93, 96, 102, 0) 100%);
+      background: linear-gradient(270deg, #5D6066 9%, rgba(93, 96, 102, 0) 100%); }
+    
     .wrapper.light .share-create-new {
       color: #2E3238; }
 
@@ -797,8 +801,9 @@ a {
     height: 50px;
     position: relative; }
     .share-link-input input {
+      -webkit-appearance: none; 
       width: 100%;
-      background: #F4F4F4;
+      background-color: #F4F4F4;
       -webkit-box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
               box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 15px;
@@ -829,8 +834,9 @@ a {
         line-height: 50px;
         color: #262A30; }
     .share-link-input .gradient {
-      background: -o-linear-gradient(179.93deg, #F0F0F0 8.9%, rgba(240, 240, 240, 0) 99.93%);
-      background: linear-gradient(270.07deg, #F0F0F0 8.9%, rgba(240, 240, 240, 0) 99.93%);
+      background: -webkit-linear-gradient(270deg, #F0F0F0 9%, rgba(240, 240, 240, 0) 100%);
+      background: -o-linear-gradient(270deg, #F0F0F0 9%, rgba(240, 240, 240, 0) 100%);
+      background: linear-gradient(270deg, #F0F0F0 9%, rgba(240, 240, 240, 0) 100%);
       border-radius: 15px;
       width: 113px;
       position: absolute;
@@ -885,10 +891,13 @@ a {
   .share-key .text {
     margin: 10px 0 40px;
     font-style: italic;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     text-align: center;
-    color: #5D6066; }
+    color: #5D6066; 
+    padding-left: 10%;
+    padding-right: 10%;
+  }
 
 .share-alert {
   background: #34383F;
