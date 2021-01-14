@@ -106,6 +106,15 @@ function app_init()
             },
             {
                 body: {
+                    file_format: "zip",
+                    file_name: "Название файла",
+                    file_size: "11111 kb"
+                },
+                type: "file",
+                id: 120909
+            },
+            {
+                body: {
                     filename: "Image1.jpg",
                     src: "desktop-img/msg-img-1.jpg"
                 },
