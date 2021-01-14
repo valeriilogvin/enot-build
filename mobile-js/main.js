@@ -161,10 +161,12 @@ function app_init()
 
     app.theme_switcher.addEventListener('click', () => {
         if (app.wrapper.classList.contains('light')) {
+            document.documentElement.classList.remove('light');
             app.wrapper.classList.remove('light');
             setCookie('scheme', 'dark');
         } else {
             app.wrapper.classList.add('light');
+            document.documentElement.classList.add('light');
             setCookie('scheme', 'light');
         }
     });
