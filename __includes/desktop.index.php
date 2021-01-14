@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="en" translate="no" class="notranslate">
 
 <head>
     <title>Enot App</title>
@@ -12,6 +12,8 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
+    <meta name="google" content="notranslate" />
+    
     <meta name="robots" content="noindex">
     <meta charset="UTF-8">
 

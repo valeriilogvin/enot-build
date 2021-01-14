@@ -1019,7 +1019,36 @@ function note_message_text_download(message)
 
 function note_message_image_download(message)
 {
-    saveAs(message.body.src, message.body.filename);
+    
+    if (0 && (isSafari || isIOS) )
+    {
+
+        fetch(message.body.src)
+          .then(function(response) {
+            return response.blob()
+          })
+          .then(function(blob) {
+
+            var reader = new FileReader();
+                reader.onload = function(e) {
+                   var bdata = btoa(reader.result);
+                   var datauri = 'data:' + isbContentType + ';base64,' + bdata;
+                   window.open(datauri);
+                   newWindow = setTimeout(function() {
+                       newWindow.document.title = message.body.filename;
+                   }, 10);
+                };
+                reader.readAsBinaryString(blob);
+
+          });
+
+    }
+    else
+    {
+        saveAs(message.body.src, message.body.filename);        
+//        saveAs(blob, message.body.filename);        
+
+    }
 }
 
 function note_message_file_download(message)
