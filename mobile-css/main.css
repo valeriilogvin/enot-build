@@ -126,6 +126,7 @@ a{
       fill: #2E3238; }
     .wrapper.light .header {
       border-bottom: 1px solid #D1D1D1; }
+
       .wrapper.light .header .burger-left span {
         background: #2E3238; }
       .wrapper.light .header .burger-right span {
@@ -525,9 +526,9 @@ a {
     color: #F4F4F4;
     padding: 0 30px;
     text-decoration: none;
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
+
+    white-space: nowrap;
+    
     position: absolute;
     transition: opacity .2s ease, visibility .2s ease;
     left: 50%;

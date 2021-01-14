@@ -137,8 +137,8 @@ function app_init()
 
         indicator_stop_timeout: 5000,
 
-        // licenseKey : "1234567890"
-        licenseKey : null
+        licenseKey : "1234567890"
+        //licenseKey : null
     };
 
     app.chat.input_text.addEventListener('focus', () => {
