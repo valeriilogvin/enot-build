@@ -883,27 +883,30 @@ a {
 }
 
 .content-wrap .item.img .img-block img.main {
-  width: auto;
+  width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: scale-down;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 80%;
+  background-size: 100%;
   border-radius: 10px;
 }
 
 .content-wrap .item.img .img-block .name {
   font-style: italic;
-  max-width: 120px;
+  max-width: 110px;
   padding-bottom: 20px;
+  font-size: 14px;
 }
 
 .content-wrap .item.img .img-block .indicators {
-  margin: 0 5px;
+  margin-left: 3px;
+  margin-right: 5px;
+
 }
 
 .content-wrap .item.img .img-block .indicators .delete {
@@ -951,6 +954,7 @@ a {
 .content-wrap .item.file .text-block p {
   font-size: 15px;
   line-height: 19px;
+  max-width: calc(100vw - 150px);
 }
 
 .content-wrap .item.file .text-block p:not(.name) {
