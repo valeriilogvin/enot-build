@@ -110,7 +110,7 @@
 <div id="page-preloader" class="preloader">
 	<div class="logo"></div>
 	<div class="title">
-		<p class="js_note_amount"></p>
+		<p class="js_note_amount" style="display: none;"></p>
 	</div>
 </div>
 

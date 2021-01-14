@@ -209,6 +209,8 @@ function app_init()
 
     }, false);
 
+    if (isIOS)
+    document.querySelector(".download").style.display = "none";
 }
 
 /*
