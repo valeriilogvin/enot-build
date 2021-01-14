@@ -43,7 +43,8 @@ function app_init()
         },
 
         note_open: {
-            alert: document.querySelector('.js_open_wrap_alert')
+            alert: document.querySelector('.js_open_wrap_alert'),
+            buttons: document.querySelector('.js_note_open_buttons')
         },
 
         messages: [],
@@ -127,8 +128,8 @@ function app_init()
 
         indicator_stop_timeout: 5000,
 
-        licenseKey : "1234567890"
-        // licenseKey : null
+        // licenseKey : "1234567890"
+        licenseKey : null
     };
 
     app.chat.input_text.addEventListener('focus', () => {
@@ -580,14 +581,14 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 <p class="name clip">${filename}</p>
             </div>
             <div class="indicators">
+                <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
+                    ${action_item_delete_svg_get()}
+                </div>
                 <div class="loader indicator_encrypt">
                     ${indicator_encryption_html_get()}
                 </div>
                 <div class="loader indicator_loading">
                     ${indicator_loader_html_get()}
-                </div>
-                <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
-                    ${action_item_delete_svg_get()}
                 </div>
                 <div class="action-download" onclick="item_download_handler(${element_id})">
                     ${indicator_download_html_get()}
@@ -861,9 +862,9 @@ function note_open_create_btn_handler()
 function watch_note_btn_handler()
 {
     if(app.licenseKey){
-        wrapper_slide_visibility(3);
+        wrapper_slide_visibility(3, note_open_messages_append(app.open_messages));
     } else {
-        wrapper_slide_visibility(4);
+        wrapper_slide_visibility(4, note_open_messages_append(app.open_messages));
     }
 }
 
@@ -1044,6 +1045,7 @@ function note_open_clear_all_btn_handler()
     app.open_messages = [];
     app.chat.message_content.innerHTML = '';
     app.note_open.alert.style.display = 'block';
+    app.note_open.buttons.style.display = 'none';
 }
 
 function note_open_download_all_btm_handler()
@@ -1092,8 +1094,7 @@ function main(){
     // message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
     // message_file_add("Очень длинное название файла", "7zip", "11 kb");
 
-    note_open_messages_append(app.open_messages);
-    note_amount_set(1);    
+    note_amount_set(1);
 
 }
 
