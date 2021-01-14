@@ -520,6 +520,7 @@ function chat_message_indicator_stop(message_id, indicator_type)
 
     setTimeout(() => {
         this_indicator.classList.add('stop');
+//        this_indicator.style.visibility = 'hidden';
     }, app.indicator_stop_timeout)
 
 }

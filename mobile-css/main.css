@@ -1109,7 +1109,7 @@ a.create-new {
       fill: #5D6066; }
 
 .input-block {
-  height: 80px;
+  min-height: 100px;
   transition: height .3s ease;
   padding: 10px;
   background: #262A30;
@@ -1134,12 +1134,15 @@ a.create-new {
       fill: #5D6066; }
   .input-block textarea {
     text-align: left;
+    font-style: italic;
+    font-weight: 400;
+    font-family: SourceSansPro;
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
     height: calc(100% - 20px);
-    min-height: 60px;
+    min-height: 80px;
     background: #2E3238;
     -webkit-box-shadow: inset 0px -1px 1px rgba(150, 150, 150, 0.08), inset 0px 2px 2px rgba(0, 0, 0, 0.2);
             box-shadow: inset 0px -1px 1px rgba(150, 150, 150, 0.08), inset 0px 2px 2px rgba(0, 0, 0, 0.2);
@@ -1152,6 +1155,7 @@ a.create-new {
     font-size: 14px;
     line-height: 18px;
     color: #5D6066;
+
   }
 
 .create-new-block {

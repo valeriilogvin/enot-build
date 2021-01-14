@@ -264,7 +264,7 @@
         <div class="share-key">
             <input id="check" class="custom-checkbox" type="checkbox">
             <label for="check">Поделиться ключом</label>
-            <p class="text">При выборе “Поделиться ключом” пользователь, которому вы отправите ссылку на записку, сможет создать новую записку по вашей лицензии.</p>
+            <p class="text" onclick="document.getElementById('check').click();">При выборе “Поделиться ключом” пользователь, которому вы отправите ссылку на записку, сможет создать новую записку по вашей лицензии.</p>
         </div>
 
 <!--
