@@ -680,7 +680,8 @@ a {
             z-index: 1;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: 80%;
+            background-size: 100%;
+            text-align: center;
           }
           .content-wrap .item.img .img-block img.main {
             width: auto;
