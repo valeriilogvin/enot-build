@@ -954,7 +954,7 @@ a {
 .content-wrap .item.file .text-block p {
   font-size: 15px;
   line-height: 19px;
-  max-width: calc(100vw - 150px);
+  
 }
 
 .content-wrap .item.file .text-block p:not(.name) {

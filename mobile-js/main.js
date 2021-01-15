@@ -238,10 +238,10 @@ function note_amount_set(amount)
 
 function note_amount_get(amount)
 {
-    if(amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;записку`;
-    if(amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записку`;
-    if(amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записки`;
-    if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> записок`;
+    if(amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;заметку`;
+    if(amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметку`;
+    if(amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметки`;
+    if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметок`;
 }
 
 function wrapper_slide_visibility(type, callback)
