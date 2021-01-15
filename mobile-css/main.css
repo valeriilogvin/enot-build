@@ -883,9 +883,9 @@ a {
 }
 
 .content-wrap .item.img .img-block img.main {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: scale-down;
+  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
@@ -954,7 +954,7 @@ a {
 .content-wrap .item.file .text-block p {
   font-size: 15px;
   line-height: 19px;
-  
+
 }
 
 .content-wrap .item.file .text-block p:not(.name) {
