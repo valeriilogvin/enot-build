@@ -199,11 +199,11 @@ function app_init()
 
         fileCollection_files.map(file=>{
             let extension = getExtension(file.name);
-            message_file_add(file.name, extension, bytesToSize(file.size));
+            message_file_append(file.name, extension, bytesToSize(file.size));
         });
 
         var images = await Promise.all(fileCollection_images.map(file=>readAsDataURL(file)));
-        message_images_add(images);
+        message_images_append(images);
 
         app.chat.file_input.value = "";
 
@@ -388,6 +388,18 @@ function readAsDataURL(file)
 function initializeLightGallery(id)
 {
     lightGallery(document.getElementById('lg_' + id));
+}
+
+function chat_message_clear()
+{
+    app.messages = [];
+    app.chat.message_content.innerHTML = '';
+    app.note_open.alert.style.display = 'none';
+}
+
+function chat_content_scroll_to_bottom()
+{
+    app.chat.message_content_wrap.scrollTop = app.chat.message_content_wrap.scrollHeight
 }
 
 /*
@@ -653,47 +665,6 @@ function action_item_delete_svg_get()
 
 
 /*
-* functions to append
-* */
-function chat_message_text_add(text, element_id)
-{
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
-}
-
-function chat_message_file_add(file_name, file_format, file_size, element_id)
-{
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
-    indicator_encrypt_stop(element_id);
-    indicator_loading_stop(element_id);
-}
-
-function chat_message_album_add(image_objects)
-{
-    let imageItem = document.createElement("div"),
-        galleryId = randomInteger(10000, 60000);
-    imageItem.setAttribute('class', 'item img');
-    imageItem.setAttribute('id', `lg_${galleryId}`);
-    app.chat.message_content.appendChild(imageItem);
-
-
-    for (let i=0; i<image_objects.length; i++)
-    {
-        let element_id = randomInteger(10000, 60000);
-        imageItem.insertAdjacentHTML('beforeend', `
-            ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
-        `);
-        image_onload(element_id, image_objects[i].src);
-        chat_message_indicator_stop(element_id, 'indicator_loading');
-        chat_message_indicator_stop(element_id, 'indicator_encrypt');
-        app_messages_object_image_append(image_objects[i], element_id)
-    }
-
-    initializeLightGallery(galleryId);
-
-}
-
-
-/*
 * append to app.messages
 * */
 function app_messages_object_text_append(text, element_id)
@@ -756,37 +727,102 @@ function app_messages_object_file_append(file_name, file_format, file_size, elem
 
 
 /*
-* message add
+* message append
 * */
-function message_text_add(text)
+function chat_message_text_append(text, element_id)
+{
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
+}
+
+function chat_message_file_append(file_name, file_format, file_size, element_id)
+{
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
+}
+
+function chat_message_album_append(image_objects)
+{
+    let imageItem = document.createElement("div"),
+        galleryId = randomInteger(10000, 60000);
+    imageItem.setAttribute('class', 'item img');
+    imageItem.setAttribute('id', `lg_${galleryId}`);
+    app.chat.message_content.appendChild(imageItem);
+
+
+    for (let i=0; i<image_objects.length; i++)
+    {
+        let element_id = randomInteger(10000, 60000);
+        imageItem.insertAdjacentHTML('beforeend', `
+            ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
+        `);
+        image_onload(element_id, image_objects[i].src);
+        chat_message_indicator_stop(element_id, 'indicator_loading');
+        chat_message_indicator_stop(element_id, 'indicator_encrypt');
+        app_messages_object_image_append(image_objects[i], element_id)
+    }
+
+    initializeLightGallery(galleryId);
+
+}
+
+function message_text_append(text)
 {
     let element_id = randomInteger(10000, 60000);
 
-    chat_message_text_add(text, element_id);
+    chat_message_text_append(text, element_id);
     app_messages_object_text_append(text, element_id);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
 }
 
-function message_images_add(image_objects)
+function message_images_append(image_objects)
 {
     if (image_objects.length==0) return false;
-    chat_message_album_add(image_objects);
+    chat_message_album_append(image_objects);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
 }
 
-function message_file_add(file_name, file_format, file_size)
+function message_file_append(file_name, file_format, file_size)
 {
     let element_id = randomInteger(10000, 60000);
 
-    chat_message_file_add(file_name, file_format, file_size, element_id);
+    chat_message_file_append(file_name, file_format, file_size, element_id);
 
     app_messages_object_file_append(file_name, file_format, file_size, element_id);
     chat_content_scroll_to_bottom();
 }
 
-function note_open_message_album_add(image_objects)
+
+/*
+* note append
+* */
+function note_open_messages_append(arr)
+{
+    let imgarray = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let nextIndex = arr[i + 1];
+
+        if (arr[i].type === 'text') {
+            chat_message_text_append(arr[i].body, arr[i].id)
+        } else if (arr[i].type === 'image') {
+            imgarray.push(arr[i]);
+
+            if (nextIndex && nextIndex.type === 'image') {
+                continue
+            } else {
+                note_open_message_album_append(imgarray);
+                imgarray = [];
+            }
+        } else {
+            chat_message_file_append(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, arr[i].id)
+        }
+    }
+}
+
+function note_open_message_album_append(image_objects)
 {
     let imageItem = document.createElement("div"),
         galleryId = randomInteger(10000, 60000);
@@ -809,30 +845,10 @@ function note_open_message_album_add(image_objects)
 
 }
 
-function note_open_messages_append(arr)
-{
-    let imgarray = [];
 
-    for (let i = 0; i < arr.length; i++) {
-        let nextIndex = arr[i + 1];
-
-        if (arr[i].type === 'text') {
-            chat_message_text_add(arr[i].body, arr[i].id)
-        } else if (arr[i].type === 'image') {
-            imgarray.push(arr[i]);
-
-            if (nextIndex && nextIndex.type === 'image') {
-                continue
-            } else {
-                note_open_message_album_add(imgarray);
-                imgarray = [];
-            }
-        } else {
-            chat_message_file_add(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, arr[i].id)
-        }
-    }
-}
-
+/*
+* handlers
+* */
 function share_copy_link_handler()
 {
     app.share.copy_btn.addEventListener('click', () => {
@@ -894,16 +910,9 @@ function chat_slide_btn_public_visibility_handler()
 function chat_btn_send_handler()
 {
     if(app.chat.input_text.value !== ''){
-        message_text_add(app.chat.input_text.value);
+        message_text_append(app.chat.input_text.value);
         app.chat.input_text.value = '';
     }
-}
-
-function chat_message_clear()
-{
-    app.messages = [];
-    app.chat.message_content.innerHTML = '';
-    app.note_open.alert.style.display = 'none';
 }
 
 function item_delete_handler(element_id)
@@ -992,6 +1001,23 @@ function item_download_handler(element_id)
     note_message_download(message);
 }
 
+function note_open_clear_all_btn_handler()
+{
+    app.open_messages = [];
+    app.chat.message_content.innerHTML = '';
+    app.note_open.alert.style.display = 'block';
+    app.note_open.buttons.style.display = 'none';
+}
+
+function note_open_download_all_btm_handler()
+{
+    note_download_all();
+}
+
+
+/*
+* download
+* */
 function note_download_all()
 {
     app.open_messages.map(message=>note_message_download(message));
@@ -1022,7 +1048,7 @@ function note_message_text_download(message)
 {
     let element_index = indexOfIdGet(app.open_messages, message.id);
     if (element_index === false) return false;
-    
+
     let message_text_type_indexes = app.open_messages.filter((m,i)=>m.type=="text").map((m,i)=>i);
 
     var blob = new Blob([message.body], {type: "text/plain;charset=utf-8"});
@@ -1031,80 +1057,62 @@ function note_message_text_download(message)
 
 function note_message_image_download(message)
 {
-    
+
     if (0 && (isSafari || isIOS) )
     {
 
         fetch(message.body.src)
-          .then(function(response) {
-            return response.blob()
-          })
-          .then(function(blob) {
+            .then(function(response) {
+                return response.blob()
+            })
+            .then(function(blob) {
 
-            var reader = new FileReader();
+                var reader = new FileReader();
                 reader.onload = function(e) {
-                   var bdata = btoa(reader.result);
-                   var datauri = 'data:' + isbContentType + ';base64,' + bdata;
-                   window.open(datauri);
-                   newWindow = setTimeout(function() {
-                       newWindow.document.title = message.body.filename;
-                   }, 10);
+                    var bdata = btoa(reader.result);
+                    var datauri = 'data:' + isbContentType + ';base64,' + bdata;
+                    window.open(datauri);
+                    newWindow = setTimeout(function() {
+                        newWindow.document.title = message.body.filename;
+                    }, 10);
                 };
                 reader.readAsBinaryString(blob);
 
-          });
+            });
 
     }
     else
     {
-        saveAs(message.body.src, message.body.filename);        
-//        saveAs(blob, message.body.filename);        
+        saveAs(message.body.src, message.body.filename);
+//        saveAs(blob, message.body.filename);
 
     }
 }
 
 function note_message_file_download(message)
 {
-/*
-        body: {
-            file_format: "docx",
-            file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
-            file_size: "11 kb"
-        },
+    /*
+            body: {
+                file_format: "docx",
+                file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
+                file_size: "11 kb"
+            },
 
-    var blob = new Blob([message.body], {type: "text/plain;charset=utf-8"});
+        var blob = new Blob([message.body], {type: "text/plain;charset=utf-8"});
 
-    saveAs(message.body.src, message.body.filename);
-*/
-}
-
-function chat_content_scroll_to_bottom()
-{
-    app.chat.message_content_wrap.scrollTop = app.chat.message_content_wrap.scrollHeight
-}
-
-function note_open_clear_all_btn_handler()
-{
-    app.open_messages = [];
-    app.chat.message_content.innerHTML = '';
-    app.note_open.alert.style.display = 'block';
-    app.note_open.buttons.style.display = 'none';
-}
-
-function note_open_download_all_btm_handler()
-{
-    note_download_all();
+        saveAs(message.body.src, message.body.filename);
+    */
 }
 
 
 // TODO!
 
-// chat_message_text_add("Привет! Посмотри на эту фотографию");
+// chat_message_text_append("Привет! Посмотри на эту фотографию");
 // chat_message_image_add("mobile-img/img1.png", "Image.jpg");
-// chat_message_text_add("Эта фотография будет прекрасно смотреться над камином. Давай сегодня же распечатаем ее! Максимальная ширина текста — 720 пикс. А вот еще несколько полезных файлов:");
-// chat_message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-// chat_message_file_add("Очень длинное название файла", "7zip", "11 kb");
-// chat_message_album_add([
+// chat_message_text_append("Эта фотография будет прекрасно смотреться над камином. Давай сегодня же распечатаем ее! Максимальная ширина текста — 720 пикс. А вот еще несколько полезных файлов:");
+// chat_message_file_append("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
+// chat_message_file_append("Очень длинное название файла", "7zip", "11 kb");
+// chat_message_album_append([
 //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
 //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
 //     {src:"desktop-img/msg-img-2.jpg", filename:"Image.jpg"},
@@ -1112,7 +1120,7 @@ function note_open_download_all_btm_handler()
 //     {src:"desktop-img/msg-img-4.jpg", filename:"Image.jpg"},
 //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"}
 // ]);
-// message_text_add('test');
+// message_text_append('test');
 
 // function to fix mobile-browser height
 (function init100vh() {
@@ -1127,16 +1135,16 @@ function note_open_download_all_btm_handler()
 })();
 
 function main(){
-    // message_text_add('test');
-    // message_images_add([
+    // message_text_append('test');
+    // message_images_append([
     //     {src:"desktop-img/msg-img-1.jpg", filename:"Image.jpg"},
     // ]);
-    // message_images_add([
+    // message_images_append([
     //     {src:"desktop-img/msg-img-1.jpg", filename:"Image1.jpg"},
     //     {src:"desktop-img/msg-img-2.jpg", filename:"Image2.jpg"},
     // ]);
-    // message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-    // message_file_add("Очень длинное название файла", "7zip", "11 kb");
+    // message_file_append("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
+    // message_file_append("Очень длинное название файла", "7zip", "11 kb");
 
     note_amount_set(1);
 

@@ -860,7 +860,7 @@
                     </div>
                 </aside>
                 <div class="chat-wrap">
-                    <div class="chat-message-content">
+                    <div class="chat-message-content js_chat_message_content">
 
                     </div>
                     <div class="chat-text-area">
@@ -894,7 +894,6 @@
 <script type="text/javascript" src="scripts/script-pack.js"></script>
 
 <script src="desktop-js/desktop.js"></script>
-<script src="desktop-js/desktop_temp.js"></script>
 </body>
 
 </html>

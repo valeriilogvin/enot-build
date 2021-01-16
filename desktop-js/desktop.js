@@ -3,6 +3,24 @@ var app = {
     theme_switcher: document.querySelector('.js_theme_switcher'),
 
     chat_message_content: document.querySelector(".chat-message-content"),
+
+    chat: {
+        message_content: document.querySelector('.js_chat_message_content')
+    },
+
+    menu: {
+        btn: document.getElementById('menu-btn'),
+        main_menu: document.getElementById('main-menu'),
+        settings_btn_open: document.getElementById('settings-btn-open'),
+        settings_btn_close: document.getElementById('settings-btn-close'),
+        settings_drop_menu: document.getElementById('settings-dropdown-menu'),
+    },
+    
+    sidebar: {
+        tabs: document.querySelectorAll(".tab-item"),
+        tab_content_item: document.querySelectorAll(".tab-content-item"),
+    },
+
     messages: [],
     settings: {
         scheme: getCookie('scheme')
@@ -11,44 +29,34 @@ var app = {
 
 function app_init()
 {
-    const settingsBtnOpen = document.getElementById('settings-btn-open');
-    const settingsBtnClose = document.getElementById('settings-btn-close');
-    const settingsDropMenu = document.getElementById('settings-dropdown-menu');
-    const menuBtn = document.getElementById('menu-btn');
-    const mainMenu = document.getElementById('main-menu');
-    const tabItem = document.querySelectorAll(".tab-item");
-    const tabContentItem = document.querySelectorAll(".tab-content-item");
 
     function openSettingsHandler() {
-        settingsDropMenu.classList.add('active')
+        app.menu.settings_drop_menu.classList.add('active')
     }
 
     function closeSettingsHandler() {
-        settingsDropMenu.classList.remove('active')
+        app.menu.settings_drop_menu.classList.remove('active')
     }
 
     function menuDropdownHandler() {
-        if (mainMenu.classList.contains('active')) {
-            mainMenu.classList.remove('active')
+        if (app.menu.main_menu.classList.contains('active')) {
+            app.menu.main_menu.classList.remove('active')
         } else {
-            mainMenu.classList.add('active')
+            app.menu.main_menu.classList.add('active')
         }
     }
 
     function checkTargetHandler(e) {
         const target = e.target;
 
-        if (!settingsDropMenu.contains(target)) {
-            settingsDropMenu.classList.remove('active');
-            console.log('1');
+        if (!app.menu.settings_drop_menu.contains(target)) {
+            app.menu.settings_drop_menu.classList.remove('active');
         }
 
-        if (!mainMenu.contains(target) && !menuBtn.contains(target)) {
-            mainMenu.classList.remove('active');
-            console.log('2');
+        if (!app.menu.main_menu.contains(target) && !app.menu.btn.contains(target)) {
+            app.menu.main_menu.classList.remove('active');
         }
     }
-
 
     function removeClass(element, className) {
         for (let i = 0; i < element.length; i++) {
@@ -57,16 +65,16 @@ function app_init()
     }
 
 
-    for (let i = 0; i < tabItem.length; i++) {
-        const dataTabName = tabItem[i].dataset.tab.toLowerCase();
-        tabItem[i].addEventListener("click", function () {
-            for (let j = 0; j < tabContentItem.length; j++) {
-                const dataContentTabName = tabContentItem[j].dataset.tab.toLowerCase();
+    for (let i = 0; i < app.sidebar.tabs.length; i++) {
+        const dataTabName = app.sidebar.tabs[i].dataset.tab.toLowerCase();
+        app.sidebar.tabs[i].addEventListener("click", function () {
+            for (let j = 0; j < app.sidebar.tab_content_item.length; j++) {
+                const dataContentTabName = app.sidebar.tab_content_item[j].dataset.tab.toLowerCase();
                 if (dataTabName === dataContentTabName) {
-                    removeClass(tabContentItem, "active");
-                    removeClass(tabItem, "active");
-                    tabContentItem[j].classList.add("active");
-                    tabItem[i].classList.add("active");
+                    removeClass(app.sidebar.tab_content_item, "active");
+                    removeClass(app.sidebar.tabs, "active");
+                    app.sidebar.tab_content_item[j].classList.add("active");
+                    app.sidebar.tabs[i].classList.add("active");
                 }
             }
         });
@@ -74,10 +82,10 @@ function app_init()
 
     document.addEventListener('mouseup', checkTargetHandler);
 
-    if (settingsBtnOpen || settingsBtnClose || menuBtn) {
-        settingsBtnOpen.addEventListener('click', openSettingsHandler)
-        settingsBtnClose.addEventListener('click', closeSettingsHandler)
-        menuBtn.addEventListener('click', menuDropdownHandler)
+    if (app.menu.settings_btn_open || app.menu.settings_btn_close || app.menu.btn) {
+        app.menu.settings_btn_open.addEventListener('click', openSettingsHandler)
+        app.menu.settings_btn_close.addEventListener('click', closeSettingsHandler)
+        app.menu.btn.addEventListener('click', menuDropdownHandler)
     }
 
     app.theme_switcher.addEventListener('click', () => {
@@ -112,7 +120,6 @@ if( color === 'light') {
     app_wrapper.classList.add('light');
     app.theme_switcher.checked = false
 }
-
 // preloader : END
 
 /*
@@ -182,10 +189,72 @@ function deleteCookie(name)
     setCookie(name, null, {expires: -1})
 }
 
-
 /*
 * secondary functions
 * */
+function shuffle(arr) {
+
+    var arra1 = arr.map( x => x);
+    var ctr = arra1.length, temp, index;
+
+    while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = arra1[ctr];
+        arra1[ctr] = arra1[index];
+        arra1[index] = temp;
+    }
+    return arra1;
+}
+
+function note_amount_set(amount)
+{
+    for (let el of app.note_amount) el.innerHTML = note_amount_get(amount)
+}
+
+function note_amount_get(amount)
+{
+    if(amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;заметку`;
+    if(amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметку`;
+    if(amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметки`;
+    if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметок`;
+}
+
+function wrapper_slide_visibility(type, callback)
+{
+    callback = callback ? callback: ()=>{};
+    if (app.wrapper.dataset.slide === type) return;
+
+    switch (type) {
+        case 0: {
+            callback();
+            app.wrapper.dataset.slide = '0';
+        }
+            break;
+        case 1: {
+            callback();
+            app.wrapper.dataset.slide = '1';
+        }
+            break;
+        case 2: {
+            callback();
+            app.wrapper.dataset.slide = '2';
+        }
+            break;
+        case 3: {
+            callback();
+            app.wrapper.dataset.slide = '3';
+        }
+            break;
+        case 4: {
+            callback();
+            app.wrapper.dataset.slide = '4';
+        }
+            break;
+        default: app.wrapper.dataset.slide = '0';
+    }
+}
+
 const escapeHTML = str => str.replace(/[&<>'"]/g,
     tag => ({
         '&': '&amp;',
@@ -195,25 +264,131 @@ const escapeHTML = str => str.replace(/[&<>'"]/g,
         '"': '&quot;'
     }[tag]));
 
-function bytesToSize(bytes) {
+function bytesToSize(bytes)
+{
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '0 Byte';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-
-
-
-function randomInteger(min, max) {
+function randomInteger(min, max)
+{
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
 
-function is_archive_file(file_format) {
+function randomHSL(){
+//  hue, saturation, lightness
+    return "hsla(" + ~~(360 * Math.random()) + "," + (40 + 10 * Math.random()) + '%,'
+        + "55%, 1)";
+}
+
+function randomColor()
+{
+    return randomHSL();
+
+    // or
+    /*
+        let colors = ['#ec488f', '#8fbb4a', '#fcd160',
+        '#ec5657', '#45a0d9', '#1070bc','#7151a4',
+        '#4f9734', '#efaa45'
+        ];
+
+        return colors.random();
+    //*/
+}
+
+function randomTree()
+{
+    return tree_icons.random();
+}
+
+function getRealRandomTree()
+{
+    if (__tree_icons_indexes_tmp.length==0) __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
+    return tree_icons[__tree_icons_indexes_tmp.shift()];
+}
+
+function image_onload(element_id, src)
+{
+    let img = new Image(),
+        img_block = document.querySelector(`.image_${element_id}`),
+        img_tree = img_block.querySelector(`.placeholder-tree`),
+        img_color_block = img_block.querySelector(`.placeholder`);
+    img.src = src;
+    img.setAttribute('class', 'main');
+    img.onload = function(){
+        setTimeout(()=>{
+            img_block.appendChild(img);
+            img_tree.remove();
+            img_color_block.remove();
+        }, 3000); // test option
+    };
+}
+
+function is_archive_file(file_format)
+{
     return /^(rar|zip|7z|7zip|tar|tz|gz|ace|arj)$/i.test(file_format);
 }
+
+const indexOfIdGet = (array, id) =>
+{
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === id) {
+            return i;
+        }
+    }
+    return false;
+};
+
+function getExtension(fname)
+{
+    if (!fname) return "";
+    return fname.slice((fname.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+
+function readAsDataURL(file)
+{
+    return new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onerror = reject;
+        fr.onload = function() {
+            resolve({src: fr.result, filename: file.name});
+        };
+        fr.readAsDataURL(file);
+    });
+}
+
+function initializeLightGallery(id)
+{
+    lightGallery(document.getElementById('lg_' + id));
+}
+
+/*
+setCookie Аргументы:
+
+name
+название cookie
+value
+значение cookie (строка)
+props
+Объект с дополнительными свойствами для установки cookie:
+expires
+Время истечения cookie. Интерпретируется по-разному, в зависимости от типа:
+Если число - количество секунд до истечения.
+Если объект типа Date - точная дата истечения.
+Если expires в прошлом, то cookie будет удалено.
+Если expires отсутствует или равно 0, то cookie будет установлено как сессионное и исчезнет при закрытии браузера.
+path
+Путь для cookie.
+domain
+Домен для cookie.
+secure
+Пересылать cookie только по защищенному соединению.
+*/
+
 
 function chat_message_text_add(text) {
     let element_id = randomInteger(10000, 60000);
@@ -503,9 +678,89 @@ function icon_file_archive_svg_get() {
 }
 
 
+/*
+* append to app.messages
+* */
+function app_messages_object_text_append(text, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: text, //text or blob
+        type: 'text',
+        parts : [
+            {
+                encrypted_body: text, //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+
+function app_messages_object_image_append(image_objects, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: image_objects, //text or blob
+        type: 'image',
+        parts : [
+            {
+                encrypted_body: image_objects, //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+
+function app_messages_object_file_append(file_name, file_format, file_size, element_id)
+{
+    app.messages.push({
+        id: element_id,
+        body: {
+            file_name: file_name,
+            file_format: file_format,
+            file_size: file_size,
+        }, //text or blob
+        type: 'file',
+        parts : [
+            {
+                encrypted_body: '???', //blob|text
+                encrypted: true,
+                sent: false
+            },
+        ], // по умолчанию будет один элемент
+        is_full_encrypted: false,
+        sent: false
+    })
+}
+
+function chat_content_scroll_to_bottom()
+{
+    app.chat.message_content.scrollTop = app.chat.message_content.scrollHeight
+}
+
+
+/*
+* message add
+* */
+function message_text_add(text)
+{
+    let element_id = randomInteger(10000, 60000);
+
+    chat_message_text_add(text, element_id);
+    app_messages_object_text_append(text, element_id);
+    // chat_slide_btn_public_visibility_handler();
+    chat_content_scroll_to_bottom();
+}
+
 // TODO!
 
-app_init()
+app_init();
 
 function sidebar_image_add(src, file_format, file_size) {
     return `
