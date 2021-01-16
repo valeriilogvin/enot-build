@@ -408,7 +408,8 @@ function prefetch_set2(urls, callback)
 //*
     prefetch_set([
         "mobile-css/main.css", // load also fonts
-        "css/lightgallery.min.css"
+        "mobile-css/fonts1.css",
+        "mobile-css/fonts2.css"
     ], async ()=>{
 
         while (!window.app_init)

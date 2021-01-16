@@ -16,7 +16,7 @@
     <meta name="robots" content="noindex">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-	<!--<link rel="preconnect" />-->
+	<link rel="preconnect" /><!---->
 
 
     <style type="text/css">
@@ -323,11 +323,12 @@
 
 </div>
 
-<!--<script type="text/javascript" src="scripts/trees.min.js"></script>-->
+<!--
 
 <script type="text/javascript" src="scripts/lightgallery.min.js"></script>
 <script type="text/javascript" src="scripts/lg-zoom.min.js"></script>
-<script type="text/javascript" src="scripts/FileSaver.min.js" async></script>
+<script type="text/javascript" src="scripts/FileSaver.min.js" async></script>-->
+<script type="text/javascript" src="scripts/script-pack.js"></script>
 <script type="text/javascript" src="mobile-js/main.js"></script>
 
 </body>
