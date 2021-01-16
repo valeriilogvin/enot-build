@@ -1116,10 +1116,9 @@ function note_open_download_all_btm_handler()
 
 // function to fix mobile-browser height
 (function init100vh() {
-    //return;
 
     function setHeight() {
-        var vh = a * 0.01;
+        var vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
