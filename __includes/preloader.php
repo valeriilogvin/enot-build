@@ -134,7 +134,7 @@ let i = 0,
     strokeWidth = 10,
     strokeBgWidth = '8',
     strokeColor = '#5D6066',
-    logoLoadingSpeed = 30,
+    logoLoadingSpeed = 20,
     radius = circleWidth/2,
     pathRadius = circleWidth/2 - strokeWidth/2;
 
@@ -316,7 +316,8 @@ function prefetch_set(urls, callback)
 
             clearInterval(preloader_interval);
 
-            callback();
+            setTimeout(callback, 500);
+            
             return;
 
         }
@@ -407,9 +408,10 @@ function prefetch_set2(urls, callback)
 (()=>{
 //*
     prefetch_set([
-        "mobile-css/main.css", // load also fonts
         "mobile-css/fonts1.css",
-        "mobile-css/fonts2.css"
+        "mobile-css/fonts2.css",
+        "mobile-css/fonts3.css",
+        "mobile-css/main.css"
     ], async ()=>{
 
         while (!window.app_init)
