@@ -12,8 +12,8 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
-    <meta name="google" content="notranslate" />
-    
+    <meta name="google" content="notranslate"/>
+
     <meta name="robots" content="noindex">
     <meta charset="UTF-8">
 
@@ -22,16 +22,16 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="desktop-css/main.css">
-    <link rel="stylesheet" href="desktop-css/light.css">
+    <link rel="stylesheet" href="desktop-css/dark.css">
     <link rel="stylesheet" href="desktop-css/scale.css">
 
 </head>
 
-<body>
+<body class="wrapper">
 
 <div id="app">
 
-	<?php include( "preloader.php" ); ?>
+	<?php //include( "preloader.php" ); ?>
 
     <header class="header">
         <div class="container">
@@ -143,7 +143,7 @@
                                         </svg>
                                     </div>
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input class="js_theme_switcher" type="checkbox" checked>
                                         <span class="switch__slider round"></span>
                                     </label>
                                 </div>
@@ -891,7 +891,10 @@
     </main>
 </div>
 
-<script src="desktop-js/script.js"></script>
+<script type="text/javascript" src="scripts/script-pack.js"></script>
+
+<script src="desktop-js/desktop.js"></script>
+<script src="desktop-js/desktop_temp.js"></script>
 </body>
 
 </html>

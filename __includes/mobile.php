@@ -329,7 +329,7 @@
 <script type="text/javascript" src="scripts/lg-zoom.min.js"></script>
 <script type="text/javascript" src="scripts/FileSaver.min.js" async></script>-->
 <script type="text/javascript" src="scripts/script-pack.js"></script>
-<script type="text/javascript" src="mobile-js/main.js"></script>
+<script type="text/javascript" src="mobile-js/mobile.js"></script>
 
 </body>
 </html>

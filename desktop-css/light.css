@@ -1,14 +1,14 @@
-body {
+body.light {
   background: -o-linear-gradient(283.49deg,#fcfcfc 8.64%,#f2f2f2 81%) no-repeat;
   background: linear-gradient(166.51deg,#fcfcfc 8.64%,#f2f2f2 81%) no-repeat;
   color: #5d6066
 }
-body::before {
+body.light::before {
   background: -o-linear-gradient(359.68deg,rgba(0,0,0,.03) -35.95%,rgba(0,0,0,0) 93.38%);
   background: linear-gradient(90.32deg,rgba(0,0,0,.03) -35.95%,rgba(0,0,0,0) 93.38%);
   left: 0
 }
-body::after {
+body.light::after {
   background: -o-linear-gradient(359.68deg,rgba(0,0,0,.03) -35.95%,rgba(0,0,0,0) 93.38%);
   background: linear-gradient(90.32deg,rgba(0,0,0,.03) -35.95%,rgba(0,0,0,0) 93.38%);
   right: 0;
@@ -16,107 +16,97 @@ body::after {
   -ms-transform: matrix(-1,0,0,1,0,0);
   transform: matrix(-1,0,0,1,0,0)
 }
-/*.preloader::before {*/
-  /*background: -o-radial-gradient(50% 50%,50% 50%,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 100%);*/
-  /*background: radial-gradient(50% 50% at 50% 50%,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 100%)*/
-/*}*/
-/*.preloader .circular circle {*/
-  /*stroke: #969696*/
-/*}*/
-/*.preloader .loader__icon svg path {*/
-  /*fill: #5d6066*/
-/*}*/
-.header {
+body.light .header {
   background: -o-linear-gradient(283.49deg,#fcfcfc 8.64%,#f2f2f2 81%);
   background: linear-gradient(166.51deg,#fcfcfc 8.64%,#f2f2f2 81%)
 }
-.header__logo svg path {
+body.light .header__logo svg path {
   fill: #2e3238
 }
-.burger-icon svg rect {
+body.light .burger-icon svg rect {
   fill: #2e3238
 }
-.burger-icon:hover {
+body.light .burger-icon:hover {
   background-color: #d1d1d1
 }
-.burger-icon:hover svg rect {
+body.light .burger-icon:hover svg rect {
   fill: #2e3238
 }
-.main-menu {
+body.light .main-menu {
   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
   box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
   -webkit-filter: drop-shadow(0 4px 16px rgba(0, 0, 0, .15));
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, .15));
   background: #f4f4f4
 }
-.main-menu::after,
-.main-menu::before {
+body.light .main-menu::after,
+body.light .main-menu::before {
   background: -o-radial-gradient(50% 50%,50% 50%,rgba(0,0,0,.05) 0,rgba(0,0,0,0) 100%);
   background: radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.05) 0,rgba(0,0,0,0) 100%)
 }
-.main-menu ul li a {
+body.light .main-menu ul li a {
   color: #969696
 }
-.main-menu ul li a:hover {
+body.light .main-menu ul li a:hover {
   color: #34383f
 }
-.settings-menu {
+body.light .settings-menu {
   -webkit-filter: drop-shadow(2px 4px 20px rgba(0, 0, 0, .15));
   filter: drop-shadow(2px 4px 20px rgba(0, 0, 0, .15))
 }
-.settings-menu__open:hover {
+body.light .settings-menu__open:hover {
   background-color: #d1d1d1
 }
-.settings-menu__open svg rect {
+body.light .settings-menu__open svg rect {
   fill: #2e3238
 }
-.settings-menu__top {
+body.light .settings-menu__top {
   border-bottom: 1px solid #d1d1d1;
   -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.1);
   box-shadow: 0 1px 4px rgba(0,0,0,.1)
 }
-.settings-menu__dropdown {
+body.light .settings-menu__dropdown {
   -webkit-box-shadow: 0 -1px 4px rgba(0,0,0,.1);
   box-shadow: 0 -1px 4px rgba(0,0,0,.1);
   background: -o-linear-gradient(283.49deg,#fcfcfc 8.64%,#f2f2f2 81%);
   background: linear-gradient(166.51deg,#fcfcfc 8.64%,#f2f2f2 81%)
 }
-.settings-menu__nav ul li a {
+body.light .settings-menu__nav ul li a {
   color: #969696
 }
-.settings-menu__nav ul li a:hover {
+body.light .settings-menu__nav ul li a:hover {
   color: #5d6066
 }
-.settings-menu__bottom {
+body.light .settings-menu__bottom {
   border-top: 1px solid #d1d1d1;
   -webkit-box-shadow: 0 -1px 4px rgba(0,0,0,.1);
   box-shadow: 0 -1px 4px rgba(0,0,0,.1)
 }
-.settings-menu__close:hover {
+body.light .settings-menu__close:hover {
   opacity: .6
 }
-.settings-menu__close svg rect {
+body.light .settings-menu__close svg rect {
   fill: #2e3238
 }
-.switch__slider {
+body.light .switch__slider {
   background-color: #d1d1d1
 }
-.switch__slider::before {
+body.light .switch__slider::before {
   background-color: #d1d1d1;
   border: .5px solid #f8f8f8;
   -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.1),inset 0 1px 1px rgba(240,240,240,.05);
   box-shadow: 0 2px 8px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.1),inset 0 1px 1px rgba(240,240,240,.05)
 }
-.switch-icon svg path {
+body.light .switch-icon svg path {
   fill: #5d6066
 }
-.theme-color__icon svg path {
+body.light .theme-color__icon svg path {
   fill: #d1d1d1
 }
-.top-info__left p {
+body.light .top-info__left p {
   color: #5d6066
 }
-.btn {
+body.light .btn {
   background: -webkit-gradient(linear,left bottom,left top,from(#34383f),to(#b4b4b4));
   background: -o-linear-gradient(bottom,#34383f 0,#b4b4b4 100%);
   background: linear-gradient(0deg,#34383f 0,#b4b4b4 100%);
@@ -124,29 +114,29 @@ body::after {
   -webkit-filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .1));
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .1))
 }
-.btn:hover {
+body.light .btn:hover {
   background: -webkit-gradient(linear,left bottom,left top,from(#262a30),to(#5d6066));
   background: -o-linear-gradient(bottom,#262a30 0,#5d6066 100%);
   background: linear-gradient(0deg,#262a30 0,#5d6066 100%)
 }
-.btn.btn-tsp {
+body.light .btn.btn-tsp {
   border: 1px solid #5d6066;
   color: #5d6066;
   background: 0 0
 }
-.btn.btn-tsp:hover {
+body.light .btn.btn-tsp:hover {
   background: #5d6066;
   color: #f4f4f4
 }
-.btn.btn-tsp:hover svg path {
+body.light .btn.btn-tsp:hover svg path {
   fill: #f4f4f4
 }
-.main-content.create-note .chat-container::before {
+body.light .main-content.create-note .chat-container::before {
   background: -webkit-gradient(linear,left top,left bottom,color-stop(5.17%,#e7e7e7),to(rgba(239,239,239,0)));
   background: -o-linear-gradient(top,#e7e7e7 5.17%,rgba(239,239,239,0) 100%);
   background: linear-gradient(180deg,#e7e7e7 5.17%,rgba(239,239,239,0) 100%)
 }
-.left-sidebar {
+body.light .left-sidebar {
   background: -o-linear-gradient(283.49deg,#fcfcfc 8.64%,#f2f2f2 81%);
   background: linear-gradient(166.51deg,#fcfcfc 8.64%,#f2f2f2 81%);
   -webkit-box-shadow: -4px 0 15px rgba(0,0,0,.1);
@@ -154,185 +144,185 @@ body::after {
   -webkit-filter: drop-shadow(3px 2px 15px rgba(0, 0, 0, .15));
   filter: drop-shadow(3px 2px 15px rgba(0, 0, 0, .15))
 }
-.left-sidebar__top p {
+body.light .left-sidebar__top p {
   color: #5d6066
 }
-.left-sidebar__top::before {
+body.light .left-sidebar__top::before {
   background: -webkit-gradient(linear,left top,left bottom,color-stop(5.17%,rgba(93,96,102,.15)),to(rgba(215,215,215,0)));
   background: -o-linear-gradient(top,rgba(93,96,102,.15) 5.17%,rgba(215,215,215,0) 100%);
   background: linear-gradient(180deg,rgba(93,96,102,.15) 5.17%,rgba(215,215,215,0) 100%)
 }
-.tab-item {
+body.light .tab-item {
   color: #969696
 }
-.tab-item:hover {
+body.light .tab-item:hover {
   color: #2e3238
 }
-.tab-item.active {
+body.light .tab-item.active {
   color: #2e3238;
   border-bottom: 2px solid #5d6066
 }
-.chat-message-content {
+body.light .chat-message-content {
   background: #f4f4f4;
   -webkit-box-shadow: inset 0 -3px 3px rgba(255,255,255,.3),inset 0 4px 4px rgba(0,0,0,.08);
   box-shadow: inset 0 -3px 3px rgba(255,255,255,.3),inset 0 4px 4px rgba(0,0,0,.08)
 }
-.chat-text-area {
+body.light .chat-text-area {
   background: #f4f4f4;
   -webkit-box-shadow: inset 0 -3px 3px rgba(255,255,255,.3),inset 0 4px 4px rgba(0,0,0,.08);
   box-shadow: inset 0 -3px 3px rgba(255,255,255,.3),inset 0 4px 4px rgba(0,0,0,.08);
   margin-top: 20px
 }
-.chat-text-area__attach svg path,
-.chat-text-area__send svg path {
+body.light .chat-text-area__attach svg path,
+body.light .chat-text-area__send svg path {
   fill: #969696
 }
-.text-message {
+body.light .text-message {
   color: #5d6066
 }
-::-webkit-input-placeholder {
+body.light ::-webkit-input-placeholder {
   color: #969696
 }
-::-moz-placeholder {
+body.light ::-moz-placeholder {
   color: #969696
 }
-:-ms-input-placeholder {
+body.light :-ms-input-placeholder {
   color: #969696
 }
-::-ms-input-placeholder {
+body.light ::-ms-input-placeholder {
   color: #969696
 }
-::placeholder {
+body.light ::placeholder {
   color: #969696
 }
-.attach-file:hover svg path {
+body.light .attach-file:hover svg path {
   fill: #5d6066
 }
-.send-message:hover svg path {
+body.light .send-message:hover svg path {
   fill: #5d6066
 }
-.photo-item__name {
+body.light .photo-item__name {
   color: #2e3238
 }
-.photo-item__info {
+body.light .photo-item__info {
   color: #969696
 }
-::-webkit-scrollbar-thumb {
+body.light ::-webkit-scrollbar-thumb {
   background-color: #969696
 }
-.action-item svg path {
+body.light .action-item svg path {
   fill: #969696
 }
-.action-item:hover svg path {
+body.light .action-item:hover svg path {
   fill: #2e3238
 }
-.file-item__title {
+body.light .file-item__title {
   color: #2e3238
 }
-.file-item__icon svg path {
+body.light .file-item__icon svg path {
   fill: #969696
 }
-.file-item__data p {
+body.light .file-item__data p {
   color: #969696
 }
-.loader__icon svg path {
+body.light .loader__icon svg path {
   fill: #969696
 }
-.loader-path {
+body.light .loader-path {
   stroke: #969696
 }
-.circular circle {
+body.light .circular circle {
   stroke: #d1d1d1
 }
-.message-item {
+body.light .message-item {
   background: #f8f8f8;
   -webkit-box-shadow: 0 0 16px rgba(0,0,0,.03);
   box-shadow: 0 0 16px rgba(0,0,0,.03);
   color: #31353a
 }
-.message-item-file__data {
+body.light .message-item-file__data {
   color: #969696
 }
-.message-item-file__icon svg path {
+body.light .message-item-file__icon svg path {
   fill: #969696
 }
-.message-item-image__info {
+body.light .message-item-image__info {
   color: #2e3238
 }
-.create-note-bottom__left p {
+body.light .create-note-bottom__left p {
   color: #5d6066
 }
-.content-link-wrap::before {
+body.light .content-link-wrap::before {
   background: -webkit-gradient(linear,left top,left bottom,color-stop(5.17%,#e7e7e7),to(rgba(239,239,239,0)));
   background: -o-linear-gradient(top,#e7e7e7 5.17%,rgba(239,239,239,0) 100%);
   background: linear-gradient(180deg,#e7e7e7 5.17%,rgba(239,239,239,0) 100%)
 }
-.content-link__input {
+body.light .content-link__input {
   background: #5d6066;
   -webkit-box-shadow: inset 0 4px 4px rgba(0,0,0,.25);
   box-shadow: inset 0 4px 4px rgba(0,0,0,.25);
   color: #fff
 }
-.content-link__input:hover {
+body.light .content-link__input:hover {
   background: #34383f
 }
-.content-link__input:hover::before {
+body.light .content-link__input:hover::before {
   background: -o-linear-gradient(179.93deg,#34383f 8.9%,rgba(52,56,63,0) 99.93%);
   background: linear-gradient(270.07deg,#34383f 8.9%,rgba(52,56,63,0) 99.93%)
 }
-.content-link__input::before {
+body.light .content-link__input::before {
   background: -o-linear-gradient(179.93deg,#5d6066 8.9%,rgba(93,96,102,0) 99.93%);
   background: linear-gradient(270.07deg,#5d6066 8.9%,rgba(93,96,102,0) 99.93%)
 }
-.content-link__icon > svg path {
+body.light .content-link__icon > svg path {
   fill: #2e3238
 }
-.tooltip-info {
+body.light .tooltip-info {
   background: #5d6066;
   color: #f4f4f4
 }
-.copy-link:hover > svg path {
+body.light .copy-link:hover > svg path {
   fill: #5d6066
 }
-.note-info__msg {
+body.light .note-info__msg {
   color: #2e3238
 }
-.content-link-share__descr {
+body.light .content-link-share__descr {
   color: #969696
 }
-.checkbox__text {
+body.light .checkbox__text {
   color: #2e3238
 }
-.checkbox input:checked + .checkmark {
+body.light .checkbox input:checked + .checkmark {
   background-color: #5d6066;
   border-color: #5d6066
 }
-.checkmark {
+body.light .checkmark {
   border: 2px solid #5d6066;
   background-color: #f4f4f4
 }
-.checkmark__icon svg path {
+body.light .checkmark__icon svg path {
   fill: #f4f4f4
 }
-.card-info {
+body.light .card-info {
   background: #f8f8f8;
   -webkit-box-shadow: 0 0 15px rgba(0,0,0,.15);
   box-shadow: 0 0 15px rgba(0,0,0,.15)
 }
-.card-info__descr,
-.card-info__title {
+body.light .card-info__descr,
+body.light .card-info__title {
   color: #2e3238
 }
-.card-info__icon svg path {
+body.light .card-info__icon svg path {
   fill: #f4f4f4
 }
-.card-info__icon svg circle {
+body.light .card-info__icon svg circle {
   fill: #2e3238
 }
-.s-title {
+body.light .s-title {
   color: #2e3238
 }
-@-webkit-keyframes color {
+body.light @-webkit-keyframes color {
   0% {
     stroke: #969696
   }
@@ -347,7 +337,7 @@ body::after {
     stroke: #969696
   }
 }
-@keyframes color {
+body.light @keyframes color {
   0% {
     stroke: #969696
   }

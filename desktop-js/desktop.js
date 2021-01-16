@@ -1,5 +1,16 @@
-document.addEventListener('DOMContentLoaded', function () {
+var app = {
+    body: document.querySelector('body'),
+    theme_switcher: document.querySelector('.js_theme_switcher'),
 
+    chat_message_content: document.querySelector(".chat-message-content"),
+    messages: [],
+    settings: {
+        scheme: getCookie('scheme')
+    },
+};
+
+function app_init()
+{
     const settingsBtnOpen = document.getElementById('settings-btn-open');
     const settingsBtnClose = document.getElementById('settings-btn-close');
     const settingsDropMenu = document.getElementById('settings-dropdown-menu');
@@ -29,10 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!settingsDropMenu.contains(target)) {
             settingsDropMenu.classList.remove('active');
+            console.log('1');
         }
 
         if (!mainMenu.contains(target) && !menuBtn.contains(target)) {
             mainMenu.classList.remove('active');
+            console.log('2');
         }
     }
 
@@ -67,9 +80,112 @@ document.addEventListener('DOMContentLoaded', function () {
         menuBtn.addEventListener('click', menuDropdownHandler)
     }
 
-});
+    app.theme_switcher.addEventListener('click', () => {
+        if (app.theme_switcher.checked) {
+            document.documentElement.classList.remove('light');
+            app.body.classList.remove('light');
+            setCookie('scheme', 'dark');
+            console.log('checked');
+        } else {
+            document.documentElement.classList.add('light');
+            app.body.classList.add('light');
+            setCookie('scheme', 'light');
+            console.log('unchecked');
+
+        }
+    });
+}
+
+// preloader
+function getCookie(name)
+{
+
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined
+}
+
+let app_wrapper = document.querySelector('body');
+let color = getCookie("scheme");
+if( color === 'light') {
+    app_wrapper.classList.add('light');
+    app.theme_switcher.checked = false
+}
+
+// preloader : END
+
+/*
+setCookie Аргументы:
+
+name
+название cookie
+value
+значение cookie (строка)
+props
+Объект с дополнительными свойствами для установки cookie:
+expires
+Время истечения cookie. Интерпретируется по-разному, в зависимости от типа:
+Если число - количество секунд до истечения.
+Если объект типа Date - точная дата истечения.
+Если expires в прошлом, то cookie будет удалено.
+Если expires отсутствует или равно 0, то cookie будет установлено как сессионное и исчезнет при закрытии браузера.
+path
+Путь для cookie.
+domain
+Домен для cookie.
+secure
+Пересылать cookie только по защищенному соединению.
+*/
+function setCookie(name, value, props)
+{
+
+    props = props || {};
+
+    var exp = props.expires;
+
+    if (typeof exp == "number" && exp) {
+
+        var d = new Date();
+
+        d.setTime(d.getTime() + exp * 1000);
+
+        exp = props.expires = d
+
+    }
+
+    if (exp && exp.toUTCString) {
+        props.expires = exp.toUTCString()
+    }
+
+    value = encodeURIComponent(value);
+
+    var updatedCookie = name + "=" + value;
+
+    for (var propName in props) {
+
+        updatedCookie += "; " + propName;
+
+        var propValue = props[propName];
+
+        if (propValue !== true) {
+            updatedCookie += "=" + propValue
+        }
+    }
+
+    document.cookie = updatedCookie
+
+}
+
+function deleteCookie(name)
+{
+    setCookie(name, null, {expires: -1})
+}
 
 
+/*
+* secondary functions
+* */
 const escapeHTML = str => str.replace(/[&<>'"]/g,
     tag => ({
         '&': '&amp;',
@@ -86,10 +202,8 @@ function bytesToSize(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-var app = {
-    chat_message_content: document.querySelector(".chat-message-content"),
-    messages: []
-};
+
+
 
 function randomInteger(min, max) {
     // случайное число от min до (max+1)
@@ -390,6 +504,9 @@ function icon_file_archive_svg_get() {
 
 
 // TODO!
+
+app_init()
+
 function sidebar_image_add(src, file_format, file_size) {
     return `
 <div class="photo-item">
