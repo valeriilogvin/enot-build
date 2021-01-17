@@ -81,7 +81,7 @@ function app_init()
             },
             {
                 body: {
-                    filename: "Image1.jpg",
+                    filename: "Очень длинное название файла Очень длинное название файла.jpg",
                     src: "desktop-img/msg-img-3.jpg"
                 },
                 type: "image",
@@ -115,7 +115,7 @@ function app_init()
             },
             {
                 body: {
-                    filename: "Image1.jpg",
+                    filename: "Очень длинное название файла Очень длинное название файла.jpg",
                     src: "desktop-img/msg-img-1.jpg"
                 },
                 type: "image",
@@ -337,12 +337,15 @@ function getRealRandomTree()
 
 function image_onload(element_id, src)
 {
-    let img = new Image(),
+     let img = document.createElement('div'), //new Image(),
         img_block = document.querySelector(`.image_${element_id}`),
         img_tree = img_block.querySelector(`.placeholder-tree`),
         img_color_block = img_block.querySelector(`.placeholder`);
+/*    
+
     img.src = src;
     img.setAttribute('class', 'main');
+
     img.onload = function(){
         setTimeout(()=>{
             img_block.appendChild(img);
@@ -350,6 +353,19 @@ function image_onload(element_id, src)
             img_color_block.remove();
         }, 3000); // test option
     };
+*/
+
+        setTimeout(()=>{
+            img.style="width:100%; height:100%; background-size: cover; background-image: url(" + src + ");}";
+            img_block.appendChild(img);
+            img_tree.remove();
+            img_color_block.remove();
+            
+
+        }, 3000); // test option
+
+        
+
 }
 
 function is_archive_file(file_format)
@@ -608,7 +624,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
+        <div data-src="${src}" class="img-block" id="message_${element_id}" onclick="event.stopPropagation();">
             <div>
                 <div>
                     <div class="image image_${element_id}">
@@ -618,7 +634,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 </div>
                 <p class="name clip">${filename}</p>
             </div>
-            <div class="indicators">
+            <div class="indicators" onclick="event.stopPropagation();">
                 <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${indicator_delete_html_get()}
                 </div>
