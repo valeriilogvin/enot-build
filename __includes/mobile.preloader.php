@@ -17,7 +17,7 @@
 		justify-content: space-between;
 		font-size: 16px!important;
 		line-height: 20px!important;
-		font-family: SourceSansPro,sans-serif;
+		font-family: 'Source Sans Pro',sans-serif;
 		font-weight: 600;
 	}
 

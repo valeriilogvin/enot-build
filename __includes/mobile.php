@@ -114,7 +114,7 @@
 
 <div class="wrapper js_wrapper" data-slide="2">
 
-	<?php include("preloader.php"); ?>
+	<?php include("mobile.preloader.php"); ?>
 
 
 	<!-- burger-menu -->
