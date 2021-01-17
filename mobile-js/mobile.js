@@ -473,7 +473,7 @@ function deleteCookie(name)
 /*
 * indicators
 * */
-function indicator_encryption_html_get()
+function indicator_encryption_svg_get()
 {
     return `
 <svg class="circular-loader" viewBox="25 25 50 50">
@@ -495,7 +495,7 @@ function indicator_encryption_html_get()
 `;
 }
 
-function indicator_loader_html_get()
+function indicator_loader_svg_get()
 {
     return `
 <svg class="circular-loader" viewBox="25 25 50 50">
@@ -623,10 +623,10 @@ function chat_message_image_item_html_get(element_id, src, filename)
                     ${indicator_delete_html_get()}
                 </div>
                 <div class="loader indicator_encrypt">
-                    ${indicator_encryption_html_get()}
+                    ${indicator_encryption_svg_get()}
                 </div>
                 <div class="loader indicator_loading">
-                    ${indicator_loader_html_get()}
+                    ${indicator_loader_svg_get()}
                 </div>
                 <div class="action-download" onclick="item_download_handler(${element_id})">
                     ${indicator_download_html_get()}
@@ -648,10 +648,10 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
             ${is_archive_file(file_format)?icon_file_archive_svg_get():icon_file_svg_get()}
             <div class="indicators">
                 <div class="loader indicator_encrypt">
-                    ${indicator_encryption_html_get()}
+                    ${indicator_encryption_svg_get()}
                 </div>
                 <div class="loader indicator_loading">
-                    ${indicator_loader_html_get()}
+                    ${indicator_loader_svg_get()}
                 </div>
                 <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${indicator_delete_html_get()}
