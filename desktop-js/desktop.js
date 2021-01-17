@@ -26,6 +26,8 @@ var app = {
         tabs: document.querySelectorAll(".tab-item"),
         tab_content_item: document.querySelectorAll(".tab-content-item"),
         photo_container: document.querySelector('.js_photo_container'),
+        file_container: document.querySelector('.js_sidebar_file_container'),
+        archive_container: document.querySelector('.js_sidebar_archive_container'),
     },
 
     messages: [],
@@ -393,7 +395,7 @@ secure
 /*
 * indicators
 * */
-function indicator_encryption_html_get() {
+function indicator_encryption_svg_get() {
     return `
 <svg class="circular-loader" viewBox="25 25 50 50">
     <circle class="loader-path" cx="50" cy="50" r="20" fill="none"
@@ -434,18 +436,6 @@ function indicator_loader_html_get() {
 
 </div>
 `;
-}
-
-function indicator_delete_html_get()
-{
-    return `
-        <svg width="13" height="17" viewBox="0 0 13 17" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M10.2063 1.3471H9.44857C9.24709 0.908462 8.80469 0.599976 8.29284 0.599976H4.46523C3.95338 0.599976 3.51099 0.908462 3.30825 1.3471H2.55049C1.14759 1.3471 0 2.49532 0 3.89884H12.7568C12.7575 2.49595 11.6099 1.3471 10.2063 1.3471Z"/>
-            <path
-                d="M0.776123 14.3585C0.776123 15.5912 1.78418 16.5999 3.0175 16.5999H9.74163C10.9756 16.5999 11.983 15.5912 11.983 14.3585V4.64587H0.776123V14.3585ZM8.62032 6.88725C8.62032 6.47489 8.95508 6.14013 9.36744 6.14013C9.7798 6.14013 10.1139 6.47489 10.1139 6.88725V14.3585C10.1139 14.7715 9.7798 15.105 9.36744 15.105C8.95508 15.105 8.62032 14.7702 8.62032 14.3585V6.88725ZM5.63244 6.88725C5.63244 6.47489 5.96658 6.14013 6.37956 6.14013C6.79255 6.14013 7.12669 6.47489 7.12669 6.88725V14.3585C7.12669 14.7715 6.79255 15.105 6.37956 15.105C5.96658 15.105 5.63244 14.7702 5.63244 14.3585V6.88725ZM2.64331 6.88725C2.64331 6.47489 2.97745 6.14013 3.38981 6.14013C3.80279 6.14013 4.13694 6.47489 4.13694 6.88725V14.3585C4.13694 14.7715 3.80279 15.105 3.38981 15.105C2.97745 15.105 2.64331 14.7702 2.64331 14.3585V6.88725Z"/>
-        </svg>`;
 }
 
 function chat_message_indicator_stop(message_id, indicator_type) {
@@ -492,7 +482,7 @@ function chat_message_image_html_get(src, filename, element_id) {
     <div class="message-item-image__right">
         <div class="message-item-image__indicators">
             <div class="loader indicator_encrypt">
-                ${indicator_encryption_html_get()}
+                ${indicator_encryption_svg_get()}
             </div>
             <div class="loader indicator_loading">
                 ${indicator_loader_html_get()}
@@ -536,7 +526,7 @@ function chat_message_image_html_get(src, filename, element_id) {
 //                     </div>
 //                     <div class="message-item-image__indicators">
 //                         <div class="loader indicator_encrypt">
-//                             ${indicator_encryption_html_get()}
+//                             ${indicator_encryption_svg_get()}
 //                         </div>
 //                         <div class="loader indicator_loading">
 //                             ${indicator_loader_html_get()}
@@ -574,7 +564,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 </div>
                 <div class="message-item-image__indicators">
                     <div class="loader indicator_encrypt">
-                        ${indicator_encryption_html_get()}
+                        ${indicator_encryption_svg_get()}
                     </div>
                     <div class="loader indicator_loading">
                         ${indicator_loader_html_get()}
@@ -604,7 +594,7 @@ function chat_message_file_html_get(file_name, file_format, file_size, element_i
     <div class="message-item-file__right">
         <div class="message-item-file__indicators">
             <div class="loader indicator_encrypt">
-                ${indicator_encryption_html_get()}
+                ${indicator_encryption_svg_get()}
             </div>
             <div class="loader indicator_loading">
                 ${indicator_loader_html_get()}
@@ -689,10 +679,38 @@ function icon_file_archive_svg_get() {
 `;
 }
 
+function sidebar_file_html_get(file_name, file_format, file_size, element_id) {
+    console.log(file_size);
+    return`
+    <div id="sidebar_item_${element_id}">
+        <h4 class="file-item__title">${file_name}</h4>
+        <div class="file-item__group" >
+            <div class="file-item__info">
+                <div class="file-item__icon icon-document">
+                    ${is_archive_file(file_format) ? icon_file_archive_svg_get() : icon_file_svg_get()}
+                </div>
+                <div class="file-item__data">
+                    <p>Формат: ${file_format}</p>
+                    <p>Размер: ${bytesToSize(file_size)}</p>
+                </div>
+            </div>
+            <div class="file-item__actions">
+                <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
+                    ${action_item_delete_svg_get()}
+                </div>
+                <div class="action-item action-download">
+                    ${action_item_filedownload_svg_get()}
+                </div>  
+            </div>
+        </div>
+    </div>
+    `
+}
+
 function sidebar_photo_item_get(element_id, src, filename) {
 // function sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename)) {
     return `
-        <div class="photo-item" id="sidebar_photo_${element_id}">
+        <div class="photo-item" id="sidebar_item_${element_id}">
             <div class="photo-item__img"><img src="${src}" alt="">
             </div>
             <div class="photo-item__name clip">${filename}</div>
@@ -703,7 +721,7 @@ function sidebar_photo_item_get(element_id, src, filename) {
                 </div>
             </div>-->
             <div class="action-item sidebar-action-delete" onclick="item_delete_handler(${element_id})">
-                ${indicator_delete_html_get()}
+                ${action_item_delete_svg_get()}
             </div>
         </div>
     `
@@ -816,6 +834,18 @@ function chat_message_file_append(file_name, file_format, file_size, element_id)
 function message_file_append(file_name, file_format, file_size) {
     let element_id = randomInteger(10000, 60000);
 
+    console.log(is_archive_file(file_format));
+
+    if(is_archive_file(file_format)){
+        app.sidebar.archive_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_file_html_get(file_name, file_format, file_size, element_id)}
+        `)
+    } else {
+        app.sidebar.file_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_file_html_get(file_name, file_format, file_size, element_id)}
+        `)
+    }
+
     chat_message_file_append(file_name, file_format, file_size, element_id);
     app_messages_object_file_append(file_name, file_format, file_size, element_id);
     chat_slide_btn_public_visibility_handler();
@@ -851,7 +881,7 @@ function chat_btn_send_handler() {
 
 function item_delete_handler(element_id) {
     let this_item_id = 'message_' + element_id,
-        this_item_sidebar_id = 'sidebar_photo_' + element_id,
+        this_item_sidebar_id = 'sidebar_item_' + element_id,
         $this_element = document.getElementById(this_item_id),
         $this_sidebar_element = document.getElementById(this_item_sidebar_id);
 
@@ -890,6 +920,7 @@ function item_delete_handler(element_id) {
 
         } else {
             $this_element.remove();
+            $this_sidebar_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
     } else {
@@ -919,6 +950,7 @@ function item_delete_handler(element_id) {
                 initializeLightGallery(parentElement.id.split("_")[1]);
 
         } else {
+            console.log('2');
 
             $this_element.remove();
             app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
@@ -979,6 +1011,7 @@ function sidebar_image_add(src, file_format, file_size) {
 
 message_text_append("Привет! Посмотри на эту фотографию");
 message_file_append("Очень длинное название файла", "7zip", "11 kb");
+message_file_append("Очень длинное название файла", "doc", "14 kb");
 message_images_append([
     {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
