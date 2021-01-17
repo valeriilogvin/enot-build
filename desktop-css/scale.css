@@ -499,7 +499,7 @@ only screen and (min-resolution:1.25dppx) {
     .action-item {
         width: calc(30px * .8);
         height: calc(20px * .8);
-        min-width: calc(20px * .8)
+        min-width: calc(30px * .8)
     }
 
     .file-item {
