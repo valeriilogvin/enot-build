@@ -347,7 +347,7 @@ function image_onload(element_id, src)
         setTimeout(()=>{
             img_block.appendChild(img);
             img_tree.remove();
-            img_color_block.remove();            
+            img_color_block.remove();
         }, 3000); // test option
     };
 }
@@ -789,8 +789,8 @@ function message_file_append(file_name, file_format, file_size)
     let element_id = randomInteger(10000, 60000);
 
     chat_message_file_append(file_name, file_format, file_size, element_id);
-
     app_messages_object_file_append(file_name, file_format, file_size, element_id);
+    chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
 }
 
