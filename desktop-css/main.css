@@ -976,6 +976,18 @@ p {
   width: 100%;
   margin: 0 auto
 }
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.clip {
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
 /*.preloader {*/
   /*position: absolute;*/
   /*top: 0;*/
@@ -1526,6 +1538,7 @@ p {
 }
 .chat-message-content {
   border-radius: 5px;
+  width: inherit;
   overflow-y: auto;
   height: calc(100vh - 315px);
   display: -webkit-box;
@@ -1551,16 +1564,10 @@ p {
 .message-item-text {
   padding: 10px 30px
 }
-.message-item-text:hover .message-item-actions {
-  opacity: 1;
-  visibility: visible
-}
 .message-item-text .message-item-actions {
   position: absolute;
   right: 5px;
   top: 10px;
-  opacity: 0;
-  visibility: hidden;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s
@@ -1577,10 +1584,6 @@ p {
   -ms-flex-pack: justify;
   justify-content: space-between
 }
-.message-item-image:hover .message-item-actions {
-  opacity: 1;
-  visibility: visible
-}
 .message-item-image__left {
   width: 160px;
   min-width: 160px;
@@ -1591,6 +1594,31 @@ p {
   overflow: hidden;
   position: relative;
   padding-top: 100%
+}
+.message-item-image .placeholder {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.message-item-image img.placeholder-tree {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  position: absolute;
+  opacity: .7;
+  padding: 20px;
+  top: 0;
+  left: 0px;
+  z-index: 1;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
 }
 .message-item-image__inner img {
   content: '';
@@ -1632,8 +1660,6 @@ p {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  opacity: 0;
-  visibility: hidden;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s
@@ -1652,10 +1678,6 @@ p {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 10px 15px
-}
-.message-item-file:hover .message-item-actions {
-  opacity: 1;
-  visibility: visible
 }
 .message-item-file__left {
   -webkit-box-flex: 1;
@@ -1729,11 +1751,10 @@ p {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s
@@ -1745,6 +1766,9 @@ p {
   margin-right: 0
 }
 .message-item-albom {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1753,7 +1777,7 @@ p {
   padding: 15px 5px
 }
 .message-item-albom .message-item-image {
-  width: calc(25% - 20px);
+  width: 155px;
   margin: 0 10px 15px;
   padding: 0
 }
@@ -1773,7 +1797,8 @@ p {
   margin-bottom: 5px
 }
 .message-item-albom .message-item-image__actions .action-item {
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  height: 30px;
 }
 .message-item-albom .message-item-image__info {
   font-family: Exo2,sans-serif;
@@ -1894,12 +1919,9 @@ p {
   justify-content: space-between
 }
 .photo-item {
+  position: relative;
   width: calc(50% - 7px);
   margin-bottom: 30px
-}
-.photo-item:hover .photo-item__actions {
-  opacity: 1;
-  visibility: visible
 }
 .photo-item__img {
   overflow: hidden;
@@ -1912,7 +1934,7 @@ p {
   align-items: flex-start;
   margin-bottom: 10px;
   position: relative;
-  padding-top: 87%
+  padding-top: 87%;
 }
 .photo-item__img img {
   position: absolute;
@@ -1928,6 +1950,7 @@ p {
   object-position: center
 }
 .photo-item__name {
+  width: 120px;
   font-size: 15px;
   line-height: 126.66667%
 }
@@ -1960,8 +1983,6 @@ p {
   justify-content: flex-end;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  opacity: 0;
-  visibility: hidden;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s
@@ -1986,16 +2007,17 @@ p {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 20px;
+  width: 30px;
   height: 20px;
   min-width: 20px
 }
+.sidebar-action-delete{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 .file-item {
   margin-bottom: 20px
-}
-.file-item:hover .file-item__actions {
-  opacity: 1;
-  visibility: visible
 }
 .file-item__title {
   font-size: 15px;
@@ -2048,8 +2070,6 @@ p {
   font-style: italic
 }
 .file-item__actions {
-  opacity: 0;
-  visibility: hidden;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s
@@ -2375,6 +2395,14 @@ p {
   max-width: 360px;
   width: 100%
 }
+.loader.stop svg.circular-loader circle {
+  stroke-dashoffset: 0;
+}
+
+.loader.stop svg.circular-loader,
+.loader.stop svg circle {
+  animation: none;
+}
 @-webkit-keyframes rotate {
   100% {
     -webkit-transform: rotate(360deg);
@@ -2477,9 +2505,9 @@ p {
     -ms-flex: 0 0 335px;
     flex: 0 0 335px
   }
-  .message-item-albom .message-item-image {
-    width: calc(33.3333% - 20px)
-  }
+  /*.message-item-albom .message-item-image {*/
+    /*width: calc(33.3333% - 20px)*/
+  /*}*/
   .message-item-albom .message-item-image__left {
     width: auto;
     min-width: auto;
@@ -2507,9 +2535,9 @@ p {
   .chat-wrap {
     margin-left: 0
   }
-  .message-item-albom .message-item-image {
-    width: calc(25% - 20px)
-  }
+  /*.message-item-albom .message-item-image {*/
+    /*width: calc(25% - 20px)*/
+  /*}*/
   .create-note-bottom__right {
     max-width: 260px
   }
@@ -2564,9 +2592,9 @@ p {
   .btn__icon {
     margin-right: 10px
   }
-  .message-item-albom .message-item-image {
-    width: calc(33.3333% - 20px)
-  }
+  /*.message-item-albom .message-item-image {*/
+    /*width: calc(33.3333% - 20px)*/
+  /*}*/
   .chat-bottom-btns .btn {
     margin: 20px 5px 0
   }
@@ -2623,7 +2651,7 @@ p {
 }
 @media only screen and (max-width:575px) {
   .message-item-albom .message-item-image {
-    width: calc(50% - 20px)
+    width: 140px;
   }
 }
 @media only screen and (max-width:475px) {

@@ -1,11 +1,17 @@
+Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+}
+
 var app = {
     body: document.querySelector('body'),
     theme_switcher: document.querySelector('.js_theme_switcher'),
-
-    chat_message_content: document.querySelector(".chat-message-content"),
+    btn_public: document.querySelector('.js_mob_btn_public'),
 
     chat: {
-        message_content: document.querySelector('.js_chat_message_content')
+        message_content: document.querySelector('.js_chat_message_content'),
+        input_text: document.querySelector('.js_input_text'),
+        file_input_button: document.getElementById('js_file_input_button'),
+        file_input: document.getElementById('js_file_input')
     },
 
     menu: {
@@ -15,20 +21,24 @@ var app = {
         settings_btn_close: document.getElementById('settings-btn-close'),
         settings_drop_menu: document.getElementById('settings-dropdown-menu'),
     },
-    
+
     sidebar: {
         tabs: document.querySelectorAll(".tab-item"),
         tab_content_item: document.querySelectorAll(".tab-content-item"),
+        photo_container: document.querySelector('.js_photo_container'),
     },
 
     messages: [],
     settings: {
         scheme: getCookie('scheme')
     },
-};
 
-function app_init()
-{
+    indicator_stop_timeout: 5000,
+};
+let tree_icons_indexes_default = tree_icons.map((x,i)=>i);
+let __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
+
+function app_init() {
 
     function openSettingsHandler() {
         app.menu.settings_drop_menu.classList.add('active')
@@ -102,11 +112,14 @@ function app_init()
 
         }
     });
+
+    app.chat.file_input_button.addEventListener("click", (e) => {
+        app.chat.file_input.click();
+    }, false);
 }
 
 // preloader
-function getCookie(name)
-{
+function getCookie(name) {
 
     var matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -116,7 +129,7 @@ function getCookie(name)
 
 let app_wrapper = document.querySelector('body');
 let color = getCookie("scheme");
-if( color === 'light') {
+if (color === 'light') {
     app_wrapper.classList.add('light');
     app.theme_switcher.checked = false
 }
@@ -144,8 +157,7 @@ domain
 secure
 Пересылать cookie только по защищенному соединению.
 */
-function setCookie(name, value, props)
-{
+function setCookie(name, value, props) {
 
     props = props || {};
 
@@ -184,17 +196,17 @@ function setCookie(name, value, props)
 
 }
 
-function deleteCookie(name)
-{
+function deleteCookie(name) {
     setCookie(name, null, {expires: -1})
 }
+
 
 /*
 * secondary functions
 * */
 function shuffle(arr) {
 
-    var arra1 = arr.map( x => x);
+    var arra1 = arr.map(x => x);
     var ctr = arra1.length, temp, index;
 
     while (ctr > 0) {
@@ -207,22 +219,20 @@ function shuffle(arr) {
     return arra1;
 }
 
-function note_amount_set(amount)
-{
+function note_amount_set(amount) {
     for (let el of app.note_amount) el.innerHTML = note_amount_get(amount)
 }
 
-function note_amount_get(amount)
-{
-    if(amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;заметку`;
-    if(amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметку`;
-    if(amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметки`;
-    if(amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметок`;
+function note_amount_get(amount) {
+    if (amount === 0 || undefined) return `Вы&nbsp;не&nbsp;можете отправить&nbsp;заметку`;
+    if (amount === 1 || undefined) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметку`;
+    if (amount > 1 && amount < 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметки`;
+    if (amount > 4) return `Вы&nbsp;можете&nbsp;отправить&nbsp;еще <span>${amount}</span> заметок`;
 }
 
-function wrapper_slide_visibility(type, callback)
-{
-    callback = callback ? callback: ()=>{};
+function wrapper_slide_visibility(type, callback) {
+    callback = callback ? callback : () => {
+    };
     if (app.wrapper.dataset.slide === type) return;
 
     switch (type) {
@@ -251,7 +261,8 @@ function wrapper_slide_visibility(type, callback)
             app.wrapper.dataset.slide = '4';
         }
             break;
-        default: app.wrapper.dataset.slide = '0';
+        default:
+            app.wrapper.dataset.slide = '0';
     }
 }
 
@@ -264,29 +275,26 @@ const escapeHTML = str => str.replace(/[&<>'"]/g,
         '"': '&quot;'
     }[tag]));
 
-function bytesToSize(bytes)
-{
+function bytesToSize(bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '0 Byte';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-function randomInteger(min, max)
-{
+function randomInteger(min, max) {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
 
-function randomHSL(){
+function randomHSL() {
 //  hue, saturation, lightness
     return "hsla(" + ~~(360 * Math.random()) + "," + (40 + 10 * Math.random()) + '%,'
         + "55%, 1)";
 }
 
-function randomColor()
-{
+function randomColor() {
     return randomHSL();
 
     // or
@@ -300,27 +308,24 @@ function randomColor()
     //*/
 }
 
-function randomTree()
-{
+function randomTree() {
     return tree_icons.random();
 }
 
-function getRealRandomTree()
-{
-    if (__tree_icons_indexes_tmp.length==0) __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
+function getRealRandomTree() {
+    if (__tree_icons_indexes_tmp.length == 0) __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
     return tree_icons[__tree_icons_indexes_tmp.shift()];
 }
 
-function image_onload(element_id, src)
-{
+function image_onload(element_id, src) {
     let img = new Image(),
         img_block = document.querySelector(`.image_${element_id}`),
         img_tree = img_block.querySelector(`.placeholder-tree`),
         img_color_block = img_block.querySelector(`.placeholder`);
     img.src = src;
     img.setAttribute('class', 'main');
-    img.onload = function(){
-        setTimeout(()=>{
+    img.onload = function () {
+        setTimeout(() => {
             img_block.appendChild(img);
             img_tree.remove();
             img_color_block.remove();
@@ -328,13 +333,11 @@ function image_onload(element_id, src)
     };
 }
 
-function is_archive_file(file_format)
-{
+function is_archive_file(file_format) {
     return /^(rar|zip|7z|7zip|tar|tz|gz|ace|arj)$/i.test(file_format);
 }
 
-const indexOfIdGet = (array, id) =>
-{
+const indexOfIdGet = (array, id) => {
     for (let i = 0; i < array.length; i++) {
         if (array[i].id === id) {
             return i;
@@ -343,26 +346,23 @@ const indexOfIdGet = (array, id) =>
     return false;
 };
 
-function getExtension(fname)
-{
+function getExtension(fname) {
     if (!fname) return "";
     return fname.slice((fname.lastIndexOf(".") - 1 >>> 0) + 2);
 }
 
-function readAsDataURL(file)
-{
+function readAsDataURL(file) {
     return new Promise((resolve, reject) => {
         const fr = new FileReader();
         fr.onerror = reject;
-        fr.onload = function() {
+        fr.onload = function () {
             resolve({src: fr.result, filename: file.name});
         };
         fr.readAsDataURL(file);
     });
 }
 
-function initializeLightGallery(id)
-{
+function initializeLightGallery(id) {
     lightGallery(document.getElementById('lg_' + id));
 }
 
@@ -390,160 +390,9 @@ secure
 */
 
 
-function chat_message_text_add(text) {
-    let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text), element_id));
-}
-
-function chat_message_text_html_get(text, element_id) {
-    return `<div class="message-item message-item-text" id="message_${element_id}">
-${text}                            
-    <div class="message-item-actions">
-        <div class="action-item action-delete">
-            ${action_item_delete_svg_get()}
-        </div>
-    </div>
-</div>`;
-}
-
-
-function chat_message_image_add(src, filename) {
-    let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_image_html_get(src, escapeHTML(filename), element_id));
-}
-
-function chat_message_image_html_get(src, filename, element_id) {
-    return `
-<div class="message-item message-item-image" id="message_${element_id}">
-    <div class="message-item-image__left">
-        <div class="message-item-image__inner"><img src="${src}" alt=""></div>
-        <div class="message-item-image__info">${filename}</div>
-    </div>
-    <div class="message-item-image__right">
-        <div class="message-item-image__indicators">
-            <div class="loader">
-                ${indicator_encryption_html_get()}
-            </div>
-            <div class="loader">
-                ${indicator_loader_html_get()}
-            </div>
-        </div>
-        <div class="message-item-actions message-item-image__actions">
-            <div class="action-item action-delete">
-                ${action_item_delete_svg_get()}
-            </div>
-            <div class="action-item action-see">
-                ${action_item_see_svg_get()}
-            </div>
-        </div>
-    </div>
-</div>`;
-}
-
-function chat_message_album_add(image_objects) {
-
-    let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_album_html_get(image_objects));
-
-}
-
-
-function chat_message_album_html_get(image_objects) {
-    /*
-image_objects = [{
-    url,
-    file_name,
-    element_id
-}]
-    */
-
-    var img_items = [];
-
-    for (let i = 0; i < image_objects.length; i++) {
-        img_items.push(`
-            <div class="message-item-image">
-                <div class="message-item-image__left">
-                    <div class="message-item-image__inner"><img src="${image_objects[i].src}" alt=""></div>
-                    <div class="message-item-image__info">${escapeHTML(image_objects[i].filename)}</div>
-                </div>
-                <div class="message-item-image__right">
-                    <div class="message-item-image__indicators">
-                        <div class="loader">
-                            ${indicator_fileencryption_html_get()}
-                        </div>
-                        <div class="loader">
-                            ${indicator_loader_html_get()}
-                        </div>
-                    </div>
-                    <div class="message-item-actions message-item-image__actions">
-                        <div class="action-item action-delete">
-                            ${action_item_delete_svg_get()}
-                        </div>
-                        <div class="action-item action-see">
-                            ${action_item_see_svg_get()}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `);
-    }
-
-    return `
-<div class="message-item message-item-albom">
-    ${img_items.join("\n")}
-</div>`;
-}
-
-function chat_message_file_add(file_name, file_format, file_size) {
-    let element_id = randomInteger(10000, 60000);
-    app.chat_message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
-
-}
-
-function chat_message_file_html_get(file_name, file_format, file_size, element_id) {
-    return `
-<div class="message-item message-item-file" id="message_${element_id}">
-    <div class="message-item-file__left">
-        <div class="message-item-file__info">
-            <p class="message-item-file__title">${file_name}</p>
-            <div class="message-item-file__data">
-                <p>Формат: ${file_format}</p>
-                <p>Размер: ${bytesToSize(file_size)}</p>
-            </div>
-        </div>
-        <div class="message-item-file__icon">
-            ${is_archive_file(file_format) ? icon_file_archive_svg_get() : icon_file_svg_get()}
-        </div>
-    </div>
-    <div class="message-item-file__right">
-        <div class="message-item-file__indicators">
-            <div class="loader">
-                ${indicator_fileencryption_html_get()}
-            </div>
-            <div class="loader">
-                ${indicator_loader_html_get()}
-            </div>
-        </div>
-        <div class="message-item-actions message-item-file__actions">
-            <div class="action-item action-delete">
-                ${action_item_delete_svg_get()}
-            </div>
-            <div class="action-item action-download">
-                ${action_item_filedownload_svg_get()}
-            </div>
-        </div>
-    </div>
-</div>`;
-}
-
-function chat_message_state_set(chat_message_id) {
-
-}
-
-function chat_message_delete(chat_message_id) {
-
-}
-
+/*
+* indicators
+* */
 function indicator_encryption_html_get() {
     return `
 <svg class="circular-loader" viewBox="25 25 50 50">
@@ -561,28 +410,6 @@ function indicator_encryption_html_get() {
             d="M8.65796 5.29537V4.09863C8.65796 2.13553 7.061 0.538574 5.09817 0.538574C3.13507 0.538574 1.53824 2.13553 1.53824 4.09863V5.29537H0.384766V12.5386H9.8113V5.29537H8.65796ZM3.01643 4.09863C3.01643 2.95066 3.95033 2.01676 5.09817 2.01676C6.246 2.01676 7.1799 2.95066 7.1799 4.09863V5.29537H3.01643V4.09863ZM5.69044 9.85277V11.4541H4.50576V9.85277C4.23021 9.66387 4.0493 9.34715 4.0493 8.98756C4.0493 8.4084 4.51887 7.93883 5.09804 7.93883C5.6772 7.93883 6.14677 8.4084 6.14677 8.98756C6.1469 9.34702 5.96599 9.66373 5.69044 9.85277Z"
             fill="#5D6066" />
     </svg>
-</div>
-`;
-}
-
-function indicator_fileencryption_html_get() {
-    return `
-<svg class="circular-loader" viewBox="25 25 50 50">
-    <circle class="loader-path" cx="50" cy="50" r="20" fill="none"
-        stroke-width="4" stroke-dasharray="150, 200" stroke-dashoffset="-10" />
-</svg>
-<svg class="circular" viewBox="25 25 50 50">
-    <circle cx="50" cy="50" r="20" fill="none" stroke-width="4"
-        stroke-dasharray="150, 200" />
-</svg>
-<div class="loader__icon">
-    <svg width="10" height="13" viewBox="0 0 10 13" fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M8.65796 5.29537V4.09863C8.65796 2.13553 7.061 0.538574 5.09817 0.538574C3.13507 0.538574 1.53824 2.13553 1.53824 4.09863V5.29537H0.384766V12.5386H9.8113V5.29537H8.65796ZM3.01643 4.09863C3.01643 2.95066 3.95033 2.01676 5.09817 2.01676C6.246 2.01676 7.1799 2.95066 7.1799 4.09863V5.29537H3.01643V4.09863ZM5.69044 9.85277V11.4541H4.50576V9.85277C4.23021 9.66387 4.0493 9.34715 4.0493 8.98756C4.0493 8.4084 4.51887 7.93883 5.09804 7.93883C5.6772 7.93883 6.14677 8.4084 6.14677 8.98756C6.1469 9.34702 5.96599 9.66373 5.69044 9.85277Z"
-            fill="#5D6066" />
-    </svg>
-
 </div>
 `;
 }
@@ -609,6 +436,192 @@ function indicator_loader_html_get() {
 `;
 }
 
+function indicator_delete_html_get()
+{
+    return `
+        <svg width="13" height="17" viewBox="0 0 13 17" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M10.2063 1.3471H9.44857C9.24709 0.908462 8.80469 0.599976 8.29284 0.599976H4.46523C3.95338 0.599976 3.51099 0.908462 3.30825 1.3471H2.55049C1.14759 1.3471 0 2.49532 0 3.89884H12.7568C12.7575 2.49595 11.6099 1.3471 10.2063 1.3471Z"/>
+            <path
+                d="M0.776123 14.3585C0.776123 15.5912 1.78418 16.5999 3.0175 16.5999H9.74163C10.9756 16.5999 11.983 15.5912 11.983 14.3585V4.64587H0.776123V14.3585ZM8.62032 6.88725C8.62032 6.47489 8.95508 6.14013 9.36744 6.14013C9.7798 6.14013 10.1139 6.47489 10.1139 6.88725V14.3585C10.1139 14.7715 9.7798 15.105 9.36744 15.105C8.95508 15.105 8.62032 14.7702 8.62032 14.3585V6.88725ZM5.63244 6.88725C5.63244 6.47489 5.96658 6.14013 6.37956 6.14013C6.79255 6.14013 7.12669 6.47489 7.12669 6.88725V14.3585C7.12669 14.7715 6.79255 15.105 6.37956 15.105C5.96658 15.105 5.63244 14.7702 5.63244 14.3585V6.88725ZM2.64331 6.88725C2.64331 6.47489 2.97745 6.14013 3.38981 6.14013C3.80279 6.14013 4.13694 6.47489 4.13694 6.88725V14.3585C4.13694 14.7715 3.80279 15.105 3.38981 15.105C2.97745 15.105 2.64331 14.7702 2.64331 14.3585V6.88725Z"/>
+        </svg>`;
+}
+
+function chat_message_indicator_stop(message_id, indicator_type) {
+    let this_message_id = document.getElementById('message_' + message_id),
+        this_indicator = this_message_id.querySelector(`.${indicator_type}`);
+
+    setTimeout(() => {
+        this_indicator.classList.add('stop');
+//        this_indicator.style.visibility = 'hidden';
+    }, app.indicator_stop_timeout)
+
+}
+
+function indicator_encrypt_stop(message_id) {
+    chat_message_indicator_stop(message_id, 'indicator_encrypt')
+}
+
+function indicator_loading_stop(message_id) {
+    chat_message_indicator_stop(message_id, 'indicator_loading')
+}
+
+
+/*
+* returning functions
+* */
+function chat_message_text_html_get(text, element_id) {
+    return `<div class="message-item message-item-text" id="message_${element_id}">
+${text}                            
+    <div class="message-item-actions">
+        <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
+            ${action_item_delete_svg_get()}
+        </div>
+    </div>
+</div>`;
+}
+
+function chat_message_image_html_get(src, filename, element_id) {
+    return `
+<div class="message-item message-item-image" id="message_${element_id}">
+    <div class="message-item-image__left">
+        <div class="message-item-image__inner"><img src="${src}" alt=""></div>
+        <div class="message-item-image__info">${filename}</div>
+    </div>
+    <div class="message-item-image__right">
+        <div class="message-item-image__indicators">
+            <div class="loader indicator_encrypt">
+                ${indicator_encryption_html_get()}
+            </div>
+            <div class="loader indicator_loading">
+                ${indicator_loader_html_get()}
+            </div>
+        </div>
+        <div class="message-item-actions message-item-image__actions">
+            <div class="action-item action-delete">
+                ${action_item_delete_svg_get()}
+            </div>
+            <div class="action-item action-see">
+                ${action_item_see_svg_get()}
+            </div>
+        </div>
+    </div>
+</div>`;
+}
+
+// function chat_message_album_html_get(image_objects) {
+//     /*
+// image_objects = [{
+//     url,
+//     file_name,
+//     element_id
+// }]
+//     */
+//
+//     var img_items = [];
+//
+//     for (let i = 0; i < image_objects.length; i++) {
+//         img_items.push(`
+//             <div class="message-item-image">
+//                 <div class="message-item-image__left">
+//                     <div class="message-item-image__inner"><img src="${image_objects[i].src}" alt=""></div>
+//                     <div class="message-item-image__info">${escapeHTML(image_objects[i].filename)}</div>
+//                 </div>
+//                 <div class="message-item-image__right">
+//                     <div class="message-item-actions message-item-image__actions">
+//                         <div class="action-item action-delete">
+//                             ${action_item_delete_svg_get()}
+//                         </div>
+//                     </div>
+//                     <div class="message-item-image__indicators">
+//                         <div class="loader indicator_encrypt">
+//                             ${indicator_encryption_html_get()}
+//                         </div>
+//                         <div class="loader indicator_loading">
+//                             ${indicator_loader_html_get()}
+//                         </div>
+//                     </div>
+//
+//                 </div>
+//             </div>
+//         `);
+//     }
+//
+//     return `
+// <div class="message-item message-item-albom">
+//     ${img_items.join("\n")}
+// </div>`;
+// }
+
+function chat_message_image_item_html_get(element_id, src, filename)
+{
+    return `
+        
+        <div href="${src}" class="img-block message-item-image" id="message_${element_id}" onclick="return false;">
+            <div class="message-item-image__left">
+                <div class="message-item-image__inner image_${element_id}">
+                    <div class="placeholder" style="background: ${randomColor()}"></div>
+                    <img class="placeholder-tree" src="${getRealRandomTree()}" alt="">
+                </div>
+                <div class="message-item-image__info">${filename}</div>
+            </div>
+            <div class="message-item-image__right">
+                <div class="message-item-actions message-item-image__actions">
+                    <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
+                        ${action_item_delete_svg_get()}
+                    </div>
+                </div>
+                <div class="message-item-image__indicators">
+                    <div class="loader indicator_encrypt">
+                        ${indicator_encryption_html_get()}
+                    </div>
+                    <div class="loader indicator_loading">
+                        ${indicator_loader_html_get()}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+`;
+}
+
+function chat_message_file_html_get(file_name, file_format, file_size, element_id) {
+    return `
+<div class="message-item message-item-file" id="message_${element_id}">
+    <div class="message-item-file__left">
+        <div class="message-item-file__info">
+            <p class="message-item-file__title">${file_name}</p>
+            <div class="message-item-file__data">
+                <p>Формат: ${file_format}</p>
+                <p>Размер: ${bytesToSize(file_size)}</p>
+            </div>
+        </div>
+        <div class="message-item-file__icon">
+            ${is_archive_file(file_format) ? icon_file_archive_svg_get() : icon_file_svg_get()}
+        </div>
+    </div>
+    <div class="message-item-file__right">
+        <div class="message-item-file__indicators">
+            <div class="loader indicator_encrypt">
+                ${indicator_encryption_html_get()}
+            </div>
+            <div class="loader indicator_loading">
+                ${indicator_loader_html_get()}
+            </div>
+        </div>
+        <div class="message-item-actions message-item-file__actions">
+            <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
+                ${action_item_delete_svg_get()}
+            </div>
+            <div style="display: none;" class="action-item action-download" /*onclick="item_download_handler(${element_id})"*/>
+                ${action_item_filedownload_svg_get()}
+            </div>
+        </div>
+    </div>
+</div>`;
+}
+
 function action_item_delete_svg_get() {
     return `
 <svg width="13" height="17" viewBox="0 0 13 17" fill="none"
@@ -621,7 +634,6 @@ function action_item_delete_svg_get() {
         fill="#5D6066" />
 </svg>`;
 }
-
 
 function action_item_see_svg_get() {
     return `
@@ -677,17 +689,36 @@ function icon_file_archive_svg_get() {
 `;
 }
 
+function sidebar_photo_item_get(element_id, src, filename) {
+// function sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename)) {
+    return `
+        <div class="photo-item" id="sidebar_photo_${element_id}">
+            <div class="photo-item__img"><img src="${src}" alt="">
+            </div>
+            <div class="photo-item__name clip">${filename}</div>
+            <!--<div class="photo-item__bottom">
+                <div class="photo-item__info">
+                    <p>Формат: jpg</p>
+                    <p>Размер: 251 Кб</p>
+                </div>
+            </div>-->
+            <div class="action-item sidebar-action-delete" onclick="item_delete_handler(${element_id})">
+                ${indicator_delete_html_get()}
+            </div>
+        </div>
+    `
+}
+
 
 /*
 * append to app.messages
 * */
-function app_messages_object_text_append(text, element_id)
-{
+function app_messages_object_text_append(text, element_id) {
     app.messages.push({
         id: element_id,
         body: text, //text or blob
         type: 'text',
-        parts : [
+        parts: [
             {
                 encrypted_body: text, //blob|text
                 encrypted: true,
@@ -699,13 +730,12 @@ function app_messages_object_text_append(text, element_id)
     })
 }
 
-function app_messages_object_image_append(image_objects, element_id)
-{
+function app_messages_object_image_append(image_objects, element_id) {
     app.messages.push({
         id: element_id,
         body: image_objects, //text or blob
         type: 'image',
-        parts : [
+        parts: [
             {
                 encrypted_body: image_objects, //blob|text
                 encrypted: true,
@@ -717,8 +747,7 @@ function app_messages_object_image_append(image_objects, element_id)
     })
 }
 
-function app_messages_object_file_append(file_name, file_format, file_size, element_id)
-{
+function app_messages_object_file_append(file_name, file_format, file_size, element_id) {
     app.messages.push({
         id: element_id,
         body: {
@@ -727,7 +756,7 @@ function app_messages_object_file_append(file_name, file_format, file_size, elem
             file_size: file_size,
         }, //text or blob
         type: 'file',
-        parts : [
+        parts: [
             {
                 encrypted_body: '???', //blob|text
                 encrypted: true,
@@ -739,23 +768,173 @@ function app_messages_object_file_append(file_name, file_format, file_size, elem
     })
 }
 
-function chat_content_scroll_to_bottom()
-{
+function chat_content_scroll_to_bottom() {
     app.chat.message_content.scrollTop = app.chat.message_content.scrollHeight
 }
 
 
 /*
-* message add
+* message append
 * */
-function message_text_add(text)
-{
+function chat_message_text_append(text, element_id) {
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text), element_id));
+}
+
+function chat_message_album_append(image_objects){
+    let imageItem = document.createElement("div"),
+        galleryId = randomInteger(10000, 60000);
+
+    imageItem.setAttribute('class', 'message-item message-item-albom');
+    imageItem.setAttribute('id', `lg_${galleryId}`);
+    app.chat.message_content.appendChild(imageItem);
+
+
+    for (let i=0; i<image_objects.length; i++)
+    {
+        let element_id = randomInteger(10000, 60000);
+        imageItem.insertAdjacentHTML('beforeend', `
+            ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
+        `);
+        image_onload(element_id, image_objects[i].src);
+        chat_message_indicator_stop(element_id, 'indicator_loading');
+        chat_message_indicator_stop(element_id, 'indicator_encrypt');
+        app_messages_object_image_append(image_objects[i], element_id)
+        app.sidebar.photo_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename)}
+        `)
+    }
+
+    initializeLightGallery(galleryId);
+}
+
+function chat_message_file_append(file_name, file_format, file_size, element_id) {
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id));
+    indicator_encrypt_stop(element_id);
+    indicator_loading_stop(element_id);
+}
+
+function message_file_append(file_name, file_format, file_size) {
     let element_id = randomInteger(10000, 60000);
 
-    chat_message_text_add(text, element_id);
-    app_messages_object_text_append(text, element_id);
-    // chat_slide_btn_public_visibility_handler();
+    chat_message_file_append(file_name, file_format, file_size, element_id);
+    app_messages_object_file_append(file_name, file_format, file_size, element_id);
+    chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
+}
+
+function message_text_append(text) {
+    let element_id = randomInteger(10000, 60000);
+
+    chat_message_text_append(text, element_id);
+    app_messages_object_text_append(text, element_id);
+    chat_slide_btn_public_visibility_handler();
+    chat_content_scroll_to_bottom();
+}
+
+function message_images_append(image_objects)
+{
+    if (image_objects.length==0) return false;
+    chat_message_album_append(image_objects);
+    chat_slide_btn_public_visibility_handler();
+    chat_content_scroll_to_bottom();
+}
+
+/*
+* handlers
+* */
+function chat_btn_send_handler() {
+    if (app.chat.input_text.value !== '') {
+        message_text_append(app.chat.input_text.value);
+        app.chat.input_text.value = '';
+    }
+}
+
+function item_delete_handler(element_id) {
+    let this_item_id = 'message_' + element_id,
+        this_item_sidebar_id = 'sidebar_photo_' + element_id,
+        $this_element = document.getElementById(this_item_id),
+        $this_sidebar_element = document.getElementById(this_item_sidebar_id);
+
+    if (indexOfIdGet(app.messages, element_id) !== false) {
+        if ($this_element.classList.contains('img-block')) {
+            //lg-uid
+            event.stopPropagation();
+
+            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
+            let items_length = window.lgData[lg_id].items.length;
+
+            window.lgData[lg_id].destroy(true);
+            delete window.lgData[lg_id];
+
+            let parentElement = $this_element.parentElement;
+
+            if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
+                $this_element.parentElement.remove();
+                if($this_sidebar_element){
+                    $this_sidebar_element.remove();
+                }
+
+                app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+            } else {
+                $this_element.remove();
+
+                if($this_sidebar_element){
+                    $this_sidebar_element.remove();
+                }
+
+                app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+            }
+
+            if (items_length > 1)
+                initializeLightGallery(parentElement.id.split("_")[1]);
+
+        } else {
+            $this_element.remove();
+            app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
+        }
+    } else {
+        event.stopPropagation();
+
+        if ($this_element.classList.contains('img-block')) {
+            //lg-uid
+            event.stopPropagation();
+
+            let lg_id = $this_element.parentElement.getAttribute('lg-uid');
+            let items_length = window.lgData[lg_id].items.length;
+
+            window.lgData[lg_id].destroy(true);
+            delete window.lgData[lg_id];
+
+            let parentElement = $this_element.parentElement;
+
+            if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
+                $this_element.parentElement.remove();
+                app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+            } else {
+                $this_element.remove();
+                app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+            }
+
+            if (items_length > 1)
+                initializeLightGallery(parentElement.id.split("_")[1]);
+
+        } else {
+
+            $this_element.remove();
+            app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+        }
+    }
+    chat_slide_btn_public_visibility_handler();
+
+}
+
+function chat_slide_btn_public_visibility_handler()
+{
+    if(app.messages.length > 0){
+        app.btn_public.classList.remove('hide')
+    } else {
+        app.btn_public.classList.add('hide')
+    }
 }
 
 // TODO!
@@ -798,17 +977,22 @@ function sidebar_image_add(src, file_format, file_size) {
 </div>`;
 }
 
-chat_message_text_add("Привет! Посмотри на эту фотографию");
-chat_message_image_add("desktop-img/msg-img-1.jpg", "Image.jpg");
-chat_message_text_add("Эта фотография будет прекрасно смотреться над камином. Давай сегодня же распечатаем ее! Максимальная ширина текста — 720 пикс. А вот еще несколько полезных файлов:");
-chat_message_file_add("Очень длинное название файла Очень длинное название файла Очень длинное название файла", "docx", "11 kb");
-chat_message_file_add("Очень длинное название файла", "7zip", "11 kb");
-chat_message_album_add([
+message_text_append("Привет! Посмотри на эту фотографию");
+message_file_append("Очень длинное название файла", "7zip", "11 kb");
+message_images_append([
     {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"}
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"}
 ]);
-chat_message_text_add("Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae qui impedit optio quam aspernatur corporis molestias deserunt officiis? Accusamus laborum ea ex suscipit libero est culpa exercitationem? Repellendus, ipsa accusantium. Dolor a esse iusto dignissimos distinctio tempora iste totam, recusandae magnam ipsa eveniet, ut in soluta cum commodi. Ducimus nesciunt quos maxime possimus? Reprehenderit deleniti facere ipsam temporibus nobis porro? Soluta voluptates necessitatibus delectus voluptate, nisi accusantium sit vel eum impedit esse neque velit autem aspernatur quia quisquam obcaecati illum non cumque recusandae consequatur labore eos, laudantium veritatis? Aliquam, iusto. Nesciunt quibusdam facere delectus perferendis dolores nam rerum aperiam velit omnis illo, iusto aut repellendus fugit molestiae, commodi pariatur! Molestiae cumque ipsa esse aliquam alias ex autem obcaecati repellat voluptatibus! Quaerat libero vitae sunt autem unde facilis nisi sit illum nulla labore asperiores dolores voluptas incidunt est veritatis nostrum ipsa aspernatur ullam dolorem, reprehenderit dicta fugiat eligendi inventore in? Adipisci? Nihil error culpa harum minima dolore, nulla ullam molestias soluta odio aut modi ab vitae eveniet nam deleniti aliquid qui officiis dolorum praesentium. Facere hic molestias quod iusto temporibus accusamus. Fuga excepturi dolorum perferendis accusantium quaerat consequatur. Iusto rem velit numquam libero dolore nulla expedita ut! Quod ullam commodi dolorum cupiditate magnam ab ut autem deleniti nostrum! Placeat, cum exercitationem. Distinctio dolor, consequatur quidem aperiam quo soluta. Quis consequuntur ipsa, sapiente, quos dolores modi fugit quam dolor maxime libero facere minus temporibus vero, molestiae alias voluptas impedit iste labore reprehenderit! Cumque quos facere explicabo repellendus amet quibusdam aspernatur illum est esse impedit, sed illo fuga recusandae quas sapiente maiores. Debitis quia inventore nihil dignissimos. Nam laboriosam sunt corporis possimus! Aliquid? Veniam inventore earum dolorum id deleniti. Minima placeat autem natus ipsam atque mollitia, laborum, modi fuga accusamus ipsa sint! Magnam qui cumque, quos vero exercitationem corporis autem cupiditate. Delectus, pariatur.");
+message_images_append([
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"}
+]);
+message_text_append("Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae qui impedit optio quam aspernatur corporis molestias deserunt officiis? Accusamus laborum ea ex suscipit libero est culpa exercitationem? Repellendus, ipsa accusantium. Dolor a esse iusto dignissimos distinctio tempora iste totam, recusandae magnam ipsa eveniet, ut in soluta cum commodi. Ducimus nesciunt quos maxime possimus? Reprehenderit deleniti facere ipsam temporibus nobis porro? Soluta voluptates necessitatibus delectus voluptate, nisi accusantium sit vel eum impedit esse neque velit autem aspernatur quia quisquam obcaecati illum non cumque recusandae consequatur labore eos, laudantium veritatis? Aliquam, iusto. Nesciunt quibusdam facere delectus perferendis dolores nam rerum aperiam velit omnis illo, iusto aut repellendus fugit molestiae, commodi pariatur! Molestiae cumque ipsa esse aliquam alias ex autem obcaecati repellat voluptatibus! Quaerat libero vitae sunt autem unde facilis nisi sit illum nulla labore asperiores dolores voluptas incidunt est veritatis nostrum ipsa aspernatur ullam dolorem, reprehenderit dicta fugiat eligendi inventore in? Adipisci? Nihil error culpa harum minima dolore, nulla ullam molestias soluta odio aut modi ab vitae eveniet nam deleniti aliquid qui officiis dolorum praesentium. Facere hic molestias quod iusto temporibus accusamus. Fuga excepturi dolorum perferendis accusantium quaerat consequatur. Iusto rem velit numquam libero dolore nulla expedita ut! Quod ullam commodi dolorum cupiditate magnam ab ut autem deleniti nostrum! Placeat, cum exercitationem. Distinctio dolor, consequatur quidem aperiam quo soluta. Quis consequuntur ipsa, sapiente, quos dolores modi fugit quam dolor maxime libero facere minus temporibus vero, molestiae alias voluptas impedit iste labore reprehenderit! Cumque quos facere explicabo repellendus amet quibusdam aspernatur illum est esse impedit, sed illo fuga recusandae quas sapiente maiores. Debitis quia inventore nihil dignissimos. Nam laboriosam sunt corporis possimus! Aliquid? Veniam inventore earum dolorum id deleniti. Minima placeat autem natus ipsam atque mollitia, laborum, modi fuga accusamus ipsa sint! Magnam qui cumque, quos vero exercitationem corporis autem cupiditate. Delectus, pariatur.");
