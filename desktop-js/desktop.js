@@ -105,13 +105,12 @@ function app_init() {
             document.documentElement.classList.remove('light');
             app.body.classList.remove('light');
             setCookie('scheme', 'dark');
-            console.log('checked');
+            // console.log('checked');
         } else {
             document.documentElement.classList.add('light');
             app.body.classList.add('light');
             setCookie('scheme', 'light');
-            console.log('unchecked');
-
+            // console.log('unchecked');
         }
     });
 
@@ -680,7 +679,6 @@ function icon_file_archive_svg_get() {
 }
 
 function sidebar_file_html_get(file_name, file_format, file_size, element_id) {
-    console.log(file_size);
     return`
     <div id="sidebar_item_${element_id}">
         <h4 class="file-item__title">${file_name}</h4>
@@ -834,19 +832,18 @@ function chat_message_file_append(file_name, file_format, file_size, element_id)
 function message_file_append(file_name, file_format, file_size) {
     let element_id = randomInteger(10000, 60000);
 
-    console.log(is_archive_file(file_format));
+    chat_message_file_append(file_name, file_format, file_size, element_id);
 
     if(is_archive_file(file_format)){
         app.sidebar.archive_container.insertAdjacentHTML('beforeend', `
-            ${sidebar_file_html_get(file_name, file_format, file_size, element_id)}
+            ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
         `)
     } else {
         app.sidebar.file_container.insertAdjacentHTML('beforeend', `
-            ${sidebar_file_html_get(file_name, file_format, file_size, element_id)}
+            ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
         `)
     }
 
-    chat_message_file_append(file_name, file_format, file_size, element_id);
     app_messages_object_file_append(file_name, file_format, file_size, element_id);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
