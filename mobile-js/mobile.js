@@ -81,7 +81,7 @@ function app_init()
             },
             {
                 body: {
-                    filename: "Image1.jpg",
+                    filename: "Очень длинное название файла Очень длинное название файла.jpg",
                     src: "desktop-img/msg-img-3.jpg"
                 },
                 type: "image",
@@ -115,7 +115,7 @@ function app_init()
             },
             {
                 body: {
-                    filename: "Image1.jpg",
+                    filename: "Очень длинное название файла Очень длинное название файла.jpg",
                     src: "desktop-img/msg-img-1.jpg"
                 },
                 type: "image",
@@ -337,12 +337,15 @@ function getRealRandomTree()
 
 function image_onload(element_id, src)
 {
-    let img = new Image(),
+     let img = document.createElement('div'), //new Image(),
         img_block = document.querySelector(`.image_${element_id}`),
         img_tree = img_block.querySelector(`.placeholder-tree`),
         img_color_block = img_block.querySelector(`.placeholder`);
+/*    
+
     img.src = src;
     img.setAttribute('class', 'main');
+
     img.onload = function(){
         setTimeout(()=>{
             img_block.appendChild(img);
@@ -350,6 +353,19 @@ function image_onload(element_id, src)
             img_color_block.remove();
         }, 3000); // test option
     };
+*/
+
+        setTimeout(()=>{
+            img.style="width:100%; height:100%; background-size: cover; background-image: url(" + src + ");}";
+            img_block.appendChild(img);
+            img_tree.remove();
+            img_color_block.remove();
+            
+
+        }, 3000); // test option
+
+        
+
 }
 
 function is_archive_file(file_format)
@@ -522,7 +538,7 @@ function indicator_download_html_get()
 {
     return `
         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4 7.59998C11.596 7.59998 11.774 7.71398 11.855 7.89298C11.936 8.07198 11.906 8.28198 11.776 8.42898L8.27596 12.429C8.18096 12.537 8.04396 12.6 7.89996 12.6C7.75596 12.6 7.61896 12.538 7.52396 12.429L4.02396 8.42898C3.89496 8.28098 3.86296 8.07198 3.94496 7.89298C4.02596 7.71498 4.20396 7.59998 4.39996 7.59998H6.39996V1.09998C6.39996 0.823976 6.62396 0.599976 6.89996 0.599976H8.89996C9.17596 0.599976 9.39996 0.823976 9.39996 1.09998V7.59998H11.4ZM13.3999 14.6V11.6H15.3999V15.6C15.3999 16.153 14.9529 16.6 14.3999 16.6H1.3999C0.847902 16.6 0.399902 16.153 0.399902 15.6V11.6H2.3999V14.6H13.3999Z" fill="#5D6066"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4 7.59998C11.596 7.59998 11.774 7.71398 11.855 7.89298C11.936 8.07198 11.906 8.28198 11.776 8.42898L8.27596 12.429C8.18096 12.537 8.04396 12.6 7.89996 12.6C7.75596 12.6 7.61896 12.538 7.52396 12.429L4.02396 8.42898C3.89496 8.28098 3.86296 8.07198 3.94496 7.89298C4.02596 7.71498 4.20396 7.59998 4.39996 7.59998H6.39996V1.09998C6.39996 0.823976 6.62396 0.599976 6.89996 0.599976H8.89996C9.17596 0.599976 9.39996 0.823976 9.39996 1.09998V7.59998H11.4ZM13.3999 14.6V11.6H15.3999V15.6C15.3999 16.153 14.9529 16.6 14.3999 16.6H1.3999C0.847902 16.6 0.399902 16.153 0.399902 15.6V11.6H2.3999V14.6H13.3999Z" />
         </svg>
     `;
 }
@@ -532,7 +548,7 @@ function indicator_delete_html_get()
     return `
         <svg width="13" height="17" viewBox="0 0 13 17" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <path
+            <path 
                 d="M10.2063 1.3471H9.44857C9.24709 0.908462 8.80469 0.599976 8.29284 0.599976H4.46523C3.95338 0.599976 3.51099 0.908462 3.30825 1.3471H2.55049C1.14759 1.3471 0 2.49532 0 3.89884H12.7568C12.7575 2.49595 11.6099 1.3471 10.2063 1.3471Z"/>
             <path
                 d="M0.776123 14.3585C0.776123 15.5912 1.78418 16.5999 3.0175 16.5999H9.74163C10.9756 16.5999 11.983 15.5912 11.983 14.3585V4.64587H0.776123V14.3585ZM8.62032 6.88725C8.62032 6.47489 8.95508 6.14013 9.36744 6.14013C9.7798 6.14013 10.1139 6.47489 10.1139 6.88725V14.3585C10.1139 14.7715 9.7798 15.105 9.36744 15.105C8.95508 15.105 8.62032 14.7702 8.62032 14.3585V6.88725ZM5.63244 6.88725C5.63244 6.47489 5.96658 6.14013 6.37956 6.14013C6.79255 6.14013 7.12669 6.47489 7.12669 6.88725V14.3585C7.12669 14.7715 6.79255 15.105 6.37956 15.105C5.96658 15.105 5.63244 14.7702 5.63244 14.3585V6.88725ZM2.64331 6.88725C2.64331 6.47489 2.97745 6.14013 3.38981 6.14013C3.80279 6.14013 4.13694 6.47489 4.13694 6.88725V14.3585C4.13694 14.7715 3.80279 15.105 3.38981 15.105C2.97745 15.105 2.64331 14.7702 2.64331 14.3585V6.88725Z"/>
@@ -608,7 +624,7 @@ function chat_message_text_html_get(text, element_id)
 function chat_message_image_item_html_get(element_id, src, filename)
 {
     return `
-        <div href="${src}"  class="img-block" id="message_${element_id}" onclick="return false;">
+        <div data-src="${src}" class="img-block" id="message_${element_id}" onclick="event.stopPropagation();">
             <div>
                 <div>
                     <div class="image image_${element_id}">
@@ -618,7 +634,7 @@ function chat_message_image_item_html_get(element_id, src, filename)
                 </div>
                 <p class="name clip">${filename}</p>
             </div>
-            <div class="indicators">
+            <div class="indicators" onclick="event.stopPropagation();">
                 <div class="delete action-delete" onclick="item_delete_handler(${element_id})">
                     ${indicator_delete_html_get()}
                 </div>
@@ -731,7 +747,8 @@ function app_messages_object_file_append(file_name, file_format, file_size, elem
 * */
 function chat_message_text_append(text, element_id)
 {
-    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text),  element_id));
+    let text_encoded = escapeHTML(text).replace(/\r?\n/g, "<br />");
+    app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(text_encoded,  element_id));
 }
 
 function chat_message_file_append(file_name, file_format, file_size, element_id)
@@ -768,6 +785,9 @@ function chat_message_album_append(image_objects)
 
 function message_text_append(text)
 {
+    text = text.trim();
+    if (text==="") return false;
+
     let element_id = randomInteger(10000, 60000);
 
     chat_message_text_append(text, element_id);

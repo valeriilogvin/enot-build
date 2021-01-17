@@ -17,7 +17,7 @@
 		justify-content: space-between;
 		font-size: 16px!important;
 		line-height: 20px!important;
-		font-family: SourceSansPro,sans-serif;
+		font-family: 'Source Sans Pro',sans-serif;
 		font-weight: 600;
 	}
 
@@ -30,7 +30,7 @@
 		visibility: hidden;
 	}
 	.preloader .logo{
-		margin-top: 140px;
+		margin-top: 20vh;
 		position: relative;
 	}
 	.preloader .logo-svg {
@@ -46,6 +46,7 @@
 	}
 
 	.preloader .title {
+        display: none;
 		margin-bottom: 140px;
 		text-align: center;
 

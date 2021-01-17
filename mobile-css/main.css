@@ -1,3 +1,7 @@
+html {
+  font-size: 100%;
+}
+
 :root {
    --app-height: 100%;
 }
@@ -461,7 +465,7 @@ a {
   -webkit-transition: color .2s ease;
   -o-transition: color .2s ease;
   transition: color .2s ease;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 23px;
   font-weight: 700;
   color: #5D6066;
@@ -513,7 +517,7 @@ a {
   -webkit-transition: color .2s ease;
   -o-transition: color .2s ease;
   transition: color .2s ease;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 23px;
   font-weight: 700;
   color: #5D6066;
@@ -721,7 +725,7 @@ a {
   -ms-flex-align: center;
   align-items: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 48px;
   text-transform: uppercase;
   color: #F4F4F4;
@@ -758,7 +762,7 @@ a {
 
 .amount-block {
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 40px;
   background: #262A30;
   opacity: 0.95;
@@ -770,7 +774,7 @@ a {
 
 .amount-block span {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 25px;
   margin: 0 7px;
 }
@@ -826,18 +830,19 @@ a {
 
 .content-wrap .item.text {
   text-align: right;
-  padding: 8px 25px 8px 10px;
-  font-size: 14px;
+  padding: 8px 50px 16px 10px;
+  font-size: 0.875rem;
   line-height: 20px;
 }
 
 .content-wrap .text .message-item-actions {
   position: absolute;
-  right: 5px;
+  right: 20px;
   top: 10px;
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s;
+
 }
 
 .content-wrap .item.img {
@@ -915,8 +920,10 @@ a {
 }
 
 .content-wrap .item.img .img-block img.main {
-  width: auto;
-  height: 100%;
+/*
+  width: 100%;
+  height: auto;
+*/
   object-fit: cover;
   position: absolute;
   top: 0;
@@ -932,7 +939,7 @@ a {
   font-style: italic;
   max-width: 110px;
   padding-bottom: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .content-wrap .item.img .img-block .indicators {
@@ -962,7 +969,7 @@ a {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 10px 15px 10px 10px;
+  padding: 10px 5px 10px 10px;
 }
 
 .content-wrap .item.file .delete {
@@ -984,7 +991,7 @@ a {
 }
 
 .content-wrap .item.file .text-block p {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 19px;
 
 }
@@ -1039,7 +1046,7 @@ a {
 }
 
 .share-link-header .title {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 25px;
   text-transform: uppercase;
   margin-right: 30px;
@@ -1065,38 +1072,44 @@ a {
   border-radius: 15px;
   border: none;
   outline: none;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
   padding: 0 10px;
 }
 
+@media screen and (orientation:landscape) { 
+  .share-link-input input {
+   text-align: center;
+  }
+}
+
 .share-link-input input::-webkit-input-placeholder {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
 }
 
 .share-link-input input::-moz-placeholder {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
 }
 
 .share-link-input input:-ms-input-placeholder {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
 }
 
 .share-link-input input::-ms-input-placeholder {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
 }
 
 .share-link-input input::placeholder {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 50px;
   color: #262A30;
 }
@@ -1136,7 +1149,7 @@ a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 25px;
 }
 
@@ -1169,7 +1182,7 @@ a {
 .share-key .text {
   margin: 10px 0 40px;
   font-style: italic;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 18px;
   text-align: center;
   color: #5D6066;
@@ -1230,7 +1243,7 @@ a {
 }
 
 .share-alert-header .text {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 25px;
   margin-left: 16px;
 }
@@ -1239,7 +1252,7 @@ a {
   display: inline-block;
   margin-top: 12px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 17px;
 }
 
@@ -1270,7 +1283,7 @@ a {
 }
 
 .share-create-new .title {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 18px;
   text-transform: uppercase;
   padding: 14px 0 20px;
@@ -1285,7 +1298,7 @@ a {
 .share-create-new .title span {
   margin: 0 10px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 25px;
   text-transform: uppercase;
 }
@@ -1305,7 +1318,7 @@ a.create-new {
   justify-content: center;
   text-decoration: none;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 48px;
   text-transform: uppercase;
   color: #F4F4F4;
@@ -1326,7 +1339,7 @@ a.create-new svg {
 
 @media screen and (orientation:landscape) { 
   a.create-new {
-   margin-top: 20px;
+   margin-top: 10px;
   }
 
   .share-link {
@@ -1367,7 +1380,7 @@ a.create-new svg {
   justify-content: center;
   text-decoration: none;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 48px;
   text-transform: uppercase;
   color: #F4F4F4;
@@ -1379,7 +1392,7 @@ a.create-new svg {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin: 20vh auto 10vh;
+  margin: 10vh auto 10vh;
 }
 
 .watch-btn svg {
@@ -1409,7 +1422,7 @@ a.create-new svg {
 
 .open-buttons a {
   -webkit-tap-highlight-color: transparent;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 40px;
   text-transform: uppercase;
   color: #5D6066;
@@ -1497,7 +1510,7 @@ a.create-new svg {
   padding: 10px 7px;
   margin: 0 6px;
   resize: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 18px;
   color: #5D6066;
 }
@@ -1509,7 +1522,7 @@ a.create-new svg {
 }
 
 .create-new-block .text {
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 15px;
   text-align: center;
   color: #5D6066;
