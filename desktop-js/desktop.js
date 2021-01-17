@@ -900,17 +900,12 @@ function item_delete_handler(element_id) {
 
             if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
                 $this_element.parentElement.remove();
-                if($this_sidebar_element){
-                    $this_sidebar_element.remove();
-                }
-
+                if($this_sidebar_element) $this_sidebar_element.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             } else {
                 $this_element.remove();
 
-                if($this_sidebar_element){
-                    $this_sidebar_element.remove();
-                }
+                if($this_sidebar_element) $this_sidebar_element.remove();
 
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             }
@@ -920,7 +915,7 @@ function item_delete_handler(element_id) {
 
         } else {
             $this_element.remove();
-            $this_sidebar_element.remove();
+            if($this_sidebar_element) $this_sidebar_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
     } else {
