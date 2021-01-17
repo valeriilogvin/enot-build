@@ -81,7 +81,7 @@
 
 </head>
 
-<body class="wrapper" data-slide="4">
+<body class="wrapper" data-slide="0">
 
 <div id="app">
 
@@ -230,14 +230,14 @@
         </nav>
     </header>
 
-    <main class="main-content create-note">
+    <main class="main-content js_main_content">
         <div class="top-info">
             <div class="container">
                 <div class="top-info__left">
                     <p>Вы можете отправить еще <span>5</span> записок</p>
                 </div>
                 <div class="top-info__right">
-                    <a class="btn js_mob_btn_public hide">
+                    <a onclick="btn_public_handler()" class="btn js_mob_btn_public hide">
                         <span class="btn__icon">
                             <svg width="28" height="30" viewBox="0 0 28 30" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +264,7 @@
                     <div class="tab-content left-sidebar__content">
                         <div class="tab-content-item active" data-tab="photo">
                             <div class="photo-wrap">
-                                <div class="photo-items js_photo_container"></div>
+                                <div class="photo-items js_photo_container" id="lg_sidebar"></div>
                             </div>
                         </div>
                         <div class="tab-content-item" data-tab="files">
@@ -275,7 +275,7 @@
                         </div>
                     </div>
                 </aside>
-                <div class="chat-wrap">
+                <div class="chat-wrap js_chat_wrap">
                     <div class="chat-message-content js_chat_message_content">
 
                     </div>
@@ -302,8 +302,8 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="chat-bottom-btns">
-                        <a href="#" class="btn btn-tsp">
+                    <div class="chat-bottom-btns js_note_open_bottom_btns">
+                        <a onclick="note_open_clear_all_btn_handler()" class="btn btn-tsp">
                             <div class="btn__icon">
                                 <svg width="24" height="30" viewBox="0 0 24 30" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -376,10 +376,10 @@
             <div class="container">
                 <h2 class="s-title">Ссылка на контент</h2>
                 <div class="content-link">
-                    <div class="content-link__input">
+                    <div class="content-link__input js_share_link">
                         https://www.figma.com/proto/vXrrLqHMXsWF3VmRPWxjzX/Enot?node-id=116%3A2296
                     </div>
-                    <div class="content-link__icon copy-link">
+                    <div class="content-link__icon copy-link js_copy_btn">
                         <svg width="37" height="41" viewBox="0 0 37 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                     d="M26.7885 0H3.82693C1.72212 0 0 1.67727 0 3.72727V29.8182H3.82693V3.72727H26.7885V0ZM32.5289 7.45455H11.4808C9.37598 7.45455 7.65386 9.13182 7.65386 11.1818V37.2727C7.65386 39.3227 9.37598 41 11.4808 41H32.5289C34.6337 41 36.3558 39.3227 36.3558 37.2727V11.1818C36.3558 9.13182 34.6337 7.45455 32.5289 7.45455ZM32.5289 37.2727H11.4808V11.1818H32.5289V37.2727Z"
@@ -444,7 +444,7 @@
                     <p>У вас осталось: <span>4</span> записки</p>
                 </div>
                 <div class="note-info__btn">
-                    <a href="#" class="btn">
+                    <a onclick="wrapper_slide_visibility(0)" class="btn">
                         <div class="btn__icon">
                             <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -476,7 +476,7 @@
         <div class="see-note">
             <div class="container">
                 <div class="see-note__btn">
-                    <a href="#" class="btn">
+                    <a onclick="watch_note_btn_handler()" class="btn">
                         <div class="btn__icon">
                             <svg width="30" height="16" viewBox="0 0 30 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -509,6 +509,16 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="share-alert js_clear_alert" style="">
+            <div class="share-alert-header">
+                <div class="attention">
+                    <svg width="7" height="26" viewBox="0 0 7 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.48 0V9L5.796 16.992H0.684L0 9V0H6.48ZM3.996 18.9C4.86 18.9 5.448 19.068 5.76 19.404C6.096 19.716 6.264 20.304 6.264 21.168V22.752C6.264 23.616 6.096 24.216 5.76 24.552C5.448 24.864 4.86 25.02 3.996 25.02H2.52C1.656 25.02 1.056 24.864 0.72 24.552C0.408 24.216 0.252 23.616 0.252 22.752V21.168C0.252 20.304 0.408 19.716 0.72 19.404C1.056 19.068 1.656 18.9 2.52 18.9H3.996Z"></path>
+                    </svg>
+                </div>
+                <span class="text">Заметка уничтожена</span>
             </div>
         </div>
     </main>

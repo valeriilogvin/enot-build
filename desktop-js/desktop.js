@@ -4,14 +4,22 @@ Array.prototype.random = function () {
 
 var app = {
     body: document.querySelector('body'),
+    main_content: document.querySelector('.js_main_content'),
     theme_switcher: document.querySelector('.js_theme_switcher'),
     btn_public: document.querySelector('.js_mob_btn_public'),
+    clear_alert: document.querySelector('.js_clear_alert'),
 
     chat: {
+        wrap: document.querySelector('.js_chat_wrap'),
         message_content: document.querySelector('.js_chat_message_content'),
         input_text: document.querySelector('.js_input_text'),
         file_input_button: document.getElementById('js_file_input_button'),
         file_input: document.getElementById('js_file_input')
+    },
+
+    share: {
+        copy_btn: document.querySelector('.js_copy_btn'),
+        share_link: document.querySelector('.js_share_link'),
     },
 
     menu: {
@@ -30,10 +38,115 @@ var app = {
         archive_container: document.querySelector('.js_sidebar_archive_container'),
     },
 
+    note_open: {
+        bottom_btns: document.querySelector('.js_note_open_bottom_btns')
+    },
+
     messages: [],
+
+    open_messages: [
+        {
+            body: 'sadsdasd',
+            type: 'text',
+            id: 19843
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 48693
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 50784
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 13497
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+
+            },
+            type: "image",
+            id: 59355
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-2.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 29546
+        },
+        {
+            body: {
+                file_format: "docx",
+                file_name: "Очень длинное название файла Очень длинное название файла Очень длинное название файла",
+                file_size: "11 kb"
+            },
+            type: "file",
+            id: 12394
+        },
+        {
+            body: {
+                file_format: "zip",
+                file_name: "Название файла",
+                file_size: "11111 kb"
+            },
+            type: "file",
+            id: 120909
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-1.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 43965
+        },
+        {
+            body: {
+                filename: "Image1.jpg",
+                src: "desktop-img/msg-img-3.jpg",
+                file_format: "jpg",
+                file_size: "11 kb"
+            },
+            type: "image",
+            id: 34056
+        },
+    ],
+
     settings: {
         scheme: getCookie('scheme')
     },
+
+    // licenseKey: '123123123',
+    licenseKey: null,
 
     indicator_stop_timeout: 5000,
 };
@@ -232,34 +345,39 @@ function note_amount_get(amount) {
 }
 
 function wrapper_slide_visibility(type, callback) {
-    callback = callback ? callback : () => {
-    };
-    if (app.wrapper.dataset.slide === type) return;
+    callback = callback ? callback : () => {};
+    if (app.body.dataset.slide === type) return;
 
     switch (type) {
         case 0: {
             callback();
-            app.wrapper.dataset.slide = '0';
+            app.body.dataset.slide = '0';
+            app.main_content.classList.remove('create-note')
         }
             break;
         case 1: {
             callback();
-            app.wrapper.dataset.slide = '1';
+            app.body.dataset.slide = '1';
         }
             break;
         case 2: {
             callback();
-            app.wrapper.dataset.slide = '2';
+            app.body.dataset.slide = '2';
         }
             break;
         case 3: {
+            console.log('3')
+
             callback();
-            app.wrapper.dataset.slide = '3';
+            app.body.dataset.slide = '3';
+            app.main_content.classList.add('create-note')
         }
             break;
         case 4: {
+            console.log('4')
             callback();
-            app.wrapper.dataset.slide = '4';
+            app.body.dataset.slide = '4';
+            app.main_content.classList.add('create-note')
         }
             break;
         default:
@@ -681,7 +799,7 @@ function icon_file_archive_svg_get() {
 function sidebar_file_html_get(file_name, file_format, file_size, element_id) {
     return`
     <div id="sidebar_item_${element_id}">
-        <h4 class="file-item__title">${file_name}</h4>
+        <h4 class="file-item__title clip">${file_name}</h4>
         <div class="file-item__group" >
             <div class="file-item__info">
                 <div class="file-item__icon icon-document">
@@ -705,19 +823,19 @@ function sidebar_file_html_get(file_name, file_format, file_size, element_id) {
     `
 }
 
-function sidebar_photo_item_get(element_id, src, filename) {
+function sidebar_photo_item_get(element_id, src, filename, file_format, file_size) {
 // function sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename)) {
     return `
-        <div class="photo-item" id="sidebar_item_${element_id}">
+        <div href="${src}" class="photo-item img-block" id="sidebar_item_${element_id}" onclick="return false;">
             <div class="photo-item__img"><img src="${src}" alt="">
             </div>
             <div class="photo-item__name clip">${filename}</div>
-            <!--<div class="photo-item__bottom">
+            <div class="photo-item__bottom">
                 <div class="photo-item__info">
-                    <p>Формат: jpg</p>
-                    <p>Размер: 251 Кб</p>
+                    <p>Формат: ${file_format}</p>
+                    <p>Размер: ${file_size}</p>
                 </div>
-            </div>-->
+            </div>
             <div class="action-item sidebar-action-delete" onclick="item_delete_handler(${element_id})">
                 ${action_item_delete_svg_get()}
             </div>
@@ -816,7 +934,7 @@ function chat_message_album_append(image_objects){
         chat_message_indicator_stop(element_id, 'indicator_encrypt');
         app_messages_object_image_append(image_objects[i], element_id)
         app.sidebar.photo_container.insertAdjacentHTML('beforeend', `
-            ${sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename)}
+            ${sidebar_photo_item_get(element_id, image_objects[i].src, image_objects[i].filename, escapeHTML(image_objects[i].file_format), parseInt(image_objects[i].file_size))}
         `)
     }
 
@@ -864,6 +982,86 @@ function message_images_append(image_objects)
     chat_message_album_append(image_objects);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
+    initializeLightGallery('sidebar');
+
+}
+
+/*
+* note append
+* */
+function note_open_messages_append(arr)
+{
+    let imgarray = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let nextIndex = arr[i + 1];
+
+        if (arr[i].type === 'text') {
+            chat_message_text_append(arr[i].body, arr[i].id)
+        } else if (arr[i].type === 'image') {
+            imgarray.push(arr[i]);
+
+            if (nextIndex && nextIndex.type === 'image') {
+                continue
+            } else {
+                note_open_message_images_append(imgarray);
+                imgarray = [];
+            }
+        } else {
+            note_open_message_file_append(arr[i].body.file_name, arr[i].body.file_format, arr[i].body.file_size, arr[i].id)
+        }
+    }
+}
+
+function note_open_message_images_append(image_objects)
+{
+    if (image_objects.length==0) return false;
+    note_open_message_album_append(image_objects);
+    chat_content_scroll_to_bottom();
+    initializeLightGallery('sidebar_lg');
+
+}
+
+function note_open_message_album_append(image_objects)
+{
+    let imageItem = document.createElement("div"),
+        galleryId = randomInteger(10000, 60000);
+    imageItem.setAttribute('class', 'message-item message-item-albom');
+    imageItem.setAttribute('id', `lg_${galleryId}`);
+    app.chat.message_content.appendChild(imageItem);
+
+    // console.log(image_objects);
+
+    for (let i = 0; i < image_objects.length; i++) {
+        imageItem.insertAdjacentHTML('beforeend', `
+            ${chat_message_image_item_html_get(image_objects[i].id, image_objects[i].body.src, image_objects[i].body.filename)}
+        `);
+        image_onload(image_objects[i].id, image_objects[i].body.src);
+        chat_message_indicator_stop(image_objects[i].id, 'indicator_loading');
+        chat_message_indicator_stop(image_objects[i].id, 'indicator_encrypt');
+
+        app.sidebar.photo_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_photo_item_get(image_objects[i].id, image_objects[i].body.src, image_objects[i].body.filename, image_objects[i].body.file_format, image_objects[i].body.file_size)}
+        `)
+    }
+
+    initializeLightGallery(galleryId);
+    initializeLightGallery('sidebar');
+}
+
+function note_open_message_file_append(file_name, file_format, file_size, element_id) {
+
+    chat_message_file_append(file_name, file_format, file_size, element_id);
+
+    if(is_archive_file(file_format)){
+        app.sidebar.archive_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
+        `)
+    } else {
+        app.sidebar.file_container.insertAdjacentHTML('beforeend', `
+            ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
+        `)
+    }
 }
 
 /*
@@ -874,6 +1072,16 @@ function chat_btn_send_handler() {
         message_text_append(app.chat.input_text.value);
         app.chat.input_text.value = '';
     }
+}
+
+function note_open_clear_all_btn_handler()
+{
+    app.open_messages = [];
+    app.chat.message_content.innerHTML = '';
+    app.sidebar.photo_container.innerHTML = '';
+    app.sidebar.file_container.innerHTML = '';
+    app.sidebar.archive_container.innerHTML = '';
+    note_open_bottom_btns_visibility_handler();
 }
 
 function item_delete_handler(element_id) {
@@ -932,10 +1140,16 @@ function item_delete_handler(element_id) {
 
             if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
                 $this_element.parentElement.remove();
+                if($this_sidebar_element) $this_sidebar_element.remove();
+
                 app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+                note_open_bottom_btns_visibility_handler();
+
             } else {
                 $this_element.remove();
+                if($this_sidebar_element) $this_sidebar_element.remove();
                 app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+                note_open_bottom_btns_visibility_handler();
             }
 
             if (items_length > 1)
@@ -945,7 +1159,9 @@ function item_delete_handler(element_id) {
             console.log('2');
 
             $this_element.remove();
+            if($this_sidebar_element) $this_sidebar_element.remove();
             app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
+            note_open_bottom_btns_visibility_handler();
         }
     }
     chat_slide_btn_public_visibility_handler();
@@ -958,6 +1174,56 @@ function chat_slide_btn_public_visibility_handler()
         app.btn_public.classList.remove('hide')
     } else {
         app.btn_public.classList.add('hide')
+    }
+}
+
+function note_open_bottom_btns_visibility_handler() {
+    if(app.open_messages.length > 0){
+        app.chat.wrap.classList.remove('empty');
+    } else {
+        app.chat.wrap.classList.add('empty');
+        note_open_clear_all_alert();
+    }
+}
+
+function note_open_clear_all_alert() {
+    app.clear_alert.style = 'opacity: 1; visibility: visible';
+
+    setTimeout(function () {
+        app.clear_alert.style = 'opacity: 0; visibility: hidden';
+    }, 3000)
+}
+
+function share_copy_link_handler()
+{
+    app.share.copy_btn.addEventListener('click', () => {
+        const inputValue = app.share.share_link.innerText;
+        if (inputValue) {
+            navigator.clipboard.writeText(inputValue)
+                .then(() => {
+                    console.log('copy link: ' + inputValue)
+                })
+                .catch(err => {
+                    console.log('Something went wrong', err);
+                })
+        }
+    });
+}
+
+function btn_public_handler()
+{
+    // chat_visibility(false);
+    // share_slide_visibility(true);
+    wrapper_slide_visibility(1);
+    share_copy_link_handler();
+}
+
+function watch_note_btn_handler()
+{
+    if(app.licenseKey){
+        wrapper_slide_visibility(3, note_open_messages_append(app.open_messages));
+    } else {
+        wrapper_slide_visibility(4, note_open_messages_append(app.open_messages));
     }
 }
 
@@ -1005,7 +1271,7 @@ message_text_append("Привет! Посмотри на эту фотограф
 message_file_append("Очень длинное название файла", "7zip", "11 kb");
 message_file_append("Очень длинное название файла", "doc", "14 kb");
 message_images_append([
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg",  file_format: "7zip", file_size: "11 kb"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
@@ -1013,9 +1279,9 @@ message_images_append([
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"}
 ]);
 message_images_append([
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg", file_format: "7zip", file_size: "11 kb"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg", file_format: "7zip", file_size: "11 kb"},
+    {src: "desktop-img/msg-img-2.jpg", filename: "Image.jpg", file_format: "7zip", file_size: "11 kb"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"}
