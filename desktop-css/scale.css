@@ -382,7 +382,7 @@ only screen and (min-resolution:1.25dppx) {
     }
 
     .message-item-albom .message-item-image {
-        width: calc(25% - (20px * .8));
+        width: 125px;
         margin: 0 calc(10px * .8) calc(15px * .8)
     }
 
