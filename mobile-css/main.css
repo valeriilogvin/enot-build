@@ -897,14 +897,6 @@ a {
 
 }
 
-
-@media (max-width: 375px) {
-  .content-wrap .item.img .img-block .image {
-    width: 105px;
-  }
-
-}
-
 @media (max-width: 345px) {
   .content-wrap .item.img .img-block .image {
     width: 94px;
@@ -968,16 +960,6 @@ a {
 @media screen and (orientation:landscape) and (max-height: 375px) {
   .content-wrap .item.img .img-block .name {
     max-width: 70px;
-  }
-}
-
-@media (max-width: 375px) {
-  .content-wrap .item.img .img-block .image {
-    width: 105px;
-  }
-
-  .content-wrap .item.img .img-block .name {
-    max-width: 105px;
   }
 }
 
