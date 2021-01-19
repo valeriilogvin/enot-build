@@ -613,10 +613,8 @@ function chat_message_text_html_get(text, element_id)
 {
     return `<div class="item text" id="message_${element_id}">
         ${text}
-            <div class="message-item-actions">
-                <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
-                    ${indicator_delete_html_get()}
-                </div>
+            <div class="action-item action-delete" onclick="item_delete_handler(${element_id})">
+                ${indicator_delete_html_get()}
             </div>
         </div>`;
 }

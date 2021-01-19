@@ -611,7 +611,6 @@ a {
 }
 
 .header {
-  height: 7vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -624,7 +623,7 @@ a {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 14px 10px 16px;
+  padding: 10px 20px 10px;
   position: relative;
   border-bottom: 1px solid #34383F;
 }
@@ -807,7 +806,7 @@ a {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 18px 10px;
+  padding: 10px 10px;
 }
 
 .content-wrap .item {
@@ -831,19 +830,16 @@ a {
 
 .content-wrap .item.text {
   text-align: right;
-  padding: 8px 50px 16px 10px;
+  padding: 10px 50px 10px 20px;
   font-size: 0.875rem;
   line-height: 20px;
 }
 
-.content-wrap .text .message-item-actions {
+.content-wrap .text .action-item.action-delete {
   position: absolute;
+  display: flex;
   right: 20px;
-  top: 10px;
-  -webkit-transition: .3s;
-  -o-transition: .3s;
-  transition: .3s;
-
+  top: 12px;
 }
 
 .content-wrap .item.img {
@@ -859,12 +855,12 @@ a {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 14px 6px 0;
-  width: 100%;
+  padding: 12px 10px 0;
+  max-width: 320px;
 }
 
 .content-wrap .item.img .img-block {
-  margin-left: 10px;
+  margin-left: 20px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -876,8 +872,8 @@ a {
   border-radius: 10px;
   overflow: hidden;
   display: block;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
 }
 
 @media (max-width: 320px) {
@@ -949,8 +945,8 @@ a {
 
 .content-wrap .item.img .img-block .name {
   font-style: italic;
-  max-width: 110px;
-  padding-bottom: 20px;
+  max-width: 90px;
+  padding: 6px 0 16px;
   font-size: 0.875rem;
 }
 
@@ -980,9 +976,7 @@ a {
 }
 
 .content-wrap .item.img .img-block .indicators {
-  margin-left: 3px;
-  margin-right: 5px;
-
+  margin-left: 10px;
 }
 
 .content-wrap .item.img .img-block .indicators .delete {
@@ -993,11 +987,10 @@ a {
 
 .content-wrap .item.img .img-block .indicators .action-download {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .content-wrap .item.file {
-  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1006,7 +999,7 @@ a {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 10px 5px 10px 10px;
+  padding: 10px 10px 10px 20px;
 }
 
 .content-wrap .item.file .delete {
@@ -1043,9 +1036,9 @@ a {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  max-width: 65px;
+  max-width: 60px;
   flex-wrap: wrap;
-  margin-left: 14px;
+  margin-left: 10px;
 }
 
 .share-wrap {
@@ -1441,10 +1434,6 @@ a.create-new svg {
 }
 
 .open-buttons {
-  height: 7vh;
-  /*
-  justify-content: center;
-  */
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
