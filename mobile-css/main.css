@@ -623,7 +623,7 @@ a {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 10px 20px 10px;
+  padding: 16px 20px 16px;
   position: relative;
   border-bottom: 1px solid #34383F;
 }
@@ -859,6 +859,12 @@ a {
   max-width: 320px;
 }
 
+@media screen and (orientation:landscape) {
+  .content-wrap .item.img {
+    max-width: 620px;
+  }
+}
+
 .content-wrap .item.img .img-block {
   margin-left: 20px;
   display: -webkit-box;
@@ -874,6 +880,13 @@ a {
   display: block;
   width: 90px;
   height: 90px;
+}
+
+@media screen and (orientation:landscape) and (max-height: 375px) {
+  .content-wrap .item.img .img-block .image {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 @media (max-width: 320px) {
@@ -943,11 +956,19 @@ a {
   border-radius: 10px;
 }
 
+
+
 .content-wrap .item.img .img-block .name {
   font-style: italic;
   max-width: 90px;
   padding: 6px 0 16px;
   font-size: 0.875rem;
+}
+
+@media screen and (orientation:landscape) and (max-height: 375px) {
+  .content-wrap .item.img .img-block .name {
+    max-width: 70px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -1478,18 +1499,36 @@ a.create-new svg {
   background: none;
 }
 
-@media screen and (orientation:landscape) { 
+@media screen and (orientation:landscape) {
+  .open-buttons{
+    padding: 0;
+    margin: 0;
+  }
   .open-buttons a {
     border-style: none;
+    position: absolute;
+    bottom: calc(75px / 2);
+    transform: translateY(50%);
+    width: auto;
+  }
+
+  .open-buttons a.download {
+    right: calc((100% - 260px) / 4.5);
+    transform: translateY(50%) translateX(50%);
+  }
+
+  .open-buttons a.delete {
+    left: calc((100% - 260px) / 4.5);
+    transform: translateY(50%) translateX(-50%);
   }
 }
-
 .open-buttons a svg {
   margin-right: 10px;
   fill: #5D6066;
 }
 
 .input-block {
+  height: 80px;
   min-height: 100px;
   transition: height .3s ease;
   padding: 10px;
@@ -1565,6 +1604,7 @@ a.create-new svg {
   }
 }
 
+
 .create-new-block a.create-new {
   margin: 9px auto 13px;
 }
@@ -1574,6 +1614,14 @@ a.create-new svg {
   min-width: 30px;
   height: 30px;
   position: relative;
+}
+
+@media screen and (orientation:landscape) and (max-height: 375px) {
+  .loader {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+  }
 }
 
 .loader__icon {
@@ -1591,6 +1639,15 @@ a.create-new svg {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+@media screen and (orientation:landscape) and (max-height: 375px) {
+  .loader__icon {
+    width: 7.5px;
+  }
+  .item.file .loader{
+    margin: 0 5px;
+  }
 }
 
 .loader__icon svg path {
