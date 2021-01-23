@@ -1815,10 +1815,6 @@ a.create-new svg {
     .loader__icon {
         width: auto;
     }
-
-    .item.file .loader {
-        margin: 0 5px;
-    }
 }
 
 .loader__icon svg path {
