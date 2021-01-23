@@ -906,15 +906,27 @@ a {
     display: flex;
 }
 
-@media (max-width: 345px) {
-    .content-wrap .item.img .img-block:nth-last-of-type(2n+1) {
-        /*margin-left: 0;*/
+@media screen and (orientation: portrait) and (max-width: 546px){
+    .content-wrap .item.img {
+        max-width: 450px;
+    }
+    .content-wrap .item.img .img-block:nth-child(3n + 1){
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 380px) and (orientation: portrait){
+    .content-wrap .item.img .img-block:nth-child(3n + 1) {
+        margin-left: 20px;
     }
 }
 
 @media screen and (orientation: landscape){
     .content-wrap .item.img .img-block {
         margin-left: 14px;
+    }
+    .content-wrap .item.img .img-block:first-child{
+        margin-left: 0;
     }
 }
 
@@ -933,7 +945,7 @@ a {
         height: 70px;
     }
 }
-@media (max-width: 340px) {
+@media (max-width: 470px) {
     .content-wrap .item.img .img-block .image {
         width: 70px;
         height: 70px;
@@ -996,7 +1008,8 @@ a {
         max-width: 70px;
     }
 }
-@media (max-width: 340px) {
+
+@media (max-width: 470px) {
     .content-wrap .item.img .img-block .name {
         max-width: 70px;
     }
@@ -1048,7 +1061,6 @@ a {
     }
 }
 
-
 .content-wrap .item.file .delete {
     width: 30px;
     display: flex;
@@ -1073,6 +1085,42 @@ a {
 
 }
 
+@media screen and (orientation: portrait) and (max-width: 546px){
+    .content-wrap .item.file .text-block p{
+        max-width: 290px;
+    }
+}
+@media screen and (orientation: portrait) and (max-width: 500px){
+    .content-wrap .item.file .text-block p{
+        max-width: 250px;
+    }
+}
+@media screen and (orientation: portrait) and (max-width: 440px){
+    .content-wrap .item.file .text-block p{
+        max-width: 170px;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 823px){
+    .content-wrap .item.file .text-block p{
+        max-width: 550px;
+    }
+}
+@media screen and (orientation: landscape) and (max-width: 740px){
+    .content-wrap .item.file .text-block p{
+        max-width: 450px;
+    }
+}
+@media screen and (orientation: landscape) and (max-width: 660px){
+    .content-wrap .item.file .text-block p{
+        max-width: 350px;
+    }
+}
+@media screen and (orientation: landscape) and (max-width: 550px){
+    .content-wrap .item.file .text-block p{
+        max-width: 300px;
+    }
+}
 @media (max-width: 375px) {
     .content-wrap .item.file .text-block p{
         max-width: 135px;
@@ -1675,7 +1723,7 @@ a.create-new svg {
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 470px) {
     .loader {
         width: 20px;
         min-width: 20px;
@@ -1709,7 +1757,7 @@ a.create-new svg {
         margin: 0 5px;
     }
 }
-@media (max-width: 340px) {
+@media (max-width: 470px) {
     .loader__icon {
         width: 7.5px;
     }

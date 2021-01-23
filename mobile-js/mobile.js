@@ -73,6 +73,14 @@ function app_init()
             },
             {
                 body: {
+                    filename: "Image2.jpg",
+                    src: "desktop-img/msg-img-3.jpg"
+                },
+                type: "image",
+                id: 50782
+            },
+            {
+                body: {
                     filename: "Image1.jpg",
                     src: "desktop-img/msg-img-1.jpg"
                 },
