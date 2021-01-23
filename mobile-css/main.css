@@ -841,16 +841,28 @@ a {
 
 .content-wrap .item.text {
     text-align: right;
-    padding: 10px 40px 10px 20px;
     font-size: 0.875rem;
     line-height: 20px;
+    padding: 10px 50px 10px 20px;
 }
+
+
 
 .content-wrap .text .action-item.action-delete {
     position: absolute;
     display: flex;
-    right: 14px;
+    right: 18px;
     top: 12px;
+}
+
+@media screen and (orientation: portrait) and (max-width: 470px) and (min-width: 370px) {
+    .content-wrap .item.text {
+        padding: 10px 40px 10px 20px;
+    }
+
+    .content-wrap .text .action-item.action-delete {
+        right: 14px;
+    }
 }
 
 @media screen and (orientation: landscape) {
@@ -964,9 +976,13 @@ a {
 
 @media (max-width: 339px) and (orientation: portrait) {
     .content-wrap .item.img .img-block .image {
-        width:  80px;
-        height: 80px;
+        width:  90px;
+        height: 90px;
     }
+    .content-wrap .item.img .img-block:nth-child(2n + 1){
+        margin-left: 0;
+    }
+
 }
 
 @media (max-width: 320px) {
@@ -1033,7 +1049,7 @@ a {
 }
 @media (max-width: 339px)and (orientation: portrait) {
     .content-wrap .item.img .img-block .name {
-        max-width: 80px;
+        max-width: 90px;
     }
 }
 
@@ -1754,9 +1770,9 @@ a.create-new svg {
 }
 @media (max-width: 339px) and (orientation: portrait) {
     .loader {
-        width: 26px;
-        min-width: 26px;
-        height: 26px;
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
     }
 }
 
@@ -1797,7 +1813,7 @@ a.create-new svg {
 }
 @media (max-width: 339px) and (orientation: portrait) {
     .loader__icon {
-        width: 9px;
+        width: auto;
     }
 
     .item.file .loader {
