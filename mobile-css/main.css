@@ -841,7 +841,7 @@ a {
 
 .content-wrap .item.text {
     text-align: right;
-    padding: 10px 50px 10px 20px;
+    padding: 10px 40px 10px 20px;
     font-size: 0.875rem;
     line-height: 20px;
 }
@@ -849,7 +849,7 @@ a {
 .content-wrap .text .action-item.action-delete {
     position: absolute;
     display: flex;
-    right: 20px;
+    right: 14px;
     top: 12px;
 }
 
@@ -915,7 +915,16 @@ a {
     }
 }
 
-@media screen and (max-width: 380px) and (orientation: portrait){
+@media screen and (max-width: 380px) and (min-width: 370px) and (orientation: portrait){
+    .content-wrap .item.img .img-block:nth-child(3n + 1) {
+        margin-left: 0;
+    }
+    .content-wrap .item.img .img-block {
+        margin-left: 15px;
+    }
+}
+
+@media screen and (max-width: 369px) and (orientation: portrait){
     .content-wrap .item.img .img-block:nth-child(3n + 1) {
         margin-left: 20px;
     }
@@ -945,10 +954,18 @@ a {
         height: 70px;
     }
 }
-@media (max-width: 470px) {
+
+@media (max-width: 470px) and (min-width: 370px) and (orientation: portrait) {
     .content-wrap .item.img .img-block .image {
         width: 70px;
         height: 70px;
+    }
+}
+
+@media (max-width: 339px) and (orientation: portrait) {
+    .content-wrap .item.img .img-block .image {
+        width:  80px;
+        height: 80px;
     }
 }
 
@@ -1009,9 +1026,14 @@ a {
     }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 470px) and (min-width: 370px) and (orientation: portrait) {
     .content-wrap .item.img .img-block .name {
         max-width: 70px;
+    }
+}
+@media (max-width: 339px)and (orientation: portrait) {
+    .content-wrap .item.img .img-block .name {
+        max-width: 80px;
     }
 }
 
@@ -1723,11 +1745,18 @@ a.create-new svg {
     }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 470px) and (min-width: 370px) and (orientation: portrait) {
     .loader {
         width: 20px;
         min-width: 20px;
         height: 20px;
+    }
+}
+@media (max-width: 339px) and (orientation: portrait) {
+    .loader {
+        width: 26px;
+        min-width: 26px;
+        height: 26px;
     }
 }
 
@@ -1757,9 +1786,18 @@ a.create-new svg {
         margin: 0 5px;
     }
 }
-@media (max-width: 470px) {
+@media (max-width: 470px) and (min-width: 370px) and (orientation: portrait) {
     .loader__icon {
         width: 7.5px;
+    }
+
+    .item.file .loader {
+        margin: 0 5px;
+    }
+}
+@media (max-width: 339px) and (orientation: portrait) {
+    .loader__icon {
+        width: 9px;
     }
 
     .item.file .loader {
