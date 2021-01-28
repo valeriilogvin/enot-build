@@ -975,7 +975,7 @@ p {
   margin: 0 0 15px 0
 }
 .container {
-  max-width: 1170px;
+  /*max-width: 1170px;*/
   padding: 0 15px;
   width: 100%;
   margin: 0 auto
@@ -1575,11 +1575,11 @@ p {
   position: relative
 }
 .message-item-text {
-  padding: 10px 30px
+  padding: 10px 50px 10px 15px;
 }
 .message-item-text .message-item-actions {
   position: absolute;
-  right: 5px;
+  right: 12px;
   top: 10px;
   -webkit-transition: .3s;
   -o-transition: .3s;
@@ -1787,7 +1787,7 @@ p {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 15px 5px
+  padding: 10px 5px;
 }
 .message-item-albom .message-item-image {
   width: 155px;

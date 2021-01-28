@@ -1,5 +1,5 @@
 Array.prototype.random = function () {
-    return this[Math.floor((Math.random()*this.length))];
+    return this[Math.floor((Math.random() * this.length))];
 }
 
 var app = {
@@ -150,7 +150,7 @@ var app = {
 
     indicator_stop_timeout: 5000,
 };
-let tree_icons_indexes_default = tree_icons.map((x,i)=>i);
+let tree_icons_indexes_default = tree_icons.map((x, i) => i);
 let __tree_icons_indexes_tmp = shuffle(tree_icons_indexes_default);
 
 function app_init() {
@@ -345,7 +345,8 @@ function note_amount_get(amount) {
 }
 
 function wrapper_slide_visibility(type, callback) {
-    callback = callback ? callback : () => {};
+    callback = callback ? callback : () => {
+    };
     if (app.body.dataset.slide === type) return;
 
     switch (type) {
@@ -661,8 +662,7 @@ function chat_message_image_html_get(src, filename, element_id) {
 // </div>`;
 // }
 
-function chat_message_image_item_html_get(element_id, src, filename)
-{
+function chat_message_image_item_html_get(element_id, src, filename) {
     return `
         
         <div href="${src}" class="img-block message-item-image" id="message_${element_id}" onclick="return false;">
@@ -797,7 +797,7 @@ function icon_file_archive_svg_get() {
 }
 
 function sidebar_file_html_get(file_name, file_format, file_size, element_id) {
-    return`
+    return `
     <div id="sidebar_item_${element_id}">
         <h4 class="file-item__title clip">${file_name}</h4>
         <div class="file-item__group" >
@@ -914,17 +914,26 @@ function chat_message_text_append(text, element_id) {
     app.chat.message_content.insertAdjacentHTML('beforeend', chat_message_text_html_get(escapeHTML(text), element_id));
 }
 
-function chat_message_album_append(image_objects){
-    let imageItem = document.createElement("div"),
+function chat_message_album_append(image_objects) {
+
+    let lastChild = app.chat.message_content.lastElementChild,
+        imageItem,
+        galleryId;
+
+    if (lastChild && lastChild.classList.contains('message-item-albom')) {
+        let thisId = lastChild.getAttribute('id').slice(3);
+        imageItem = lastChild;
+        galleryId = thisId;
+    } else {
+        imageItem = document.createElement("div");
         galleryId = randomInteger(10000, 60000);
 
-    imageItem.setAttribute('class', 'message-item message-item-albom');
-    imageItem.setAttribute('id', `lg_${galleryId}`);
-    app.chat.message_content.appendChild(imageItem);
+        imageItem.setAttribute('class', 'message-item message-item-albom');
+        imageItem.setAttribute('id', `lg_${galleryId}`);
+        app.chat.message_content.appendChild(imageItem);
+    }
 
-
-    for (let i=0; i<image_objects.length; i++)
-    {
+    for (let i = 0; i < image_objects.length; i++) {
         let element_id = randomInteger(10000, 60000);
         imageItem.insertAdjacentHTML('beforeend', `
             ${chat_message_image_item_html_get(element_id, image_objects[i].src, image_objects[i].filename)}
@@ -952,7 +961,7 @@ function message_file_append(file_name, file_format, file_size) {
 
     chat_message_file_append(file_name, file_format, file_size, element_id);
 
-    if(is_archive_file(file_format)){
+    if (is_archive_file(file_format)) {
         app.sidebar.archive_container.insertAdjacentHTML('beforeend', `
             ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
         `)
@@ -976,9 +985,8 @@ function message_text_append(text) {
     chat_content_scroll_to_bottom();
 }
 
-function message_images_append(image_objects)
-{
-    if (image_objects.length==0) return false;
+function message_images_append(image_objects) {
+    if (image_objects.length == 0) return false;
     chat_message_album_append(image_objects);
     chat_slide_btn_public_visibility_handler();
     chat_content_scroll_to_bottom();
@@ -989,8 +997,7 @@ function message_images_append(image_objects)
 /*
 * note append
 * */
-function note_open_messages_append(arr)
-{
+function note_open_messages_append(arr) {
     let imgarray = [];
 
     for (let i = 0; i < arr.length; i++) {
@@ -1013,17 +1020,15 @@ function note_open_messages_append(arr)
     }
 }
 
-function note_open_message_images_append(image_objects)
-{
-    if (image_objects.length==0) return false;
+function note_open_message_images_append(image_objects) {
+    if (image_objects.length == 0) return false;
     note_open_message_album_append(image_objects);
     chat_content_scroll_to_bottom();
     initializeLightGallery('sidebar_lg');
 
 }
 
-function note_open_message_album_append(image_objects)
-{
+function note_open_message_album_append(image_objects) {
     let imageItem = document.createElement("div"),
         galleryId = randomInteger(10000, 60000);
     imageItem.setAttribute('class', 'message-item message-item-albom');
@@ -1053,7 +1058,7 @@ function note_open_message_file_append(file_name, file_format, file_size, elemen
 
     chat_message_file_append(file_name, file_format, file_size, element_id);
 
-    if(is_archive_file(file_format)){
+    if (is_archive_file(file_format)) {
         app.sidebar.archive_container.insertAdjacentHTML('beforeend', `
             ${sidebar_file_html_get(escapeHTML(file_name), escapeHTML(file_format), parseInt(file_size), element_id)}
         `)
@@ -1074,8 +1079,7 @@ function chat_btn_send_handler() {
     }
 }
 
-function note_open_clear_all_btn_handler()
-{
+function note_open_clear_all_btn_handler() {
     app.open_messages = [];
     app.chat.message_content.innerHTML = '';
     app.sidebar.photo_container.innerHTML = '';
@@ -1105,12 +1109,12 @@ function item_delete_handler(element_id) {
 
             if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
                 $this_element.parentElement.remove();
-                if($this_sidebar_element) $this_sidebar_element.remove();
+                if ($this_sidebar_element) $this_sidebar_element.remove();
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             } else {
                 $this_element.remove();
 
-                if($this_sidebar_element) $this_sidebar_element.remove();
+                if ($this_sidebar_element) $this_sidebar_element.remove();
 
                 app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
             }
@@ -1120,7 +1124,7 @@ function item_delete_handler(element_id) {
 
         } else {
             $this_element.remove();
-            if($this_sidebar_element) $this_sidebar_element.remove();
+            if ($this_sidebar_element) $this_sidebar_element.remove();
             app.messages.splice(indexOfIdGet(app.messages, element_id), 1);
         }
     } else {
@@ -1140,14 +1144,14 @@ function item_delete_handler(element_id) {
 
             if (!$this_element.nextElementSibling && !$this_element.previousElementSibling) {
                 $this_element.parentElement.remove();
-                if($this_sidebar_element) $this_sidebar_element.remove();
+                if ($this_sidebar_element) $this_sidebar_element.remove();
 
                 app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
                 note_open_bottom_btns_visibility_handler();
 
             } else {
                 $this_element.remove();
-                if($this_sidebar_element) $this_sidebar_element.remove();
+                if ($this_sidebar_element) $this_sidebar_element.remove();
                 app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
                 note_open_bottom_btns_visibility_handler();
             }
@@ -1159,7 +1163,7 @@ function item_delete_handler(element_id) {
             console.log('2');
 
             $this_element.remove();
-            if($this_sidebar_element) $this_sidebar_element.remove();
+            if ($this_sidebar_element) $this_sidebar_element.remove();
             app.open_messages.splice(indexOfIdGet(app.open_messages, element_id), 1);
             note_open_bottom_btns_visibility_handler();
         }
@@ -1168,9 +1172,8 @@ function item_delete_handler(element_id) {
 
 }
 
-function chat_slide_btn_public_visibility_handler()
-{
-    if(app.messages.length > 0){
+function chat_slide_btn_public_visibility_handler() {
+    if (app.messages.length > 0) {
         app.btn_public.classList.remove('hide')
     } else {
         app.btn_public.classList.add('hide')
@@ -1178,7 +1181,7 @@ function chat_slide_btn_public_visibility_handler()
 }
 
 function note_open_bottom_btns_visibility_handler() {
-    if(app.open_messages.length > 0){
+    if (app.open_messages.length > 0) {
         app.chat.wrap.classList.remove('empty');
     } else {
         app.chat.wrap.classList.add('empty');
@@ -1194,8 +1197,7 @@ function note_open_clear_all_alert() {
     }, 3000)
 }
 
-function share_copy_link_handler()
-{
+function share_copy_link_handler() {
     app.share.copy_btn.addEventListener('click', () => {
         const inputValue = app.share.share_link.innerText;
         if (inputValue) {
@@ -1210,17 +1212,15 @@ function share_copy_link_handler()
     });
 }
 
-function btn_public_handler()
-{
+function btn_public_handler() {
     // chat_visibility(false);
     // share_slide_visibility(true);
     wrapper_slide_visibility(1);
     share_copy_link_handler();
 }
 
-function watch_note_btn_handler()
-{
-    if(app.licenseKey){
+function watch_note_btn_handler() {
+    if (app.licenseKey) {
         wrapper_slide_visibility(3, note_open_messages_append(app.open_messages));
     } else {
         wrapper_slide_visibility(4, note_open_messages_append(app.open_messages));
@@ -1271,7 +1271,7 @@ message_text_append("Привет! Посмотри на эту фотограф
 message_file_append("Очень длинное название файла", "7zip", "11 kb");
 message_file_append("Очень длинное название файла", "doc", "14 kb");
 message_images_append([
-    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg",  file_format: "7zip", file_size: "11 kb"},
+    {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg", file_format: "7zip", file_size: "11 kb"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
     // {src: "desktop-img/msg-img-1.jpg", filename: "Image.jpg"},
