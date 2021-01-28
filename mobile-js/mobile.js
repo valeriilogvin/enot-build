@@ -766,12 +766,23 @@ function chat_message_file_append(file_name, file_format, file_size, element_id)
 
 function chat_message_album_append(image_objects)
 {
-    let imageItem = document.createElement("div"),
-        galleryId = randomInteger(10000, 60000);
-    imageItem.setAttribute('class', 'item img');
-    imageItem.setAttribute('id', `lg_${galleryId}`);
-    app.chat.message_content.appendChild(imageItem);
 
+    let lastChild = app.chat.message_content.lastElementChild,
+        imageItem,
+        galleryId;
+
+    if(lastChild && lastChild.classList.contains('img')){
+        let thisId = lastChild.getAttribute('id').slice(3);
+        imageItem = lastChild;
+        galleryId = thisId;
+    } else {
+        imageItem = document.createElement("div");
+        galleryId = randomInteger(10000, 60000);
+
+        imageItem.setAttribute('class', 'item img');
+        imageItem.setAttribute('id', `lg_${galleryId}`);
+        app.chat.message_content.appendChild(imageItem);
+    }
 
     for (let i=0; i<image_objects.length; i++)
     {
